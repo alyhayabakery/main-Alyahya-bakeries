@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>فروعنا | العزيزية - الفيصلية - القطيف - الحمراء</title>
+  <!-- خط Tajawal -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- مكتبة الأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --gold: #c18e5e;       /* اللون الأساسي الذهبي */
+      --gold-light: #e2c7a7; /* مشتق فاتح للذهبي */
+      --gold-dark: #a06f3f;  /* مشتق أغمق للذهبي */
+      --maroon: #3b0a0a;     /* اللون الأساسي النبيتي */
+      --maroon-light: #5a1c1c; /* مشتق أفتح للنبيتي */
+      --maroon-dark: #2a0707;  /* مشتق أغمق للنبيتي */
+    }
+    body {
+      margin:0;
+      font-family:"Tajawal", sans-serif;
+      background: var(--gold-light); /* خلفية فاتحة مريحة */
+      color: var(--maroon-dark);
+    }
+    header {
+      background: linear-gradient(90deg, var(--maroon), var(--maroon-dark));
+      color: var(--gold-light);
+      padding:16px;
+      text-align:center;
+      box-shadow:0 2px 8px rgba(0,0,0,.25);
+    }
+     .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--maroon-light);
+            color: var(--white);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background-color: var(--maroon);
+        }
+    header h1 {margin:0;font-size:22px}
+    header p {margin:4px 0 0;font-size:14px}
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:16px;
+      padding:20px;
+    }
+    .card {
+      background: var(--gold);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 2px 8px rgba(0,0,0,.15);
+      display:flex; flex-direction:column; gap:10px;
+      border:1px solid var(--maroon-light); /* بورد أنيق */
+      transition:transform .2s, box-shadow .2s, background .2s;
+    }
+    .card:hover {
+      transform:translateY(-3px);
+      box-shadow:0 6px 16px rgba(0,0,0,.25);
+      background: var(--gold-dark); /* لون أغمق عند الهوفر */
+    }
+    .card h3 {margin:0;font-size:18px;color:var(--maroon)}
+    .meta {font-size:14px;color:var(--maroon-light)}
+    .btns {
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;
+    }
+    .btn {
+      flex:1; text-align:center; padding:10px;
+      border-radius:8px; color:var(--gold-light); text-decoration:none;
+      font-size:16px; transition:.2s;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      font-family:"Tajawal", sans-serif;
+    }
+    .btn:hover {opacity:.9}
+    .call {background:var(--maroon)}
+    .wa {background:var(--maroon-light)}
+    .map {background:var(--maroon-dark)}
+               footer {
+      background: var(--maroon-dark);
+      color: var(--gold-light);
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="back-btn">العودة للرئيسية</a> <!-- غير الرابط حسب الحاجة -->
+    <h1>فروعنا</h1>
+    <p>اختر الفرع واضغط على الخيار المناسب</p>
+  </header>
+
+  <div class="grid">
+    <!-- فرع العزيزية -->
+    <div class="card">
+      <h3>فرع العزيزية</h3>
+      <div class="meta">📍 العزيزية، الدمام</div>
+      <div class="meta">🕒 يوميًا 7 ص – 11 م</div>
+      <div class="meta">📞 +966 50 000 0001</div>
+      <div class="btns">
+        <a class="btn call" href="tel:+966500000001"><i class="fa-solid fa-phone"></i> اتصال</a>
+        <a class="btn wa" href="https://wa.me/966500000001" target="_blank"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+        <a class="btn map" href="https://maps.google.com/?q=العزيزية الدمام" target="_blank"><i class="fa-solid fa-map-location-dot"></i> خريطة</a>
+      </div>
+    </div>
+
+    <!-- فرع الفيصلية -->
+    <div class="card">
+      <h3>فرع الفيصلية</h3>
+      <div class="meta">📍 الفيصلية، الدمام</div>
+      <div class="meta">🕒 يوميًا 6:30 ص – 11:30 م</div>
+      <div class="meta">📞 +966 50 000 0002</div>
+      <div class="btns">
+        <a class="btn call" href="tel:+966500000002"><i class="fa-solid fa-phone"></i> اتصال</a>
+        <a class="btn wa" href="https://wa.me/966500000002" target="_blank"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+        <a class="btn map" href="https://maps.google.com/?q=الفيصلية الدمام" target="_blank"><i class="fa-solid fa-map-location-dot"></i> خريطة</a>
+      </div>
+    </div>
+
+    <!-- فرع القطيف -->
+    <div class="card">
+      <h3>فرع القطيف</h3>
+      <div class="meta">📍 القطيف، الشرقية</div>
+      <div class="meta">🕒 يوميًا 7 ص – 10:30 م</div>
+      <div class="meta">📞 +966 50 000 0003</div>
+      <div class="btns">
+        <a class="btn call" href="tel:+966500000003"><i class="fa-solid fa-phone"></i> اتصال</a>
+        <a class="btn wa" href="https://wa.me/966500000003" target="_blank"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+        <a class="btn map" href="https://maps.google.com/?q=القطيف الشرقية" target="_blank"><i class="fa-solid fa-map-location-dot"></i> خريطة</a>
+      </div>
+    </div>
+
+    <!-- فرع الحمراء -->
+    <div class="card">
+      <h3>فرع الحمراء</h3>
+      <div class="meta">📍 الحمراء، الدمام</div>
+      <div class="meta">🕒 يوميًا 7 ص – 11 م</div>
+      <div class="meta">📞 +966 50 000 0004</div>
+      <div class="btns">
+        <a class="btn call" href="tel:+966500000004"><i class="fa-solid fa-phone"></i> اتصال</a>
+        <a class="btn wa" href="https://wa.me/966500000004" target="_blank"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+        <a class="btn map" href="https://maps.google.com/?q=الحمراء الدمام" target="_blank"><i class="fa-solid fa-map-location-dot"></i> خريطة</a>
+      </div>
+    </div>
+  </div>
+        <footer>
+    <p>© 2025 مخابز اليحيى - جميع الحقوق محفوظة</p>
+  </footer>
+</body>
+</html>

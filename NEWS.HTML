@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>جديدنا - المخبز</title>
+  <style>
+    :root {
+      --gold: #c18e5e;       /* اللون الأساسي الذهبي */
+      --gold-light: #e2c7a7; /* مشتق فاتح للذهبي */
+      --gold-dark: #a06f3f;  /* مشتق أغمق للذهبي */
+      --maroon: #3b0a0a;     /* اللون الأساسي النبيتي */
+      --maroon-light: #5a1c1c; /* مشتق أفتح للنبيتي */
+      --maroon-dark: #2a0707;  /* مشتق أغمق للنبيتي */
+    }
+
+    body {
+      font-family: "Tahoma", sans-serif;
+      background: var(--gold-light);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+    header {
+      background: linear-gradient(90deg, var(--maroon-dark), var(--maroon));
+      color: var(--gold-light);
+      text-align: center;
+      padding: 25px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+    section.new-products {
+      text-align: center;
+      padding: 40px;
+    }
+    section.new-products h2 {
+      font-size: 1.8rem;
+      color: var(--maroon-dark);
+      margin-bottom: 25px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      padding: 0 20px;
+    }
+    .product-card {
+      background: #fff;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid var(--gold-light);
+    }
+    .product-card h3 {
+      margin: 12px 0;
+      color: var(--maroon-light);
+      font-size: 1.2rem;
+    }
+    .price {
+      font-size: 1.1rem;
+      color: var(--gold-dark);
+      font-weight: bold;
+      margin: 8px 0;
+    }
+    .price span {
+      font-size: 1.2rem;
+      color: var(--maroon);
+    }
+    .product-card button {
+      background: var(--gold);
+      color: var(--maroon-dark);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .product-card button:hover {
+      background: var(--gold-dark);
+      color: #fff;
+    }
+    footer {
+      background: var(--maroon-dark);
+      color: var(--gold-light);
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>✨ جديدنا ✨</h1>
+  </header>
+
+  <section class="new-products">
+    <h2>منتجاتنا الجديدة</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="./img/MINI CUPCAKE.png" alt="خبز الشوفان الطازج">
+        <h3>خبز الشوفان الطازج</h3>
+        <p class="price">12 <span>﷼</span></p>
+        <button>اطلب الآن</button>
+      </div>
+      <div class="product-card">
+        <img src="./img/MIMCUP2.png" alt="كيك التمر الفاخر">
+        <h3>كيك التمر الفاخر</h3>
+        <p class="price">25 <span>﷼</span></p>
+        <button>اطلب الآن</button>
+      </div>
+      <div class="product-card">
+        <img src="./img/CUP2.png" alt="كوكيز الشوكولاتة">
+        <h3>كوكيز الشوكولاتة</h3>
+        <p class="price">8 <span>﷼</span></p>
+        <button>اطلب الآن</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 مخابز اليحيى - جميع الحقوق محفوظة</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة المنتجات الجديدة - المخبز</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c18e5e;
+            --gold-light: #e2c7a7;
+            --gold-dark: #a06f3f;
+            --maroon: #3b0a0a;
+            --maroon-light: #5a1c1c;
+            --maroon-dark: #2a0707;
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--white) 100%);
+            color: var(--maroon);
+            direction: rtl;
+        }
+        header {
+            background: linear-gradient(135deg, var(--maroon-dark) 0%, var(--maroon) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 350;
+            letter-spacing: 2px;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--maroon-light);
+            color: var(--white);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background-color: var(--maroon);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        h2 {
+            text-align: center;
+            color: var(--maroon);
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 450;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .product {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--maroon) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+        .product img {
+            max-width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .product h3 {
+            margin: 15px 0 10px;
+            color: var(--white);
+            font-size: 1.4em;
+            font-weight: 400;
+        }
+        .product p {
+            color: var(--white);
+            font-size: 1em;
+            line-height: 1.5;
+        }
+            footer {
+      background: var(--maroon-dark);
+      color: var(--gold-light);
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-btn">العودة للرئيسية</a> <!-- غير الرابط حسب الحاجة -->
+        <h1>جديدنا</h1>
+        <p>اكتشف أحدث منتجات مخبزنا الجديدة</p>
+    </header>
+    <div class="container">
+        <h2>المنتجات الجديدة</h2>
+        <div class="products">
+            <div class="product">
+                <img src="./img/CUP2.png" alt="كعكة الشوكولاتة">
+                <h3> ميني كاب كيك</h3>
+                <p>نهتم بكل تفصيلة… من ميني كب كيك منوّع وجميل، إلى أجود الحلويات الشرقية. طعم يرضي الذوق وشكل يليق بمناسباتكم. احجز طلبك الآن.»</p>
+                                   
+            </div>
+            <div class="product">
+                <img src="./img/MINI CUPCAKE.png" alt="خبز القمح الكامل">
+                <h3>ميني كاب كيك </h3>
+              <p>لحظات حلوة … تبدإ من هنا💕🧁
+بوكس ميني كب كيك متنوع 🎂يتوفر بجميع الفروع</p>
+            </div>
+            <div class="product">
+                <img src="./img/تويست.png" alt="كرواسون بالزبدة">
+                <h3>تويست    زعتر </h3>
+              <p>⁨ أعواد تويست الزعتر 💚
+نكهة الزعتر في كل قضمة مقرمشة</p>
+            </div>
+            <div class="product">
+                <img src="./img/kahkelex.png" alt="مافن التوت">
+                <h3>كعك اسكندراني </h3>
+                <p>كعك اسكندراني بالسمسم </p>
+            </div>
+            <div class="product">
+                <img src="./img/aseda.png"alt="بيتزا الخضار">
+                <h3>عصيده</h3>
+                <p>عصيدة تمر حساوية أصيلة، ومع الزبدة تصير تجربة شتوية ما تتفوت</p>
+            </div>
+            <div class="product">
+                <img src="./img/barchoclt.png" alt="دونات السكر">
+                <h3> شوكلت بار </h3>
+              <p>حلاوة غير متوقعة في كل تفصيلة، تبدأ من قلب الشوكولاتة وتنتهي بلمسة غزل البنات.</p>
+            </div>
+            <!-- أضف المزيد من المنتجات هنا إذا لزم الأمر -->
+        </div>
+    </div>
+      <footer>
+    <p>© 2025 مخابز اليحيى - جميع الحقوق محفوظة</p>
+  </footer>
+</body>
+</html>
