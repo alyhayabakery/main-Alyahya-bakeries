@@ -1,0 +1,295 @@
+.tajawal-extralight {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.tajawal-light {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.tajawal-regular {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.tajawal-medium {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.tajawal-bold {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.tajawal-extrabold {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.tajawal-black {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+
+.arabic
+{
+height: 100%;
+
+}
+.english
+{
+height: 100%;
+
+}
+body {
+    display: flex;
+   justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    background-color: c18e5e;
+    padding: 0;
+    border: 0;
+}
+.container {
+    text-align: center; 
+    align-items: center;
+    width: auto   
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+   gap: 9px;
+   align-items: center; 
+        
+}
+.button {
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+    background-color: 5c2d35;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    text-align: center;
+    height: 20px;
+    padding-left: 10;
+    font-weight: 200;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    cursor: pointer;
+    text-align: center;
+    width: 120px;
+    align-items: center;
+    height: 25px;
+    font-family: "Tajawal", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+    justify-items: auto;
+}
+.button:hover {
+    background-color: rgb(255, 255, 255);
+    color: 5c2d35;
+}
+.footer {
+    position: fixed;   
+    width: 100%;
+    color: white;
+    justify-content: space-between;
+    padding: 10px 20px;
+    text-align: center;
+    align-items: center;
+    background-color: transparent;
+
+    height: 10%;
+    background-color: aqua;  
+}
+.footer-link {
+    text-decoration: none;
+    color: white;
+    align-items: center;
+}
+.icon {
+    width: 24px;
+    height: 24px;
+}
+.home {
+    margin-left: auto;
+}
+.footer-rev
+{
+    align-items: center;
+}
+p
+{
+    padding: 0;
+    border: 0;
+    margin-top: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0 
+}
+/* ////////////// */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;   
+}
+.full-screen-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+}
+.ptn-fnt{
+    top: 0%;
+    padding: 0;
+    margin: 0;
+    background-color: aquamarine;
+    position: fixed; 
+}
+.btnone{
+    height: auto;
+    width: auto;
+}
+.rew
+{
+    background-color: black;
+}
+.google-per
+{ 
+    font-weight: 400;
+    font-weight: bold;
+    display: inline-block;
+    /* padding: 10px 20px; */
+    font-size: 16px;
+    font-weight: bold;
+    color: f27e3e;
+    background-color: ;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+/* Default style for larger screens */
+/* Default style for larger screens */
+  /* For tablets and smaller screens */
+  @media (max-width: 768px) {
+   img {
+      width: 100%; /* Adjust this size as needed */
+    }
+  } 
+  /* For mobile phones */
+  @media (max-width: 480px) {
+    .logo
+    {
+      width: 30%; /* Adjust this size as needed */
+    }
+  }
+  /* Default style for larger screens (PCs) */
+  /* For tablets */
+  @media (max-width: 1024px) {
+    .logo
+    {
+      width: 50%;
+    }
+  }
+  /* For smaller tablets and large phones */
+  @media (max-width: 768px) {
+    .logo
+    {
+      width: 80%;
+    }
+  }
+  /* For mobile phones */
+  @media (max-width: 480px) {
+    
+      .logo
+      {
+        width: 80%;
+        height: 20%;
+      }
+    }
+  .google-per
+  {
+    margin-top: 5px;
+  }
+  .logo
+  {
+    height: 200px;
+    width: 100px;
+    margin-bottom: 5px;
+  }
+  .googleview
+  {
+    width: 100px;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+   /* Hide overflow initially */
+    height: 100vh;
+}
+.scroll-container {
+    max-height: 100vh; /* Set a maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow: scroll;
+}
+@media (max-width: 400px) {
+    /* Adjust styles for small screens */
+    .scroll-container {
+        max-height: 100vh; /* Reduce height for better visibility */
+    }
+}
+img {
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 300px) {
+
+  img {
+      width: 25%;
+      height: 25%;  
+  }
+  span
+  {
+    font-size: 10px;
+  }
+}
+
+
+.caloriesfeat
+{
+
+  margin-left: 100px;
+}
