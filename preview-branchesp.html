@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الفروع وتقييمات Google</title>
+    <!-- تحميل خط Tajawal من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* تعريف متغيرات الألوان */
+        :root {
+            --gold: #d3a273;
+            --gold-light: #e2c7a7;
+            --gold-dark: #977b5e;
+            --maroon: #561414;
+            --maroon-light: #822a2a;
+            --maroon-dark: #582222;
+        }
+
+        /* CSS للتصميم */
+        body {
+            font-family: 'Tajawal', Arial, sans-serif; /* استخدام خط Tajawal */
+            background-color: var(--gold-light);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: var(--maroon);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .back-btn {
+            position: fixed; /* جعله ثابت في الزاوية */
+            top: 10px;
+            left: 10px;
+            background-color: var(--maroon);
+            color: var(--gold-light);
+            padding: 8px 12px; /* مناسب للنص */
+            text-decoration: none;
+            border-radius: 20px; /* مستطيل قليلاً */
+            font-weight: 700;
+            font-size: 12px; /* صغير */
+            z-index: 1000; /* فوق العناصر الأخرى */
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .back-btn:hover {
+            background-color: var(--maroon-dark);
+            transform: scale(1.05);
+        }
+        h1 {
+            color: var(--maroon-dark);
+            font-weight: 700;
+        }
+        .branches {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            flex: 1;
+        }
+        .branch {
+            background-color: var(--gold-light); /* تغيير الخلفية إلى gold-light بدلاً من الأبيض */
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid var(--gold);
+        }
+        .branch strong {
+            color: var(--maroon);
+        }
+        .branch a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .branch a img {
+            width: 150px; /* حجم الصورة، يمكن تعديله */
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        .branch a img:hover {
+            transform: scale(1.05); /* تأثير عند التمرير */
+        }
+        button {
+            background-color: var(--maroon);
+            color: var(--gold-light);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Tajawal', Arial, sans-serif;
+            font-weight: 700;
+        }
+        button:hover {
+            background-color: var(--maroon-dark);
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            background-color: var(--maroon);
+            color: var(--gold-light);
+            padding: 15px; /* زيادة padding للمزيد من التنسيق */
+            text-align: center;
+            font-weight: 700;
+            margin-top: auto;
+            border-top: 2px solid var(--gold); /* إضافة حدود علوية */
+        }
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Responsive لشاشات الموبايل */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .back-btn {
+                top: 5px;
+                left: 5px;
+                padding: 6px 10px;
+                font-size: 10px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .branches {
+                max-width: 100%;
+            }
+            .branch {
+                padding: 10px;
+            }
+            .branch a img {
+                width: 100px; /* تقليل حجم الصورة على الموبايل */
+            }
+            button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            footer {
+                padding: 10px; /* تقليل padding على الموبايل */
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">عودة للرئيسية</a> <!-- زر عودة صغير عائم في الزاوية اليسرى -->
+    <h1> تقييمات Google</h1>
+    <button id="toggleBtn">إظهار/إخفاء الفروع</button>
+    <ul class="branches" id="branchesList">
+        <li class="branch">
+            <strong>فـرع المبــاركية الدمــام</strong><br>
+            <a href="https://www.google.com/maps/place/Your+Branch+Location+Mubarakiyah+Dammam" target="_blank">
+                <img src="img/New folder/gogld-logo.webp" alt="عرض التقييم على Google">
+            </a>
+        </li>
+        <li class="branch">
+            <strong>فـرع العزيزية الدمــام</strong><br>
+            <a href="https://www.google.com/maps/place/Your+Branch+Location+Al+Aziziyah" target="_blank">
+                <img src="img/New folder/gogld-logo.webp" alt="عرض التقييم على Google">
+            </a>
+        </li>
+        <li class="branch">
+            <strong>فـرع الفيصلية الدمــام </strong><br>
+            <a href="https://www.google.com/maps/place/Your+Branch+Location+Al+Faisaliyah" target="_blank">
+            <img src="img/New folder/gogld-logo.webp" alt="عرض التقييم على Google">
+            </a>
+        </li>
+        <li class="branch">
+            <strong>فـرع القطيف الشرقية </strong><br>
+            <a href="https://www.google.com/maps/place/Your+Branch+Location+Qatif" target="_blank">
+                 <img src="img/New folder/gogld-logo.webp" alt="عرض التقييم على Google">
+            </a>
+        </li>
+    </ul>
+
+    <footer>
+        <p>جميع الحقوق محفوظة لمخابز اليحي © 2023</p>
+    </footer>
+
+    <script>
+        // JavaScript للتفاعل
+        const toggleBtn = document.getElementById('toggleBtn');
+        const branchesList = document.getElementById('branchesList');
+
+        toggleBtn.addEventListener('click', () => {
+            branchesList.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
