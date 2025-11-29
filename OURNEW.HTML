@@ -43,19 +43,21 @@
             opacity: 0.9;
         }
         .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: var(--maroon-light);
-            color: var(--white);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.75em;
-            transition: background-color 0.3s;
+         position: fixed; /* جعله ثابت في الزاوية */
+            top: 10px;
+            left: 10px;
+            background-color: var(--maroon);
+            color: var(--gold-light);
+            padding: 8px 12px; /* مناسب للنص */
             text-decoration: none;
+            border-radius: 20px; /* مستطيل قليلاً */
+            font-weight: 700;
+            font-size: 12px; /* صغير */
+            z-index: 1000; /* فوق العناصر الأخرى */
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+        
         .back-btn:hover {
             background-color: var(--maroon);
         }
