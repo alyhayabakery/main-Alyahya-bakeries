@@ -2,142 +2,154 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>جديدنا - المخبز</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جديدنا - مخابز اليحي</title>
+  <!-- استدعاء خط Tajawal -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --gold: #c18e5e;       /* اللون الأساسي الذهبي */
-      --gold-light: #e2c7a7; /* مشتق فاتح للذهبي */
-      --gold-dark: #a06f3f;  /* مشتق أغمق للذهبي */
-      --maroon: #3b0a0a;     /* اللون الأساسي النبيتي */
-      --maroon-light: #5a1c1c; /* مشتق أفتح للنبيتي */
-      --maroon-dark: #2a0707;  /* مشتق أغمق للنبيتي */
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Tajawal', sans-serif;}
+
+    body {background:#fff; color:#333; line-height:1.6;}
+
+    header {
+      background: linear-gradient(90deg, #f27e3e, #5c2d35);
+      color: white; padding: 1rem; text-align: center;
+      font-size: 1.8rem; font-weight: bold;
     }
 
-    body {
-      font-family: "Tahoma", sans-serif;
-      background: var(--gold-light);
-      margin: 0;
-      padding: 0;
-      direction: rtl;
+    nav {background:#5c2d35; padding:0.8rem; text-align:center;}
+    nav a {color:#f27e3e; text-decoration:none; margin:0 1rem; font-weight:bold;}
+    nav a:hover {color:#fff;}
+
+    .products {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:1.5rem; padding:2rem;
     }
-    header {
-      background: linear-gradient(90deg, var(--maroon-dark), var(--maroon));
-      color: var(--gold-light);
-      text-align: center;
-      padding: 25px;
+
+    .card {
+      background:white; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      overflow:hidden; cursor:pointer;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-      color: var(--gold);
-      letter-spacing: 2px;
+    .card img {width:100%; height:350px; object-fit:cover; transition:transform 0.4s ease;}
+    .card:hover img {transform:scale(1.05);}
+    .card h3 {padding:1rem; font-size:1.3rem; color:#5c2d35; text-align:center;}
+    .card p {padding:0 1rem 1rem; text-align:center; color:#555;}
+
+    footer {background:#f27e3e; color:white; text-align:center; padding:1rem; margin-top:2rem;}
+
+    .back-btn {
+      display:inline-block; margin:1rem auto; padding:0.6rem 1.2rem;
+      background:#5c2d35; color:white; border-radius:8px; text-decoration:none; font-weight:bold;
     }
-    section.new-products {
-      text-align: center;
-      padding: 40px;
+    .back-btn:hover {background:#f27e3e;}
+
+    /* Lightbox Slider */
+    .lightbox {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.85); justify-content:center; align-items:center;
+      z-index:1000;
     }
-    section.new-products h2 {
-      font-size: 1.8rem;
-      color: var(--maroon-dark);
-      margin-bottom: 25px;
-      border-bottom: 2px solid var(--gold);
-      display: inline-block;
-      padding-bottom: 5px;
+    .lightbox img {
+      max-width:70%; max-height:70%;
+      border:4px solid #f27e3e; border-radius:10px;
     }
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 25px;
-      padding: 0 20px;
+
+    /* أزرار التحكم */
+    .close, .prev, .next {
+      position:absolute; 
+      background:rgba(92,45,53,0.8); 
+      color:#fff; 
+      padding:0.4rem 0.8rem; 
+      cursor:pointer;
+      border-radius:4px; 
+      font-size:0.9rem; 
+      font-weight:bold;
+      transition:background 0.3s ease;
     }
-    .product-card {
-      background: #fff;
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-      padding: 20px;
-      transition: transform 0.3s, box-shadow 0.3s;
+    .close:hover, .prev:hover, .next:hover {
+      background:#f27e3e;
     }
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-    .product-card img {
-      width: 100%;
-      border-radius: 10px;
-      border: 2px solid var(--gold-light);
-    }
-    .product-card h3 {
-      margin: 12px 0;
-      color: var(--maroon-light);
-      font-size: 1.2rem;
-    }
-    .price {
-      font-size: 1.1rem;
-      color: var(--gold-dark);
-      font-weight: bold;
-      margin: 8px 0;
-    }
-    .price span {
-      font-size: 1.2rem;
-      color: var(--maroon);
-    }
-    .product-card button {
-      background: var(--gold);
-      color: var(--maroon-dark);
-      border: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .product-card button:hover {
-      background: var(--gold-dark);
-      color: #fff;
-    }
-    footer {
-      background: var(--maroon-dark);
-      color: var(--gold-light);
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-      font-size: 0.9rem;
-    }
+
+    .close {top:5%; right:5%;}
+    .prev {left:10%; bottom:10%;}
+    .next {right:10%; bottom:10%;}
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>✨ جديدنا ✨</h1>
-  </header>
+  <header>جديدنا - مخابز اليحي</header>
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="#products">جديدنا</a>
+    <a href="#contact">تواصل معنا</a>
+  </nav>
 
-  <section class="new-products">
-    <h2>منتجاتنا الجديدة</h2>
-    <div class="products-grid">
-      <div class="product-card">
-        <img src="./img/MINI CUPCAKE.png" alt="خبز الشوفان الطازج">
-        <h3>خبز الشوفان الطازج</h3>
-        <p class="price">12 <span>﷼</span></p>
-        <button>اطلب الآن</button>
-      </div>
-      <div class="product-card">
-        <img src="./img/MIMCUP2.png" alt="كيك التمر الفاخر">
-        <h3>كيك التمر الفاخر</h3>
-        <p class="price">25 <span>﷼</span></p>
-        <button>اطلب الآن</button>
-      </div>
-      <div class="product-card">
-        <img src="./img/CUP2.png" alt="كوكيز الشوكولاتة">
-        <h3>كوكيز الشوكولاتة</h3>
-        <p class="price">8 <span>﷼</span></p>
-        <button>اطلب الآن</button>
-      </div>
-    </div>
+  <section id="products" class="products">
+    <div class="card"><img src="img/CUP2.png" alt="خبز جديد"><h3>خبز بالحبوب</h3><p>خبز صحي جديد غني بالبذور والحبوب.</p></div>
+    <div class="card"><img src="img/MINI CUPCAKE.png" alt="كيك جديد"><h3>كيك بالفستق</h3><p>كيك فاخر بنكهات مبتكرة.</p></div>
+    <div class="card"><img src="https://source.unsplash.com/400x600/?croissant" alt="كرواسون جديد"><h3>كرواسون محشو</h3><p>كرواسون جديد محشو بالشوكولاتة أو الجبن.</p></div>
+    <div class="card"><img src="https://source.unsplash.com/400x600/?cookies" alt="كوكيز جديد"><h3>كوكيز بالفواكه</h3><p>كوكيز جديد بنكهات الفواكه المجففة.</p></div>
+      <div class="card"><img src="img/CUP2.png" alt="خبز جديد"><h3>خبز بالحبوب</h3><p>خبز صحي جديد غني بالبذور والحبوب.</p></div>
+        <div class="card"><img src="img/CUP2.png" alt="خبز جديد"><h3>خبز بالحبوب</h3><p>خبز صحي جديد غني بالبذور والحبوب.</p></div>
   </section>
 
-  <footer>
-    <p>© 2025 مخابز اليحيى - جميع الحقوق محفوظة</p>
-  </footer>
+  <div style="text-align:center;">
+    <a href="index.html" class="back-btn">⬅ العودة للرئيسية</a>
+  </div>
+
+  <footer id="contact">© 2025 مخابز اليحي - جميع الحقوق محفوظة</footer>
+
+  <!-- Lightbox Slider -->
+  <div class="lightbox" id="lightbox">
+    <span class="close" id="closeBtn">✖</span>
+    <span class="prev" id="prevBtn">⬅</span>
+    <img id="lightboxImg" src="" alt="">
+    <span class="next" id="nextBtn">➡</span>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll('.card img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.getElementById('closeBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentIndex = 0;
+
+    const openLightbox = (index) => {
+      currentIndex = index;
+      lightboxImg.src = cards[index].src;
+      lightbox.style.display = 'flex';
+    };
+
+    const closeLightbox = () => {
+      lightbox.style.display = 'none';
+    };
+
+    const showPrev = () => {
+      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+      lightboxImg.src = cards[currentIndex].src;
+    };
+
+    const showNext = () => {
+      currentIndex = (currentIndex + 1) % cards.length;
+      lightboxImg.src = cards[currentIndex].src;
+    };
+
+    cards.forEach((img, index) => {
+      img.addEventListener('click', () => openLightbox(index));
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', showPrev);
+    nextBtn.addEventListener('click', showNext);
+
+    // إغلاق عند الضغط خارج الصورة
+    lightbox.addEventListener('click', (e) => {
+      if(e.target === lightbox) closeLightbox();
+    });
+  </script>
 
 </body>
 </html>
