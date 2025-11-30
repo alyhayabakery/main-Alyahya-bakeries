@@ -20,7 +20,7 @@
         /* CSS للتصميم */
         body {
             font-family: 'Tajawal', Arial, sans-serif; /* استخدام خط Tajawal */
-            background-color: var(--gold-light);
+            background-color:#c18e5e;
             margin: 0;
             padding: 20px;
             text-align: center;
@@ -29,17 +29,20 @@
             display: flex;
             flex-direction: column;
         }
+            nav {background:#5c2d35; padding:0.8rem; text-align:center;}
+    nav a {color:#f27e3e; text-decoration:none; margin:0 1rem; font-weight:bold;}
+    nav a:hover {color:#fff;}
         .back-btn {
             position: fixed; /* جعله ثابت في الزاوية */
             top: 10px;
             left: 10px;
-            background-color: var(--maroon);
+            background-color: #5c2d35;
             color: var(--gold-light);
             padding: 8px 12px; /* مناسب للنص */
             text-decoration: none;
             border-radius: 20px; /* مستطيل قليلاً */
             font-weight: 700;
-            font-size: 12px; /* صغير */
+            font-size: 20px; /* صغير */
             z-index: 1000; /* فوق العناصر الأخرى */
             transition: all 0.3s ease;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -61,7 +64,8 @@
             flex: 1;
         }
         .branch {
-            background-color: var(--gold-light); /* تغيير الخلفية إلى gold-light بدلاً من الأبيض */
+            background-color: c18e5e
+            ; /* تغيير الخلفية إلى gold-light بدلاً من الأبيض */
             margin: 10px 0;
             padding: 15px;
             border-radius: 8px;
@@ -86,7 +90,7 @@
             transform: scale(1.05); /* تأثير عند التمرير */
         }
         button {
-            background-color: var(--maroon);
+            background-color: #c18e5e;
             color: var(--gold-light);
             border: none;
             padding: 10px 20px;
@@ -103,7 +107,7 @@
             display: none;
         }
         footer {
-            background-color: var(--maroon);
+            background-color: #5c2d35;
             color: var(--gold-light);
             padding: 15px; /* زيادة padding للمزيد من التنسيق */
             text-align: center;
@@ -151,7 +155,12 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-btn">عودة للرئيسية</a> <!-- زر عودة صغير عائم في الزاوية اليسرى -->
+      <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="NEWPROANI.HTML.html">جديدنا</a>
+    <a href="bra.html">تواصل معنا</a>
+  </nav>
+   
     <h1> تقييمات Google</h1>
 <!--<button id="toggleBtn">إظهار/إخفاء الفروع</button>-->
     <ul class="branches" id="branchesList">
@@ -182,7 +191,7 @@
     </ul>
 
     <footer>
-        <p>جميع الحقوق محفوظة لمخابز اليحي © 2023</p>
+        <p>© 2025 مخابز اليحيى - جميع الحقوق محفوظة</p>
     </footer>
 
     <script>
@@ -196,4 +205,3 @@
     </script>
 </body>
 </html>
-
