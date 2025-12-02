@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>منيو المخبز</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff8f0;
+    }
+
+    .hero {
+      width: calc(100% - 10px);
+      margin: 5px auto;
+      height: 250px;
+      background: url('./img/her.jpg') center/cover no-repeat;
+      border-radius: 8px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 10px 5px;
+      gap: 15px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      background: #a52a2a;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .tab.active {
+      background: #d2691e;
+    }
+
+    .menu-section {
+      margin: 10px 5px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .menu-section.active {
+      display: block;
+    }
+
+    .item {
+      border-bottom: 1px solid #eee;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .item:hover {
+      background: #f9f2e8;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .item-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .item-price {
+      text-align: left;
+      font-weight: bold;
+      font-size: 18px;
+      color: #a52a2a;
+    }
+
+    .item-desc {
+      font-size: 14px;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    .item-currency {
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .item-image {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+      opacity: 0;
+    }
+
+    .item-image img {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+
+    .item.active .item-image {
+      max-height: 300px;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الصورة الرئيسية -->
+  <div class="hero"></div>
+
+  <!-- التبويبات -->
+  <div class="tabs">
+    <div class="tab active" data-target="bakery">المخبوزات</div>
+    <div class="tab" data-target="sweets">الحلويات</div>
+    <div class="tab" data-target="drinks">المشروبات</div>
+  </div>
+
+  <!-- قسم المخبوزات -->
+  <div id="bakery" class="menu-section active">
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">خبز بر</div>
+          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
+        </div>
+        <div>
+          <div class="item-price">5</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="bread.jpg" alt="خبز بر">
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">كرواسون</div>
+          <div class="item-desc">كرواسون طازج بالزبدة</div>
+        </div>
+        <div>
+          <div class="item-price">7</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="croissant.jpg" alt="كرواسون">
+      </div>
+    </div>
+  </div>
+
+  <!-- قسم الحلويات -->
+  <div id="sweets" class="menu-section">
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">كيك شوكولاتة</div>
+          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
+        </div>
+        <div>
+          <div class="item-price">12</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="cake.jpg" alt="كيك شوكولاتة">
+      </div>
+    </div>
+  </div>
+
+  <!-- قسم المشروبات -->
+  <div id="drinks" class="menu-section">
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">قهوة عربية</div>
+          <div class="item-desc">قهوة عربية مع الهيل</div>
+        </div>
+        <div>
+          <div class="item-price">8</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="coffee.jpg" alt="قهوة عربية">
+      </div>
+    </div>
+        <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">قهوة عربية</div>
+          <div class="item-desc">قهوة عربية مع الهيل</div>
+        </div>
+        <div>
+          <div class="item-price">8</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="coffee.jpg" alt="قهوة عربية">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // التحكم في التبويبات
+    const tabs = document.querySelectorAll('.tab');
+    const sections = document.querySelectorAll('.menu-section');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.target).classList.add('active');
+      });
+    });
+
+    // التحكم في المنتجات (إظهار الصورة Collapse)
+    const items = document.querySelectorAll('.item');
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
