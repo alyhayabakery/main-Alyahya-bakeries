@@ -11,19 +11,22 @@
       background: #fff8f0;
     }
 
+    /* الصورة الرئيسية */
     .hero {
       width: calc(100% - 10px);
       margin: 5px auto;
       height: 250px;
-      background: url('./img/her.jpg') center/cover no-repeat;
+      background: url('bakery.jpg') center/cover no-repeat;
       border-radius: 8px;
     }
 
+    /* التبويبات */
     .tabs {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       margin: 10px 5px;
-      gap: 15px;
+      gap: 10px;
     }
 
     .tab {
@@ -33,12 +36,15 @@
       border-radius: 5px;
       cursor: pointer;
       transition: 0.3s;
+      flex: 1 1 auto;
+      text-align: center;
     }
 
     .tab.active {
       background: #d2691e;
     }
 
+    /* الأقسام */
     .menu-section {
       margin: 10px 5px;
       padding: 15px;
@@ -52,6 +58,7 @@
       display: block;
     }
 
+    /* المنتجات */
     .item {
       border-bottom: 1px solid #eee;
       padding: 10px;
@@ -67,6 +74,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      flex-wrap: wrap;
     }
 
     .item-name {
@@ -94,6 +102,7 @@
       color: #333;
     }
 
+    /* صورة المنتج */
     .item-image {
       max-height: 0;
       overflow: hidden;
@@ -103,13 +112,44 @@
 
     .item-image img {
       width: 100%;
+      height: auto;
       margin-top: 10px;
       border-radius: 8px;
     }
 
     .item.active .item-image {
-      max-height: 300px;
+      max-height: 400px;
       opacity: 1;
+    }
+
+    /* ميديا كويري للشاشات الصغيرة */
+    @media (max-width: 768px) {
+      .hero {
+        height: 180px;
+      }
+      .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .item-price, .item-currency {
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 150px;
+      }
+      .tab {
+        font-size: 14px;
+        padding: 8px;
+      }
+      .item-name {
+        font-size: 16px;
+      }
+      .item-price {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -182,21 +222,6 @@
   <!-- قسم المشروبات -->
   <div id="drinks" class="menu-section">
     <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">قهوة عربية</div>
-          <div class="item-desc">قهوة عربية مع الهيل</div>
-        </div>
-        <div>
-          <div class="item-price">8</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="coffee.jpg" alt="قهوة عربية">
-      </div>
-    </div>
-        <div class="item">
       <div class="item-header">
         <div>
           <div class="item-name">قهوة عربية</div>
