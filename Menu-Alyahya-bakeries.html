@@ -9,8 +9,9 @@
       margin: 0;
       padding: 0;
       background: #fff8f0;
-      font-size: 18px; /* حجم أساسي أكبر */
-      line-height: 1.6;
+      font-size: 20px; /* حجم أساسي أكبر */
+      line-height: 1.8;
+      color: #222;
     }
 
     .hero {
@@ -25,20 +26,20 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin: 10px 5px;
+      margin: 15px 5px;
       gap: 10px;
     }
 
     .tab {
-      padding: 12px 24px;
+      padding: 14px 28px;
       background: #a52a2a;
       color: white;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       transition: 0.3s;
       flex: 1 1 auto;
       text-align: center;
-      font-size: 20px; /* تكبير خط التبويبات */
+      font-size: 22px; /* أكبر */
       font-weight: bold;
     }
 
@@ -48,7 +49,7 @@
 
     .menu-section {
       margin: 10px 5px;
-      padding: 15px;
+      padding: 20px;
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -60,8 +61,8 @@
     }
 
     .item {
-      border-bottom: 1px solid #eee;
-      padding: 15px;
+      border-bottom: 2px solid #ddd;
+      padding: 18px;
       cursor: pointer;
       transition: background 0.3s;
     }
@@ -79,27 +80,29 @@
 
     .item-name {
       font-weight: bold;
-      font-size: 22px; /* أكبر */
-      color: #333;
+      font-size: 26px; /* أوضح */
+      color: #111;
     }
 
     .item-price {
       text-align: left;
       font-weight: bold;
-      font-size: 22px; /* أكبر */
+      font-size: 26px; /* أوضح */
       color: #a52a2a;
     }
 
     .item-desc {
-      font-size: 18px; /* أوضح */
-      color: #555;
-      margin-top: 5px;
+      font-size: 22px; /* أوضح */
+      color: #444;
+      margin-top: 8px;
+      font-weight: 500;
     }
 
     .item-currency {
       text-align: left;
-      font-size: 18px;
+      font-size: 22px;
       color: #333;
+      font-weight: 500;
     }
 
     .item-image {
@@ -112,7 +115,7 @@
     .item-image img {
       width: 100%;
       height: auto;
-      margin-top: 10px;
+      margin-top: 12px;
       border-radius: 8px;
     }
 
@@ -124,35 +127,38 @@
     /* ميديا كويري للشاشات الصغيرة */
     @media (max-width: 768px) {
       body {
-        font-size: 20px; /* تكبير النص أكثر */
+        font-size: 22px;
       }
       .hero {
         height: 180px;
       }
       .item-name, .item-price {
-        font-size: 24px; /* أوضح على التابلت */
+        font-size: 28px;
       }
       .item-desc, .item-currency {
-        font-size: 20px;
+        font-size: 24px;
+      }
+      .tab {
+        font-size: 24px;
       }
     }
 
     @media (max-width: 480px) {
       body {
-        font-size: 22px; /* تكبير النص بشكل واضح على الموبايل */
+        font-size: 24px; /* أكبر على الموبايل */
       }
       .hero {
         height: 150px;
       }
       .tab {
-        font-size: 22px; /* التبويبات أوضح */
-        padding: 10px;
+        font-size: 26px;
+        padding: 12px;
       }
       .item-name, .item-price {
-        font-size: 26px; /* أوضح جدًا */
+        font-size: 30px; /* أوضح جدًا */
       }
       .item-desc, .item-currency {
-        font-size: 22px;
+        font-size: 26px;
       }
     }
   </style>
