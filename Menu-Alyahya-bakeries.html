@@ -9,9 +9,10 @@
       margin: 0;
       padding: 0;
       background: #fff8f0;
+      font-size: 18px; /* حجم أساسي أكبر */
+      line-height: 1.6;
     }
 
-    /* الصورة الرئيسية */
     .hero {
       width: calc(100% - 10px);
       margin: 5px auto;
@@ -20,7 +21,6 @@
       border-radius: 8px;
     }
 
-    /* التبويبات */
     .tabs {
       display: flex;
       flex-wrap: wrap;
@@ -30,7 +30,7 @@
     }
 
     .tab {
-      padding: 10px 20px;
+      padding: 12px 24px;
       background: #a52a2a;
       color: white;
       border-radius: 5px;
@@ -38,13 +38,14 @@
       transition: 0.3s;
       flex: 1 1 auto;
       text-align: center;
+      font-size: 20px; /* تكبير خط التبويبات */
+      font-weight: bold;
     }
 
     .tab.active {
       background: #d2691e;
     }
 
-    /* الأقسام */
     .menu-section {
       margin: 10px 5px;
       padding: 15px;
@@ -58,10 +59,9 @@
       display: block;
     }
 
-    /* المنتجات */
     .item {
       border-bottom: 1px solid #eee;
-      padding: 10px;
+      padding: 15px;
       cursor: pointer;
       transition: background 0.3s;
     }
@@ -79,30 +79,29 @@
 
     .item-name {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 22px; /* أكبر */
       color: #333;
     }
 
     .item-price {
       text-align: left;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 22px; /* أكبر */
       color: #a52a2a;
     }
 
     .item-desc {
-      font-size: 14px;
+      font-size: 18px; /* أوضح */
       color: #555;
       margin-top: 5px;
     }
 
     .item-currency {
       text-align: left;
-      font-size: 14px;
+      font-size: 18px;
       color: #333;
     }
 
-    /* صورة المنتج */
     .item-image {
       max-height: 0;
       overflow: hidden;
@@ -124,31 +123,36 @@
 
     /* ميديا كويري للشاشات الصغيرة */
     @media (max-width: 768px) {
+      body {
+        font-size: 20px; /* تكبير النص أكثر */
+      }
       .hero {
         height: 180px;
       }
-      .item-header {
-        flex-direction: column;
-        align-items: flex-start;
+      .item-name, .item-price {
+        font-size: 24px; /* أوضح على التابلت */
       }
-      .item-price, .item-currency {
-        text-align: right;
+      .item-desc, .item-currency {
+        font-size: 20px;
       }
     }
 
     @media (max-width: 480px) {
+      body {
+        font-size: 22px; /* تكبير النص بشكل واضح على الموبايل */
+      }
       .hero {
         height: 150px;
       }
       .tab {
-        font-size: 14px;
-        padding: 8px;
+        font-size: 22px; /* التبويبات أوضح */
+        padding: 10px;
       }
-      .item-name {
-        font-size: 16px;
+      .item-name, .item-price {
+        font-size: 26px; /* أوضح جدًا */
       }
-      .item-price {
-        font-size: 16px;
+      .item-desc, .item-currency {
+        font-size: 22px;
       }
     }
   </style>
