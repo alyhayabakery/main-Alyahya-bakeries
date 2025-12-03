@@ -1,409 +1,940 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <title>منيو المخبز</title>
-  <!-- خط Tajawal -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      /* الألوان */
-      --gold-brown: #d3a273;   /* خلفية أساسية للجسم والأقسام والمنتجات */
-      --deep-maroon: #561414;  /* نص رئيسي */
-      --mid-maroon: #582222;   /* نبيتي للتبويب النشط */
-      --white: #ffffff;
+/* 
+.zain-extralight {
+    font-family: "Zain", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+  .zain-light {
+    font-family: "Zain", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .zain-regular {
+    font-family: "Zain", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .zain-bold {
+    font-family: "Zain", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .zain-extrabold {
+    font-family: "Zain", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  .zain-black {
+    font-family: "Zain", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+   */
+   .tajawal-extralight {
+    font-family: "Tajawal", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+  .tajawal-light {
+    font-family: "Tajawal", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .tajawal-regular {
+    font-family: "Tajawal", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .tajawal-medium {
+    font-family: "Tajawal", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .tajawal-bold {
+    font-family: "Tajawal", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .tajawal-extrabold {
+    font-family: "Tajawal", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  .tajawal-black {
+    font-family: "Tajawal", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
 
-      /* أحجام الخط (+15% تقريباً) */
-      --base-size: 23px;       /* كان 20px */
-      --tab-size: 25px;        /* كان 22px */
-      --h2-size: 30px;         /* كان 26px */
-      --name-price-size: 30px; /* كان 26px */
-      --desc-curr-size: 25px;  /* كان 22px */
 
-      /* ظلال */
-      --item-shadow: 0 2px 6px rgba(0,0,0,0.18);          /* خفيف للمنتجات */
-      --section-shadow: 0 6px 16px rgba(88,34,34,0.35);   /* أقوى للأقسام */
+
+/********** break and bread CSS **********/
+body
+{
+    background-color:#c18e5e;
+    
+    font-weight: 800px;
+     font-family: "Zain", sans-serif ;
+     font-weight: 750;
+}
+
+:root {
+    --primary: rgba(255, 255, 255, 0.979);
+    --dark: #;
+}
+
+.fw-medium {
+    font-weight: 600 !important;
+}
+
+.fw-semi-bold {
+    font-weight: 700 !important;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
+}
+
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*** Button ***/
+.btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: .5s;
+}
+
+.btn.btn-primary,
+.btn.btn-secondary {
+    color: #FFFFFF;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    border-radius: 2px;
+}
+
+
+/*** Navbar ***/
+.navbar-dark .navbar-nav .nav-link {
+    position: relative;
+    margin-left: 25px;
+    padding: 35px 0;
+    font-size: 15px;
+    color: var(--light) !important;
+    text-transform: uppercase;
+    font-weight: 500;
+    outline: none;
+    transition: .5s;
+}
+
+.sticky-top.navbar-dark .navbar-nav .nav-link {
+    padding: 20px 0;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: var(--primary) !important;
+}
+
+.navbar-dark .navbar-brand img {
+    max-height: 60px;
+    transition: .5s;
+}
+
+.sticky-top.navbar-dark .navbar-brand img {
+    max-height: 45px;
+}
+
+@media (max-width: 991.98px) {
+    .sticky-top.navbar-dark {
+        position: relative;
     }
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Tajawal', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--gold-brown);
-      color: var(--deep-maroon);
-      font-size: var(--base-size);
-      line-height: 1.8;
-      font-weight: 700;
+    .navbar-dark .navbar-collapse {
+        margin-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, .1)
     }
 
-    /* البانر العلوي */
-    .hero-container {
-      width: calc(100% - 10px);
-      margin: 6px auto 0;
-      overflow: hidden;
-      border-radius: 12px;
-      max-width: 1200px;
-      background: var(--white);
-    }
-    .hero-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain; /* تظهر كاملة بدون قص */
+    .navbar-dark .navbar-nav .nav-link,
+    .sticky-top.navbar-dark .navbar-nav .nav-link {
+        padding: 10px 0;
+        margin-left: 0;
     }
 
-    /* التبويبات */
-    .tabs {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-      padding: 12px 10px;
-      background: var(--gold-brown);
+    .navbar-dark .navbar-brand img {
+        max-height: 45px;
     }
-    .tab {
-      font-family: 'Tajawal', sans-serif;
-      background: transparent;
-      color: var(--white);
-      cursor: pointer;
-      font-weight: 800;
-      font-size: var(--tab-size);
-      padding: 10px 14px;
-      border: none;
-      border-radius: 10px;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      white-space: nowrap;
+}
+
+@media (min-width: 992px) {
+    .navbar-dark {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: transparent !important;
     }
-    .tab.active {
-      background: var(--mid-maroon); /* خلفية نبيتي للتبويب النشط */
-      color: var(--white);            /* نص أبيض واضح */
+    
+    .sticky-top.navbar-dark {
+        position: fixed;
+        background: var(--dark) !important;
+    }
+}
+
+
+/*** Hero Header ***/
+.hero-header {
+    background: linear-gradient(rgba(0, 0, 0, .0), rgba(0, 0, 0, .0)), url(../);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    margin-right: -1%;
+   margin-left: -1%;
+}
+
+/* .hero-header img {
+    animation: imgRotate 50s linear infinite;
+} */
+
+/* @keyframes imgRotate { 
+    100% { 
+        transform: rotate(360deg); 
+    } 
+} */
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, .5);
+}
+
+
+/*** Section Title ***/
+.section-title {
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::before {
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 2px;
+    top: 50%;
+    left: -55px;
+    margin-top: -1px;
+    background: var(--primary);
+}
+
+.section-title::after {
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 2px;
+    top: 50%;
+    right: -55px;
+    margin-top: -1px;
+    background: var(--primary);
+}
+
+.section-title.text-start::before,
+.section-title.text-end::after {
+    display: none;
+}
+
+
+/*** Service ***/
+.service-item {
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    transition: .5s;
+}
+
+.service-item:hover {
+    background: var(--primary);
+}
+
+.service-item * {
+    transition: .5s;
+}
+
+.service-item:hover * {
+    color: var(--light) !important;
+}
+
+
+/*** Food Menu ***/
+.nav-pills .nav-item .active {
+    border-bottom: 2px solid var(--primary);
+}
+
+/*** Youtube Video ***/
+.video {
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+    background: linear-gradient(rgba(15, 23, 43, .1), rgba(15, 23, 43, .1)), url(../img/video.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.video .btn-play {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    box-sizing: content-box;
+    display: block;
+    width: 32px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    padding: 18px 20px 18px 28px;
+}
+
+.video .btn-play:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse-border 1500ms ease-out infinite;
+}
+
+.video .btn-play:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    border-radius: 50%;
+    transition: all 200ms;
+}
+
+.video .btn-play img {
+    position: relative;
+    z-index: 3;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+.video .btn-play span {
+    display: block;
+    position: relative;
+    z-index: 3;
+    width: 0;
+    height: 0;
+    border-left: 32px solid var(--dark);
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+}
+
+@keyframes pulse-border {
+    0% {
+        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+        opacity: 1;
     }
 
-    /* الأقسام */
-    .menu-section {
-      margin: 22px auto;
-      padding: 20px 16px;
-      background: var(--gold-brown); /* نفس لون الـBODY */
-      border-radius: 12px;
-      box-shadow: var(--section-shadow); /* ظل أقوى لفصل الأقسام */
-      max-width: 1100px;
+    100% {
+        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
+        opacity: 0;
     }
-    .menu-section h2 {
-      margin: 0 0 12px 0;
-      font-size: var(--h2-size);
-      color: var(--deep-maroon);
-      font-weight: 800;
+}
+
+#videoModal {
+    z-index: 99999;
+}
+
+#videoModal .modal-dialog {
+    position: relative;
+    max-width: 800px;
+    margin: 60px auto 0 auto;
+}
+
+#videoModal .modal-body {
+    position: relative;
+    padding: 0px;
+}
+
+#videoModal .close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 0px;
+    top: -30px;
+    z-index: 999;
+    font-size: 30px;
+    font-weight: normal;
+    color: #FFFFFF;
+    background: #000000;
+    opacity: 1;
+}
+
+
+/*** Team ***/
+.team-item {
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    height: calc(100% - 38px);
+    transition: .5s;
+}
+
+.team-item img {
+    transition: .5s;
+}
+
+.team-item:hover img {
+    transform: scale(1.1);
+}
+
+.team-item:hover {
+    height: 100%;
+}
+
+.team-item .btn {
+    border-radius: 38px 38px 0 0;
+}
+
+
+/*** Testimonial ***/
+.testimonial-carousel .owl-item .testimonial-item,
+.testimonial-carousel .owl-item.center .testimonial-item * {
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-item.center .testimonial-item {
+    /* background: var(--primary) !important;
+    border-color: var(--primary) !important; */
+}
+
+.testimonial-carousel .owl-item.center .testimonial-item * {
+    color: var(--light) 
+}
+
+.testimonial-carousel .owl-dots {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.testimonial-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #CCCCCC;
+    border-radius: 15px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-dot.active {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+
+/*** Footer ***/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer .footer-menu a:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+}
+
+.clricon{
+    color: black
+}
+.contaibg
+{
+    background-color: ;
+    margin-bottom: 0px;
+    
+    
+}
+.contaibg
+{
+background-color:;
+}
+span
+{
+    
+}
+
+
+
+.text-clrbreak
+{
+    color: #414142;
+    font-size: x-large;
+   
+}
+.rialfnt
+{
+    margin: 1;
+    background-color: #aaaab3;
+    position: relative;
+    color: #CCCCCC;
+    direction: ltr;
+    
+}
+.rialdesc
+{
+background-color: #414142;
+width: 50px;
+display: flex;
+justify-content: space-between;
+
+}
+.smalldesc
+{
+    color: white;
+   
+    font-size: small;
+    margin-top: 10px;
+    box-sizing: 10;
+    font-weight: 900;
+    
+}
+
+.prdctsprice
+{
+    font-size: small;
+}
+.pricepos
+{
+    margin-left: 5px;
+}
+
+.framprducts
+{
+    background-color: #414142;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    
+}
+.prdctcontent
+{
+    display: flex;
+    background-color: aqua;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 0;
+    padding-top: 0;
+    height: 100%;
+}
+.priceandname{
+    background-color: rgb(255, 0, 242);
+    scroll-margin-top: 0;
+    padding-bottom: 0;
+    margin-top: 20px;
+}
+.prdcthead{
+    background-color:red ;
+ 
+    
+    justify-content: space-between;
+    margin-top: 0;
+}
+mainl
+{
+    background-color: rebeccapurple;
+
+}
+
+
+.mainitem
+{
+    height: 100%;
+    width: 100%;  
+    margin-bottom: 0px;
+    font-size: large;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-weight: 800px;
+    
+}
+
+.nameitems
+{
+    margin-right: 0%;
+    float: right;
+    margin-top: 2.50px;
+    font-weight: 600px;
+    margin-bottom: 0px;
+  
+
+}
+.leftside
+{
+    float: left;
+    margin-left: 5px;
+    font-weight: 800px;
+   
+
+}
+.itemsconte
+{
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    height: 100;
+    width: 100;
+    font-weight: 800px;
+    
+}
+.foemating
+{
+    margin-top: 0px;
+    border: 0px;
+    color: #5c2d35;
+    font-weight: 800px;
+}
+
+
+.cotainerprdct
+{
+   background-color: aqua;
+   overflow: hidden;
+   height: 100%;
+   font-weight: 800px;
+}
+.descpdcrtt
+{
+    font-size: small;
+    font-weight: 800px;
+}
+.wasf
+{
+    margin-top: 0px;
+    margin-bottom: 0;
+    top: 0;
+   color: white;
+   font-weight: 800px;
+}
+.wsf
+{
+    font-size: large;
+    color: white;
+    font-weight: 200px;
+   
+   
+}
+.rialfntt
+{
+    font-size: small;
+    font-weight: 400px;
+}
+.rialfntt
+{
+    color: white;
+    font-weight: 800px;
+}
+.goglreview
+{
+    float: right;
+    margin-right: 20px;
+    height: 30px;
+    width: 100px;
+    margin-top: 2px;
+    margin-bottom: 3px;
+
+}
+
+.babfoter
+{
+    position: fixed;
+    bottom: 0;
+}
+
+
+.content {
+    min-height: 100%;
+    /* Other styles for your content */
+    
+}
+
+.footer {
+    position: fixed;
+    bottom: 10px;
+    width: 95%;
+    background-color: #5c2d35;
+    color: white;
+    text-align: center;  
+    justify-content: center;
+    border-radius: 10px;
+    margin-left: 2.50%;
+    margin-right: 2.50%;
+  
+}
+.bdyfooter
+{
+    background-color: aqua;
+}
+.contaibg
+{
+    margin-bottom: 0px;
+}
+body
+{
+    font-family: "Tajawal", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    
+}
+
+
+
+
+
+img {
+    max-width: 100%;
+    height: auto;
+   
+}
+/* For screens smaller than 768px (e.g., phones) */
+@media only screen and (max-width: 768px) {
+    img {
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+        align-items: center;
+        
     }
+}
 
-    /* المنتجات */
-    .item {
-      background: var(--gold-brown);
-      margin-bottom: 14px;
-      padding: 16px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
-      box-shadow: var(--item-shadow); /* ظل خفيف للفصل بين المنتجات */
-      /* بدون حدود حول المنتج */
+/* For screens between 768px and 1200px (e.g., tablets) */
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+    img {
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+        align-items: center;
+        
     }
-    .item:active { transform: scale(0.995); }
-    .item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px 16px;
-      flex-wrap: wrap; /* يتكيف على الشاشات الصغيرة */
+}
+
+/* For screens larger than 1200px (e.g., desktops) */
+@media only screen and (min-width: 1200px) {
+    img {
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+        align-items: center;
+        
     }
-    .item-name {
-      font-size: var(--name-price-size);
-      color: var(--deep-maroon);
-      font-weight: 800;
-    }
-    .item-price {
-      text-align: left;
-      font-size: var(--name-price-size);
-      color: var(--mid-maroon);
-      font-weight: 800;
-    }
-    .item-desc {
-      margin-top: 8px;
-      font-size: var(--desc-curr-size);
-      color: var(--deep-maroon);
-      font-weight: 700;
-    }
-    .item-currency {
-      text-align: left;
-      font-size: var(--desc-curr-size);
-      color: var(--white); /* الريال باللون الأبيض */
-      font-weight: 700;
-    }
+}
+.imgmnu
+{
+margin-top: 10px;
+}
+.mealtimeicon
+{
+    width: 10px;
+    height: 10px;
+    font-size:smaller ;
+    font-weight: 100;
 
-    /* صورة المنتج داخل الانهيار */
-    .item-image {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.5s ease, opacity 0.5s ease;
-    }
-    .item-image img {
-      width: 100%;
-      height: auto;
-      margin-top: 12px;
-      border-radius: 10px;
-      display: block;
-      background: var(--white);
-    }
-    .item.active .item-image {
-      max-height: 460px;
-      opacity: 1;
-    }
+}
+.menu-icon {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+   
+}
+.menu-icon img {
+    width: 10px; /* Adjust the size as needed */
+    height: auto;
+    margin-right: 0px;
+    margin-left: 1px;
+}
+.multiitemss
+{
+    background-color: #5c2d35;
+    border-radius: 10px;
+    color: white;
+    font-family: "Tajawal", sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 35px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 5px;
+   
 
-    /* تحسينات للشاشات الصغيرة (الزيادة ~15%) */
-    @media (max-width: 768px) {
-      :root {
-        --base-size: 26px;
-        --tab-size: 28px;
-        --h2-size: 34px;
-        --name-price-size: 34px;
-        --desc-curr-size: 28px;
-      }
-      .tabs { gap: 12px; }
-      .tab { padding: 10px 12px; }
-    }
-    @media (max-width: 480px) {
-      :root {
-        --base-size: 28px;
-        --tab-size: 30px;
-        --h2-size: 36px;
-        --name-price-size: 36px;
-        --desc-curr-size: 30px;
-      }
-      .tab { padding: 10px 12px; }
-    }
-  </style>
-</head>
-<body>
+   
+}
+.itemsheadclr
+{
+    font-family: "Tajawal", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    
+}
+.IMGFRMTGOOGLE
+{
+    height: 30PX;
+    margin-top: 1PX;
+}
 
-  <!-- البانر العلوي -->
-  <div class="hero-container" id="top">
-    <img src="./img/her.jpg" alt="منتجات السمك" class="hero-image">
-  </div>
+.IMGICONHOME
+{
+    height: 25px;
+    width: 25PX;
+    margin-top: 1px;
+    float: left;
+    margin-top: 4PX;
+}
+.descriptionitems
+{
+    font-weight: 300;
+    font-size: 10px;
+    margin-top: 0px;
+}
+.namesmrgn
+{
+    margin-bottom: 0px;
+}
 
-  <!-- التبويبات -->
-  <div class="tabs">
-    <button class="tab active" data-target="all">كل الأصناف</button>
-    <button class="tab" data-target="bakery">المخبوزات</button>
-    <button class="tab" data-target="sweets">الحلويات</button>
-    <button class="tab" data-target="drinks">المشروبات</button>
-    <button class="tab" data-target="appetizers">مقبلات</button>
-  </div>
+.lastof
+{
+    margin-bottom: 10px;
+}
+.frresize
+{
+    font-size: small;
+}
+.featslide
+{
+   margin-top: 0px;
+}
+.heroimge
+{
+    border-radius: 10px;
+}
+.linebetween
+{
+    width: 100%;
+    height: 100px;
+    color: #000000;
+}
+.caloriesfeat
+{
+    margin-left: 50px;
+}
+a:hover {
 
-  <!-- الأقسام (كلها ظاهرة افتراضياً) -->
-  <section id="bakery" class="menu-section">
-    <h2>المخبوزات</h2>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="bread.jpg" alt="خبز بر">
-      </div>
-    </div>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كرواسون</div>
-          <div class="item-desc">كرواسون طازج بالزبدة</div>
-        </div>
-        <div>
-          <div class="item-price">7</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="croissant.jpg" alt="كرواسون">
-      </div>
-    </div>
-  </section>
+    text-decoration: none;
+}
+a span {
+    text-decoration: none;
+}
+a
+{
+    text-decoration: none;
+}
 
-  <section id="sweets" class="menu-section">
-    <h2>الحلويات</h2>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كيك شوكولاتة</div>
-          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
-        </div>
-        <div>
-          <div class="item-price">12</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cake.jpg" alt="كيك شوكولاتة">
-      </div>
-    </div>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">تشيز كيك</div>
-          <div class="item-desc">تشيز كيك كريمي بنكهة الفانيلا</div>
-        </div>
-        <div>
-          <div class="item-price">14</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cheesecake.jpg" alt="تشيز كيك">
-      </div>
-    </div>
-  </section>
+.calories1
+{
+margin-left: 50px;
+font-size: x-small; 
+text-decoration: none;
+background-color: #414142;
+color: white;
+padding: 4px;
+border-radius: 5px;
+}
+a
+{
+    text-decoration: none;
+}
+a:hover .caloriesfeat {
+  text-decoration: none;
+}
 
-  <section id="drinks" class="menu-section">
-    <h2>المشروبات</h2>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">قهوة عربية</div>
-          <div class="item-desc">قهوة عربية مع الهيل</div>
-        </div>
-        <div>
-          <div class="item-price">8</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="coffee.jpg" alt="قهوة عربية">
-      </div>
-    </div>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">شاي أحمر</div>
-          <div class="item-desc">شاي أسود فاخر</div>
-        </div>
-        <div>
-          <div class="item-price">6</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="tea.jpg" alt="شاي أحمر">
-      </div>
-    </div>
-  </section>
-
-  <section id="appetizers" class="menu-section">
-    <h2>مقبلات</h2>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">سلطة الحمص</div>
-          <div class="item-desc">حمص كريمي بزيت الزيتون والطحينة</div>
-        </div>
-        <div>
-          <div class="item-price">10</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="hummus.jpg" alt="سلطة الحمص">
-      </div>
-    </div>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">بطاطس ويدجز</div>
-          <div class="item-desc">بطاطس متبلة ومقرمشة مع صوص خاص</div>
-        </div>
-        <div>
-          <div class="item-price">9</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="wedges.jpg" alt="بطاطس ويدجز">
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // فتح/إغلاق صورة المنتج داخل البطاقة
-    document.querySelectorAll('.item').forEach(item => {
-      item.addEventListener('click', () => {
-        item.classList.toggle('active');
-      });
-    });
-
-    // تبويبات: تنقل ناعم للقسم (بدون تصفية)
-    const tabs = document.querySelectorAll('.tab');
-    function setActiveTabByTarget(target) {
-      tabs.forEach(t => t.classList.remove('active'));
-      const match = Array.from(tabs).find(t => t.dataset.target === target);
-      if (match) match.classList.add('active');
-    }
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.target;
-        if (target === 'all') {
-          document.getElementById('top').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          setActiveTabByTarget('all');
-        } else {
-          const section = document.getElementById(target);
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setActiveTabByTarget(target);
-          }
-        }
-      });
-    });
-
-    // Scroll Spy: تحديث التبويب النشط أثناء التمرير
-    const sections = document.querySelectorAll('.menu-section');
-    const tabsContainer = document.querySelector('.tabs');
-    const stickyOffset = tabsContainer.offsetHeight || 60; // ارتفاع شريط التبويبات
-
-    const observerOptions = {
-      root: null,
-      rootMargin: `-${stickyOffset + 40}px 0px -50% 0px`,
-      threshold: 0
-    };
-
-    const sectionToTab = {};
-    tabs.forEach(t => {
-      sectionToTab[t.dataset.target] = t; // يشمل "all" أيضاً
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter(e => e.isIntersecting);
-      if (visible.length > 0) {
-        visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        const id = visible[0].target.id;
-        tabs.forEach(t => t.classList.remove('active'));
-        const tab = sectionToTab[id];
-        if (tab) tab.classList.add('active');
-      } else {
-        setActiveTabByTarget('all');
-      }
-    }, observerOptions);
-
-    sections.forEach(section => observer.observe(section));
-
-    // تعيين التبويب الافتراضي عند التحميل
-    setActiveTabByTarget('all');
-  </script>
-</body>
-</html>
