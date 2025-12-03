@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>منيو المخبز</title>
-  <!-- Tajawal font -->
+  <!-- خط Tajawal -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Colors */
-      --gold-brown: #d3a273;   /* body background + cards */
-      --deep-maroon: #561414;  /* primary text */
-      --mid-maroon: #582222;   /* secondary accents */
+      /* الألوان */
+      --gold-brown: #d3a273;   /* خلفية أساسية */
+      --deep-maroon: #561414;  /* نص رئيسي */
+      --mid-maroon: #582222;   /* إبرازات */
       --white: #ffffff;
 
-      /* Base sizes (desktop) */
-      --base-size: 20px;
-      --tab-size: 22px;
-      --h2-size: 26px;
-      --name-price-size: 26px;
-      --desc-curr-size: 22px;
+      /* الأحجام الأساسية (بعد +15%) */
+      --base-size: 23px;       /* كان 20px */
+      --tab-size: 25px;        /* كان 22px */
+      --h2-size: 30px;         /* كان 26px */
+      --name-price-size: 30px; /* كان 26px */
+      --desc-curr-size: 25px;  /* كان 22px */
 
-      /* Shadows */
+      /* ظلال */
       --item-shadow: 0 2px 6px rgba(0,0,0,0.18);
-      --section-shadow: 0 6px 16px rgba(88,34,34,0.35); /* stronger */
+      --section-shadow: 0 6px 16px rgba(88,34,34,0.35); /* أقوى للفصل */
     }
 
     html { scroll-behavior: smooth; }
@@ -35,10 +35,10 @@
       color: var(--deep-maroon);
       font-size: var(--base-size);
       line-height: 1.8;
-      font-weight: 700; /* bold */
+      font-weight: 700; /* سميك */
     }
 
-    /* Hero image (top banner) */
+    /* البانر العلوي */
     .hero-container {
       width: calc(100% - 10px);
       margin: 6px auto 0;
@@ -51,10 +51,10 @@
       width: 100%;
       height: auto;
       display: block;
-      object-fit: contain; /* keep full image visible */
+      object-fit: contain; /* تظهر كاملة بدون قص */
     }
 
-    /* Tabs */
+    /* التبويبات */
     .tabs {
       position: sticky;
       top: 0;
@@ -74,23 +74,23 @@
       font-weight: 800;
       font-size: var(--tab-size);
       padding: 10px 8px;
-      border: none;
-      border-bottom: 3px solid transparent; /* underline only when active */
+      border: none; /* لا خلفية ولا حدود خارجية */
+      border-bottom: 3px solid transparent; /* يظهر فقط عند التفعيل */
       transition: border-color 0.2s ease, color 0.2s ease;
       white-space: nowrap;
     }
     .tab.active {
       color: var(--white);
-      border-bottom-color: var(--white); /* KEEP underline for active */
+      border-bottom-color: var(--white); /* الإبقاء على الخط تحت التبويب النشط */
     }
 
-    /* Sections */
+    /* الأقسام */
     .menu-section {
       margin: 22px auto;
       padding: 20px 16px;
-      background: var(--gold-brown);
+      background: var(--gold-brown); /* نفس لون الـBODY */
       border-radius: 12px;
-      box-shadow: var(--section-shadow); /* stronger to separate sections */
+      box-shadow: var(--section-shadow); /* ظل أقوى لفصل الأقسام */
       max-width: 1100px;
     }
     .menu-section h2 {
@@ -99,18 +99,19 @@
       font-size: var(--h2-size);
       color: var(--deep-maroon);
       font-weight: 800;
+      /* بدون خط أسفل العنوان، الفصل بالظل كفاية */
     }
 
-    /* Items */
+    /* المنتجات */
     .item {
-      background: var(--gold-brown);
+      background: var(--gold-brown); /* نفس لون الـBODY */
       margin-bottom: 14px;
       padding: 16px 12px;
       border-radius: 10px;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.1s ease;
-      box-shadow: var(--item-shadow); /* light shadow to separate items */
-      /* No border around items as requested */
+      box-shadow: var(--item-shadow); /* ظل خفيف للفصل بين المنتجات */
+      /* بدون أي حدود حول المنتج */
     }
     .item:active { transform: scale(0.995); }
     .item-header {
@@ -118,7 +119,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 8px 16px;
-      flex-wrap: wrap; /* stack on small screens */
+      flex-wrap: wrap; /* يتكيف على الشاشات الصغيرة */
     }
     .item-name {
       font-size: var(--name-price-size);
@@ -144,7 +145,7 @@
       font-weight: 700;
     }
 
-    /* Collapse image */
+    /* صورة المنتج داخل الانهيار */
     .item-image {
       max-height: 0;
       overflow: hidden;
@@ -164,37 +165,37 @@
       opacity: 1;
     }
 
-    /* Mobile: +10% sizes (approx) */
+    /* تحسينات للشاشات الصغيرة (نحافظ على زيادة ~15%) */
     @media (max-width: 768px) {
       :root {
-        --base-size: 22px;            /* +10% */
-        --tab-size: 24px;             /* +10% */
-        --h2-size: 29px;              /* +10% */
-        --name-price-size: 29px;      /* +10% */
-        --desc-curr-size: 24px;       /* +10% */
+        --base-size: 26px;
+        --tab-size: 28px;
+        --h2-size: 34px;
+        --name-price-size: 34px;
+        --desc-curr-size: 28px;
       }
       .tabs { gap: 14px; }
       .tab { padding: 10px 6px; }
     }
     @media (max-width: 480px) {
       :root {
-        --base-size: 24px;            /* slightly larger on very small screens */
-        --tab-size: 26px;
-        --h2-size: 31px;
-        --name-price-size: 31px;
-        --desc-curr-size: 26px;
+        --base-size: 28px;
+        --tab-size: 30px;
+        --h2-size: 36px;
+        --name-price-size: 36px;
+        --desc-curr-size: 30px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top banner image -->
-  <div class="hero-container">
+  <!-- البانر العلوي -->
+  <div class="hero-container" id="top">
     <img src="fish-banner.png" alt="منتجات السمك" class="hero-image">
   </div>
 
-  <!-- Tabs -->
+  <!-- التبويبات -->
   <div class="tabs">
     <button class="tab active" data-target="all">كل الأصناف</button>
     <button class="tab" data-target="bakery">المخبوزات</button>
@@ -202,7 +203,7 @@
     <button class="tab" data-target="drinks">المشروبات</button>
   </div>
 
-  <!-- Sections (all visible by default) -->
+  <!-- الأقسام (كلها ظاهرة افتراضياً) -->
   <section id="bakery" class="menu-section">
     <h2>المخبوزات</h2>
 
@@ -280,72 +281,71 @@
   </section>
 
   <script>
-    // Collapse toggle per item
+    // تفعيل/إلغاء فتح صورة المنتج
     document.querySelectorAll('.item').forEach(item => {
       item.addEventListener('click', () => {
         item.classList.toggle('active');
       });
     });
 
-    // Tabs click: smooth scroll to section (no filtering)
+    // تبويبات: تنقل ناعم للقسم (بدون تصفية)
     const tabs = document.querySelectorAll('.tab');
-    const sections = document.querySelectorAll('.menu-section');
-
     function setActiveTabByTarget(target) {
       tabs.forEach(t => t.classList.remove('active'));
       const match = Array.from(tabs).find(t => t.dataset.target === target);
       if (match) match.classList.add('active');
     }
-
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const target = tab.dataset.target;
         if (target === 'all') {
-          // Scroll to top of hero/tabs
-          window.scrollTo({ top: document.querySelector('.tabs').offsetTop, behavior: 'smooth' });
+          // الذهاب لأعلى البانر/التبويبات
+          document.getElementById('top').scrollIntoView({ behavior: 'smooth', block: 'start' });
           setActiveTabByTarget('all');
         } else {
-          const targetSection = document.getElementById(target);
-          if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const section = document.getElementById(target);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             setActiveTabByTarget(target);
           }
         }
       });
     });
 
-    // Scroll spy: update active underline when scrolling
+    // Scroll Spy: تحديث التبويب النشط أثناء التمرير
+    const sections = document.querySelectorAll('.menu-section');
+    const tabsContainer = document.querySelector('.tabs');
+    const stickyOffset = tabsContainer.offsetHeight || 60; // ارتفاع التبويبات
+
+    // مراقب تقاطع لضبط التبويب النشط
     const observerOptions = {
       root: null,
-      rootMargin: '-30% 0px -50% 0px', // consider a section active when ~30% from top
+      rootMargin: `-${stickyOffset + 40}px 0px -50% 0px`, // تفعيل عند دخول القسم لمنطقة العرض تحت التبويبات
       threshold: 0
     };
 
-    const sectionToTabMap = {
-      bakery: Array.from(tabs).find(t => t.dataset.target === 'bakery'),
-      sweets: Array.from(tabs).find(t => t.dataset.target === 'sweets'),
-      drinks: Array.from(tabs).find(t => t.dataset.target === 'drinks')
-    };
+    const sectionToTab = {};
+    tabs.forEach(t => sectionToTab[t.dataset.target] = t);
 
     const observer = new IntersectionObserver((entries) => {
-      // Find the entry that is intersecting and closest to viewport center
+      // اختيار القسم الأكثر ظهورًا
       const visible = entries.filter(e => e.isIntersecting);
       if (visible.length > 0) {
-        // Prefer the one with largest intersection ratio
         visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         const id = visible[0].target.id;
         tabs.forEach(t => t.classList.remove('active'));
-        const tab = sectionToTabMap[id];
-        if (tab) {
-          tab.classList.add('active');
-        }
+        const tab = sectionToTab[id];
+        if (tab) tab.classList.add('active');
       } else {
-        // If none are visible (top area), set "all" active
+        // إذا لا يوجد قسم في منطقة الرؤية (أعلى الصفحة)
         setActiveTabByTarget('all');
       }
     }, observerOptions);
 
     sections.forEach(section => observer.observe(section));
+
+    // تعيين التبويب الافتراضي عند التحميل
+    setActiveTabByTarget('all');
   </script>
 </body>
 </html>
