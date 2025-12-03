@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>منيو المخبز</title>
+  <!-- Tajawal font -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      /* Colors */
+      --gold-brown: #d3a273;   /* body background */
+      --deep-maroon: #561414;  /* primary text */
+      --mid-maroon: #582222;   /* secondary accents */
+      --white: #ffffff;
+
+      /* Base sizes (desktop) */
+      --base-size: 20px;
+      --tab-size: 22px;
+      --h2-size: 26px;
+      --name-price-size: 26px;
+      --desc-curr-size: 22px;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Tajawal', sans-serif;
       margin: 0;
       padding: 0;
-      background: #fff8f0;
-      font-size: 20px;
+      background: var(--gold-brown); /* body background */
+      color: var(--deep-maroon);
+      font-size: var(--base-size);
       line-height: 1.8;
-      color: #222;
-      scroll-behavior: smooth; /* يضيف التنقل الناعم */
+      font-weight: 700; /* bold */
     }
 
-    /* الصورة الرئيسية */
+    /* Hero image (top banner) */
     .hero-container {
-      width: 100%;
-      margin: 0 auto;
+      width: calc(100% - 10px);
+      margin: 6px auto 0;
       overflow: hidden;
-      border-radius: 8px;
+      border-radius: 10px;
+      max-width: 1200px;
+      border: 4px solid var(--mid-maroon);
+      background: var(--white);
     }
-
     .hero-image {
       width: 100%;
       height: auto;
       display: block;
-      object-fit: contain;
+      object-fit: contain; /* keep full image visible */
     }
 
-    /* التبويبات */
+    /* Tabs */
     .tabs {
       position: sticky;
       top: 0;
@@ -38,153 +59,152 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin: 0;
-      padding: 10px;
-      gap: 10px;
-      background: #fff8f0;
+      gap: 18px;
+      padding: 12px 10px;
+      background: var(--gold-brown);
+      border-bottom: 3px solid var(--mid-maroon);
     }
-
     .tab {
-      padding: 14px 28px;
-      background: #a52a2a;
-      color: white;
-      border-radius: 6px;
+      background: transparent;         /* no background */
+      color: var(--white);
       cursor: pointer;
-      transition: 0.3s;
-      flex: 1 1 auto;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
+      font-weight: 800;
+      font-size: var(--tab-size);
+      padding: 10px 8px;
+      border: none;
+      border-bottom: 3px solid transparent; /* underline only when active */
+      transition: border-color 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
     }
-
     .tab.active {
-      background: #d2691e;
+      border-bottom-color: var(--white); /* underline */
+      color: var(--white);
     }
 
-    /* الأقسام */
+    /* Sections */
     .menu-section {
-      margin: 20px 5px;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin: 18px 6px;
+      padding: 18px 14px;
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .menu-section h2 {
+      margin: 0 0 12px 0;
+      padding-bottom: 6px;
+      font-size: var(--h2-size);
+      color: var(--deep-maroon);
+      border-bottom: 2px solid var(--mid-maroon);
+      font-weight: 800;
     }
 
-    /* المنتجات */
+    /* Items */
     .item {
-      border-bottom: 2px solid #ddd;
-      padding: 18px;
+      border-bottom: 2px solid var(--gold-brown);
+      padding: 16px 8px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.2s ease;
     }
-
-    .item:hover {
-      background: #f9f2e8;
-    }
+    .item:last-child { border-bottom: none; }
+    .item:hover { background: rgba(88,34,34,0.12); } /* soft tint of mid-maroon */
 
     .item-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      flex-wrap: wrap;
+      gap: 8px 16px;
+      flex-wrap: wrap; /* stack on small screens */
     }
-
     .item-name {
-      font-weight: bold;
-      font-size: 26px;
-      color: #111;
+      font-size: var(--name-price-size);
+      color: var(--deep-maroon);
+      font-weight: 800;
     }
-
     .item-price {
       text-align: left;
-      font-weight: bold;
-      font-size: 26px;
-      color: #a52a2a;
+      font-size: var(--name-price-size);
+      color: var(--mid-maroon);
+      font-weight: 800;
     }
-
     .item-desc {
-      font-size: 22px;
-      color: #444;
       margin-top: 8px;
-      font-weight: 500;
+      font-size: var(--desc-curr-size);
+      color: var(--deep-maroon);
+      font-weight: 700;
     }
-
     .item-currency {
       text-align: left;
-      font-size: 22px;
-      color: #333;
-      font-weight: 500;
+      font-size: var(--desc-curr-size);
+      color: var(--deep-maroon);
+      font-weight: 700;
     }
 
+    /* Collapse image */
     .item-image {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.5s ease, opacity 0.5s ease;
       opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
     }
-
     .item-image img {
       width: 100%;
       height: auto;
       margin-top: 12px;
       border-radius: 8px;
+      border: 2px solid var(--gold-brown);
+      display: block;
     }
-
     .item.active .item-image {
-      max-height: 400px;
+      max-height: 440px;
       opacity: 1;
     }
 
-    /* ميديا كويري للشاشات الصغيرة */
+    /* Mobile: +10% sizes (approx) */
     @media (max-width: 768px) {
-      body {
-        font-size: 26px;
-      }
-      .item-name, .item-price {
-        font-size: 30px;
-      }
-      .item-desc, .item-currency {
-        font-size: 26px;
-      }
-      .tab {
-        font-size: 28px;
+      :root {
+        --base-size: 22px;            /* +10% */
+        --tab-size: 24px;             /* +10% */
+        --h2-size: 29px;              /* +10% */
+        --name-price-size: 29px;      /* +10% */
+        --desc-curr-size: 24px;       /* +10% */
       }
     }
-
     @media (max-width: 480px) {
-      body {
-        font-size: 28px;
+      :root {
+        --base-size: 24px;            /* slightly larger on very small screens */
+        --tab-size: 26px;
+        --h2-size: 31px;
+        --name-price-size: 31px;
+        --desc-curr-size: 26px;
       }
-      .tab {
-        font-size: 30px;
-        padding: 14px;
-      }
-      .item-name, .item-price {
-        font-size: 32px;
-      }
-      .item-desc, .item-currency {
-        font-size: 28px;
-      }
+      .tabs { gap: 14px; }
+      .tab { padding: 10px 6px; }
+      .hero-container { border-width: 3px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- الصورة الرئيسية -->
+  <!-- Top banner image -->
   <div class="hero-container">
     <img src="fish-banner.png" alt="منتجات السمك" class="hero-image">
   </div>
 
-  <!-- التبويبات -->
+  <!-- Tabs -->
   <div class="tabs">
-    <div class="tab active" data-target="bakery">المخبوزات</div>
-    <div class="tab" data-target="sweets">الحلويات</div>
-    <div class="tab" data-target="drinks">المشروبات</div>
+    <button class="tab active" data-target="all">كل الأصناف</button>
+    <button class="tab" data-target="bakery">المخبوزات</button>
+    <button class="tab" data-target="sweets">الحلويات</button>
+    <button class="tab" data-target="drinks">المشروبات</button>
   </div>
 
-  <!-- قسم المخبوزات -->
-  <div id="bakery" class="menu-section">
+  <!-- Sections (all visible by default) -->
+  <section id="bakery" class="menu-section">
     <h2>المخبوزات</h2>
+
     <div class="item">
       <div class="item-header">
         <div>
@@ -200,11 +220,27 @@
         <img src="bread.jpg" alt="خبز بر">
       </div>
     </div>
-  </div>
 
-  <!-- قسم الحلويات -->
-  <div id="sweets" class="menu-section">
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">كرواسون</div>
+          <div class="item-desc">كرواسون طازج بالزبدة</div>
+        </div>
+        <div>
+          <div class="item-price">7</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="croissant.jpg" alt="كرواسون">
+      </div>
+    </div>
+  </section>
+
+  <section id="sweets" class="menu-section">
     <h2>الحلويات</h2>
+
     <div class="item">
       <div class="item-header">
         <div>
@@ -220,11 +256,11 @@
         <img src="cake.jpg" alt="كيك شوكولاتة">
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- قسم المشروبات -->
-  <div id="drinks" class="menu-section">
+  <section id="drinks" class="menu-section">
     <h2>المشروبات</h2>
+
     <div class="item">
       <div class="item-header">
         <div>
@@ -240,49 +276,74 @@
         <img src="coffee.jpg" alt="قهوة عربية">
       </div>
     </div>
-  </div>
+  </section>
 
   <script>
-    // collapse للمنتجات
-    const items = document.querySelectorAll('.item');
-    items.forEach(item => {
+    // Collapse toggle per item
+    document.querySelectorAll('.item').forEach(item => {
       item.addEventListener('click', () => {
         item.classList.toggle('active');
       });
     });
 
-    // التنقل للقسم عند الضغط على التبويب
     const tabs = document.querySelectorAll('.tab');
+    const sections = document.querySelectorAll('.menu-section');
+    let filterMode = false; // when true, we show only one section
+
+    function activateTabByTarget(target) {
+      tabs.forEach(t => t.classList.remove('active'));
+      const match = Array.from(tabs).find(t => t.dataset.target === target);
+      if (match) match.classList.add('active');
+    }
+    function showAllSections() {
+      sections.forEach(s => s.style.display = 'block');
+      filterMode = false;
+      activateTabByTarget('all');
+    }
+    function showOnlySection(id) {
+      sections.forEach(s => s.style.display = (s.id === id ? 'block' : 'none'));
+      filterMode = true;
+      activateTabByTarget(id);
+    }
+
+    // Tabs click: filter + smooth scroll
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        const targetId = tab.dataset.target;
-        const targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: "smooth" });
+        const target = tab.dataset.target;
+        if (target === 'all') {
+          showAllSections();
+          // scroll to top of tabs to reset view
+          window.scrollTo({ top: document.querySelector('.tabs').offsetTop, behavior: 'smooth' });
+        } else {
+          showOnlySection(target);
+          const targetSection = document.getElementById(target);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
       });
     });
 
-    // Scroll Spy لتغيير التبويب أثناء النزول
-    const sections = document.querySelectorAll('.menu-section');
-    window.addEventListener('scroll', () => {
-      let currentSection = "";
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120;
-        const sectionHeight = section.offsetHeight;
-        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-          currentSection = section.getAttribute("id");
-        }
-      });
+    // Default: all sections visible
+    showAllSections();
 
-      tabs.forEach(tab => {
-        tab.classList.remove("active");
-        if (tab.dataset.target === currentSection) {
-          tab.classList.add("active");
+    // Scroll spy when not filtered
+    window.addEventListener('scroll', () => {
+      if (filterMode) return;
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 120;    // adjust for sticky tabs
+        const bottom = top + section.offsetHeight;
+        if (window.scrollY >= top && window.scrollY < bottom) {
+          current = section.id;
         }
       });
+      if (current) {
+        activateTabByTarget(current);
+      } else {
+        activateTabByTarget('all');
+      }
     });
   </script>
-
 </body>
 </html>
