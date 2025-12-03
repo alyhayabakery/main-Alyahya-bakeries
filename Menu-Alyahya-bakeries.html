@@ -9,19 +9,27 @@
       margin: 0;
       padding: 0;
       background: #fff8f0;
-      font-size: 20px; /* حجم أساسي أكبر */
+      font-size: 20px;
       line-height: 1.8;
       color: #222;
     }
 
-    .hero {
-      width: calc(100% - 10px);
-      margin: 5px auto;
-      height: 250px;
-      background: url('bakery.jpg') center/cover no-repeat;
+    /* الصورة الرئيسية */
+    .hero-container {
+      width: 100%;              /* تاخد العرض كامل */
+      margin: 0 auto;
+      overflow: hidden;
       border-radius: 8px;
     }
 
+    .hero-image {
+      width: 100%;              /* الصورة تاخد العرض كامل */
+      height: auto;             /* تحافظ على النسبة الأصلية */
+      display: block;
+      object-fit: contain;      /* تظهر كاملة بدون قص */
+    }
+
+    /* التبويبات */
     .tabs {
       display: flex;
       flex-wrap: wrap;
@@ -39,7 +47,7 @@
       transition: 0.3s;
       flex: 1 1 auto;
       text-align: center;
-      font-size: 22px; /* أكبر */
+      font-size: 22px;
       font-weight: bold;
     }
 
@@ -47,6 +55,7 @@
       background: #d2691e;
     }
 
+    /* الأقسام */
     .menu-section {
       margin: 10px 5px;
       padding: 20px;
@@ -60,6 +69,7 @@
       display: block;
     }
 
+    /* المنتجات */
     .item {
       border-bottom: 2px solid #ddd;
       padding: 18px;
@@ -80,19 +90,19 @@
 
     .item-name {
       font-weight: bold;
-      font-size: 26px; /* أوضح */
+      font-size: 26px;
       color: #111;
     }
 
     .item-price {
       text-align: left;
       font-weight: bold;
-      font-size: 26px; /* أوضح */
+      font-size: 26px;
       color: #a52a2a;
     }
 
     .item-desc {
-      font-size: 22px; /* أوضح */
+      font-size: 22px;
       color: #444;
       margin-top: 8px;
       font-weight: 500;
@@ -129,8 +139,8 @@
       body {
         font-size: 22px;
       }
-      .hero {
-        height: 180px;
+      .hero-image {
+        max-height: 300px; /* تمنع التصغير المبالغ فيه */
       }
       .item-name, .item-price {
         font-size: 28px;
@@ -145,17 +155,17 @@
 
     @media (max-width: 480px) {
       body {
-        font-size: 24px; /* أكبر على الموبايل */
+        font-size: 24px;
       }
-      .hero {
-        height: 150px;
+      .hero-image {
+        max-height: 350px; /* تحافظ على وضوح الصورة في الموبايل */
       }
       .tab {
         font-size: 26px;
         padding: 12px;
       }
       .item-name, .item-price {
-        font-size: 30px; /* أوضح جدًا */
+        font-size: 30px;
       }
       .item-desc, .item-currency {
         font-size: 26px;
@@ -166,7 +176,9 @@
 <body>
 
   <!-- الصورة الرئيسية -->
-  <div class="hero"></div>
+  <div class="hero-container">
+    <img src="./img/bg-hero (3).png" alt="منتجات السمك" class="hero-image">
+  </div>
 
   <!-- التبويبات -->
   <div class="tabs">
@@ -190,22 +202,6 @@
       </div>
       <div class="item-image">
         <img src="bread.jpg" alt="خبز بر">
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كرواسون</div>
-          <div class="item-desc">كرواسون طازج بالزبدة</div>
-        </div>
-        <div>
-          <div class="item-price">7</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="croissant.jpg" alt="كرواسون">
       </div>
     </div>
   </div>
@@ -249,7 +245,7 @@
   </div>
 
   <script>
-    // التحكم في التبويبات
+    // التبويبات
     const tabs = document.querySelectorAll('.tab');
     const sections = document.querySelectorAll('.menu-section');
 
@@ -262,7 +258,7 @@
       });
     });
 
-    // التحكم في المنتجات (إظهار الصورة Collapse)
+    // المنتجات
     const items = document.querySelectorAll('.item');
     items.forEach(item => {
       item.addEventListener('click', () => {
