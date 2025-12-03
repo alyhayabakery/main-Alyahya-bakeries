@@ -90,7 +90,7 @@
       padding: 20px 16px;
       background: var(--gold-brown); /* نفس لون الـBODY */
       border-radius: 12px;
-      box-shadow: var(--section-shadow); /* ظل أقوى للفصل بين الأقسام */
+      box-shadow: var(--section-shadow); /* ظل أقوى لفصل الأقسام */
       max-width: 1100px;
     }
     .menu-section h2 {
@@ -139,7 +139,7 @@
     .item-currency {
       text-align: left;
       font-size: var(--desc-curr-size);
-      color: var(--deep-maroon);
+      color: var(--white); /* الريال باللون الأبيض */
       font-weight: 700;
     }
 
@@ -163,7 +163,7 @@
       opacity: 1;
     }
 
-    /* تحسينات للشاشات الصغيرة (نحافظ على الزيادة ~15%) */
+    /* تحسينات للشاشات الصغيرة (الزيادة ~15%) */
     @media (max-width: 768px) {
       :root {
         --base-size: 26px;
@@ -206,7 +206,6 @@
   <!-- الأقسام (كلها ظاهرة افتراضياً) -->
   <section id="bakery" class="menu-section">
     <h2>المخبوزات</h2>
-
     <div class="item">
       <div class="item-header">
         <div>
@@ -222,7 +221,6 @@
         <img src="bread.jpg" alt="خبز بر">
       </div>
     </div>
-
     <div class="item">
       <div class="item-header">
         <div>
@@ -242,7 +240,6 @@
 
   <section id="sweets" class="menu-section">
     <h2>الحلويات</h2>
-
     <div class="item">
       <div class="item-header">
         <div>
@@ -258,11 +255,25 @@
         <img src="cake.jpg" alt="كيك شوكولاتة">
       </div>
     </div>
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">تشيز كيك</div>
+          <div class="item-desc">تشيز كيك كريمي بنكهة الفانيلا</div>
+        </div>
+        <div>
+          <div class="item-price">14</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="cheesecake.jpg" alt="تشيز كيك">
+      </div>
+    </div>
   </section>
 
   <section id="drinks" class="menu-section">
     <h2>المشروبات</h2>
-
     <div class="item">
       <div class="item-header">
         <div>
@@ -278,11 +289,25 @@
         <img src="coffee.jpg" alt="قهوة عربية">
       </div>
     </div>
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">شاي أحمر</div>
+          <div class="item-desc">شاي أسود فاخر</div>
+        </div>
+        <div>
+          <div class="item-price">6</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="tea.jpg" alt="شاي أحمر">
+      </div>
+    </div>
   </section>
 
   <section id="appetizers" class="menu-section">
     <h2>مقبلات</h2>
-
     <div class="item">
       <div class="item-header">
         <div>
@@ -298,7 +323,6 @@
         <img src="hummus.jpg" alt="سلطة الحمص">
       </div>
     </div>
-
     <div class="item">
       <div class="item-header">
         <div>
@@ -317,14 +341,14 @@
   </section>
 
   <script>
-    // تفعيل/إلغاء عرض صورة المنتج داخل البطاقة
+    // فتح/إغلاق صورة المنتج داخل البطاقة
     document.querySelectorAll('.item').forEach(item => {
       item.addEventListener('click', () => {
         item.classList.toggle('active');
       });
     });
 
-    // التبويبات: تنقل ناعم للقسم (بدون تصفية)
+    // تبويبات: تنقل ناعم للقسم (بدون تصفية)
     const tabs = document.querySelectorAll('.tab');
     function setActiveTabByTarget(target) {
       tabs.forEach(t => t.classList.remove('active'));
@@ -350,7 +374,7 @@
     // Scroll Spy: تحديث التبويب النشط أثناء التمرير
     const sections = document.querySelectorAll('.menu-section');
     const tabsContainer = document.querySelector('.tabs');
-    const stickyOffset = tabsContainer.offsetHeight || 60;
+    const stickyOffset = tabsContainer.offsetHeight || 60; // ارتفاع شريط التبويبات
 
     const observerOptions = {
       root: null,
