@@ -4,40 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>منيو المخبز</title>
-  <!-- خط Tajawal -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      /* ألوان الهوية */
       --gold-brown: #d3a273;
       --deep-maroon: #561414;
       --mid-maroon: #582222;
       --white: #ffffff;
 
-      /* أحجام الخط (+15%) تقريباً */
+      /* +15% أحجام */
       --base-size: 23px;
       --tab-size: 25px;
       --h2-size: 30px;
       --name-price-size: 30px;
       --desc-curr-size: 25px;
 
-      /* ظلال */
       --item-shadow: 0 2px 6px rgba(0,0,0,0.18);
       --section-shadow: 0 6px 16px rgba(88,34,34,0.35);
     }
+
+    * { box-sizing: border-box; }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Tajawal', sans-serif;
       margin: 0;
-      /* مساحة آمنة تمنع الفوتر من تغطية آخر المحتوى (مناسبة للأيقونات 150px + الحواف) */
-      padding-bottom: 200px;
       background: var(--gold-brown);
       color: var(--deep-maroon);
       font-size: var(--base-size);
       line-height: 1.8;
       font-weight: 700;
+      /* مساحة كافية أسفل للمحتوى حتى لا يُغطى بالفوتر */
+      padding-bottom: 200px;
     }
 
     /* البانر */
@@ -62,6 +62,9 @@
       gap: 14px;
       padding: 12px 10px;
       background: var(--gold-brown);
+      /* لإزالة أي تأثيرات عرض خاطئ عند التثبيت */
+      border-bottom: 0 solid transparent;
+      will-change: transform;
     }
     .tab {
       background: transparent;
@@ -114,7 +117,6 @@
     .item-desc { margin-top: 8px; font-size: var(--desc-curr-size); color: var(--deep-maroon); font-weight: 700; }
     .item-currency { text-align: left; font-size: var(--desc-curr-size); color: var(--white); font-weight: 700; }
 
-    /* صورة داخل البطاقة */
     .item-image {
       max-height: 0; overflow: hidden; opacity: 0;
       transition: max-height 0.5s ease, opacity 0.5s ease;
@@ -124,13 +126,13 @@
     }
     .item.active .item-image { max-height: 460px; opacity: 1; }
 
-    /* Footer بعرض الصفحة بالكامل مع مارجن من الجوانب ومن تحت */
+    /* Footer بعرض كامل مع هوامش جانبية وسفلية */
     .footer {
       position: fixed;
-      bottom: 10px;  /* مارجن سفلي */
-      left: 10px;    /* مارجن جانبي */
+      bottom: 10px;
+      left: 10px;
       right: 10px;
-      height: auto;  /* الارتفاع يتبع محتوى الأيقونات */
+      height: auto;
       background: var(--mid-maroon);
       display: flex;
       justify-content: space-between;
@@ -139,17 +141,14 @@
       border-radius: 12px;
       z-index: 3000;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      /* تعزيز الثبات على الموبايل */
       transform: translateZ(0);
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
     }
     .footer-left, .footer-right { display: flex; align-items: center; }
-
-    /* عرض الأيقونات 150px */
     .footer-icon {
       width: 150px;
-      height: 50PX;
+      height: auto;
       display: block;
       cursor: pointer;
       transition: transform 0.2s ease, opacity 0.2s ease;
@@ -157,7 +156,7 @@
     }
     .footer-icon:hover { transform: scale(1.03); opacity: 1; }
 
-    /* موبايل: الحفاظ على زيادة ~15% */
+    /* تحسينات عرض على الموبايل */
     @media (max-width: 768px) {
       :root {
         --base-size: 26px; --tab-size: 28px; --h2-size: 34px; --name-price-size: 34px; --desc-curr-size: 28px;
@@ -178,7 +177,7 @@
   </div>
 
   <!-- التبويبات (بدون "كل الأصناف") -->
-  <div class="tabs">
+  <div class="tabs" id="tabs">
     <button class="tab active" data-target="bakery">المخبوزات</button>
     <button class="tab" data-target="sweets">الحلويات</button>
     <button class="tab" data-target="drinks">المشروبات</button>
@@ -189,58 +188,6 @@
   <section id="bakery" class="menu-section">
     <h2>المخبوزات</h2>
     <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image"><img src="bread.jpg" alt="خبز بر"></div>
-    </div>
-       <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image"><img src="bread.jpg" alt="خبز بر"></div>
-    </div>
-       <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image"><img src="bread.jpg" alt="خبز بر"></div>
-    </div>
-       <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image"><img src="bread.jpg" alt="خبز بر"></div>
-    </div>
-       <div class="item">
       <div class="item-header">
         <div>
           <div class="item-name">خبز بر</div>
@@ -362,29 +309,29 @@
     </div>
   </section>
 
-  <!-- Footer بعرض الصفحة بالكامل، مارجن من الجوانب ومن تحت، وأيقونات 150px -->
+  <!-- Footer بعرض كامل وهوامش -->
   <footer class="footer" role="contentinfo">
     <div class="footer-left">
       <a href="index.html" aria-label="الانتقال للرئيسية">
-        <img src="./img/New folder/gogl-logo.webp" alt="الرئيسية" class="footer-icon">
+        <img src="home-icon.png" alt="الرئيسية" class="footer-icon">
       </a>
     </div>
     <div class="footer-right">
       <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_CODE" target="_blank" rel="noopener" aria-label="تقييم جوجل">
-        <img   style="width: 50PX;  height: 50 PX;"  src="./img/New folder/hom.webp" alt="تقييم جوجل" class="">
+        <img src="google-review.png" alt="تقييم جوجل" class="footer-icon">
       </a>
     </div>
   </footer>
 
   <script>
-    // فتح/إغلاق صورة المنتج داخل البطاقة
+    // فتح/إغلاق صورة المنتج
     document.querySelectorAll('.item').forEach(item => {
       item.addEventListener('click', () => item.classList.toggle('active'));
     });
 
-    // التبويبات: تفعيل فوري + تنقل ناعم
+    // التبويبات: تفعيل فوري + تنقل ناعم بدون تداخل مع ScrollSpy
     const tabs = document.querySelectorAll('.tab');
-    let isClickNavigating = false; // فلاغ يمنع تداخل الـObserver أثناء الضغط
+    let isClickNavigating = false;
 
     function activateTab(tabEl) {
       tabs.forEach(t => t.classList.remove('active'));
@@ -396,32 +343,26 @@
         e.preventDefault();
         const target = tab.dataset.target;
 
-        // تفعيل اللون فوراً
-        activateTab(tab);
+        activateTab(tab);         // لون فوري
+        isClickNavigating = true; // تجاهل ScrollSpy مؤقتًا
 
-        // إبلاغ أننا في تنقل بالضغط
-        isClickNavigating = true;
-
-        // التنقل للقسم المطلوب
         const section = document.getElementById(target);
         if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // إعادة تفعيل الـObserver بعد انتهاء الحركة (مهلة قصيرة)
-        setTimeout(() => { isClickNavigating = false; }, 600);
+        setTimeout(() => { isClickNavigating = false; }, 700);
       });
     });
 
-    // Scroll Spy: تحديث التبويب النشط أثناء التمرير فقط (يتجاهل الضغط أثناء الحركة)
+    // ScrollSpy أثناء التمرير فقط
     const sections = document.querySelectorAll('.menu-section');
-    const tabsContainer = document.querySelector('.tabs');
+    const tabsContainer = document.getElementById('tabs');
     const stickyOffset = (tabsContainer?.offsetHeight || 60) + 40;
 
-    // خريطة قسم -> تبويب
     const sectionToTab = {};
     tabs.forEach(t => { sectionToTab[t.dataset.target] = t; });
 
     const observer = new IntersectionObserver((entries) => {
-      if (isClickNavigating) return; // تجاهل التحديث أثناء التنقل الناتج عن الضغط
+      if (isClickNavigating) return;
 
       const visible = entries.filter(e => e.isIntersecting);
       if (visible.length > 0) {
@@ -430,7 +371,7 @@
         const tab = sectionToTab[id];
         if (tab) activateTab(tab);
       } else {
-        // لو لم يظهر أي قسم (نادرًا)، لا نفعل أي تبويب
+        // لا نفعل أي تبويب إن لم يظهر أي قسم
         tabs.forEach(t => t.classList.remove('active'));
       }
     }, { root: null, rootMargin: `-${stickyOffset}px 0px -50% 0px`, threshold: 0 });
