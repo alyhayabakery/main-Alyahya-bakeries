@@ -1,356 +1,2092 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>منيو المخبز</title>
-  <!-- Tajawal font -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      /* Colors */
-      --gold-brown: #d3a273;   /* body background + cards */
-      --deep-maroon: #561414;  /* primary text */
-      --mid-maroon: #582222;   /* secondary accents */
-      --white: #ffffff;
-
-      /* Base sizes (desktop) */
-      --base-size: 20px;
-      --tab-size: 22px;
-      --h2-size: 26px;
-      --name-price-size: 26px;
-      --desc-curr-size: 22px;
-
-      /* Shadows */
-      --item-shadow: 0 2px 6px rgba(0,0,0,0.18);
-      --section-shadow: 0 6px 16px rgba(88,34,34,0.35); /* stronger */
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Tajawal', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--gold-brown); /* body background */
-      color: var(--deep-maroon);
-      font-size: var(--base-size);
-      line-height: 1.8;
-      font-weight: 700; /* bold */
-    }
-
-    /* Hero image (top banner) */
-    .hero-container {
-      width: calc(100% - 10px);
-      margin: 6px auto 0;
-      overflow: hidden;
-      border-radius: 12px;
-      max-width: 1200px;
-      border: 4px solid var(--mid-maroon);
-      background: var(--white);
-    }
-    .hero-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain; /* show entire image, no crop */
-    }
-
-    /* Tabs */
-    .tabs {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
-      padding: 12px 10px;
-      background: var(--gold-brown);
-      border-bottom: 3px solid var(--mid-maroon);
-    }
-    .tab {
-      font-family: 'Tajawal', sans-serif; /* ensure Tajawal on tabs */
-      background: transparent;         /* no background */
-      color: var(--white);
-      cursor: pointer;
-      font-weight: 800;
-      font-size: var(--tab-size);
-      padding: 10px 8px;
-      border: none;
-      border-bottom: 3px solid transparent; /* underline only when active */
-      transition: border-color 0.2s ease, color 0.2s ease;
-      white-space: nowrap;
-    }
-    .tab.active {
-      border-bottom-color: var(--white); /* underline */
-      color: var(--white);
-    }
-
-    /* Sections */
-    .menu-section {
-      margin: 22px auto;
-      padding: 20px 16px;
-      background: var(--gold-brown); /* same as body */
-      border-radius: 12px;
-      box-shadow: var(--section-shadow); /* stronger to separate sections */
-      max-width: 1100px;
-      border: 2px solid rgba(88,34,34,0.25); /* subtle border for definition */
-    }
-    .menu-section h2 {
-      margin: 0 0 12px 0;
-      padding-bottom: 6px;
-      font-size: var(--h2-size);
-      color: var(--deep-maroon);
-      border-bottom: 2px solid var(--mid-maroon);
-      font-weight: 800;
-    }
-
-    /* Items */
-    .item {
-      background: var(--gold-brown); /* same as body */
-      margin-bottom: 14px;
-      padding: 16px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
-      box-shadow: var(--item-shadow); /* light shadow to separate items */
-      border: 2px solid rgba(255,255,255,0.4); /* soft white border for clarity */
-    }
-    .item:active { transform: scale(0.995); }
-    .item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px 16px;
-      flex-wrap: wrap; /* stack on small screens */
-    }
-    .item-name {
-      font-size: var(--name-price-size);
-      color: var(--deep-maroon);
-      font-weight: 800;
-    }
-    .item-price {
-      text-align: left;
-      font-size: var(--name-price-size);
-      color: var(--mid-maroon);
-      font-weight: 800;
-    }
-    .item-desc {
-      margin-top: 8px;
-      font-size: var(--desc-curr-size);
-      color: var(--deep-maroon);
-      font-weight: 700;
-    }
-    .item-currency {
-      text-align: left;
-      font-size: var(--desc-curr-size);
-      color: var(--deep-maroon);
-      font-weight: 700;
-    }
-
-    /* Collapse image */
-    .item-image {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.5s ease, opacity 0.5s ease;
-    }
-    .item-image img {
-      width: 100%;
-      height: auto;
-      margin-top: 12px;
-      border-radius: 10px;
-      border: 2px solid var(--mid-maroon);
-      display: block;
-      background: var(--white);
-    }
-    .item.active .item-image {
-      max-height: 460px;
-      opacity: 1;
-    }
-
-    /* Mobile: +10% sizes (approx) */
-    @media (max-width: 768px) {
-      :root {
-        --base-size: 22px;            /* +10% */
-        --tab-size: 24px;             /* +10% */
-        --h2-size: 29px;              /* +10% */
-        --name-price-size: 29px;      /* +10% */
-        --desc-curr-size: 24px;       /* +10% */
-      }
-      .tabs { gap: 14px; }
-      .tab { padding: 10px 6px; }
-    }
-    @media (max-width: 480px) {
-      :root {
-        --base-size: 24px;            /* slightly larger on very small screens */
-        --tab-size: 26px;
-        --h2-size: 31px;
-        --name-price-size: 31px;
-        --desc-curr-size: 26px;
-      }
-      .hero-container { border-width: 3px; }
-    }
-  </style>
+    <meta charset="utf-8">
+    <title>Alyahya bakeries</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="12x5" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 </head>
-<body>
+<body >
 
-  <!-- Top banner image -->
-  <div class="hero-container">
-    <img src="./img/bg-hero (3).png" alt="منتجات السمك" class="hero-image">
-  </div>
+    <div class="container-xxl bdybg p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-f27e3e position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab active" data-target="all">كل الأصناف</button>
-    <button class="tab" data-target="bakery">المخبوزات</button>
-    <button class="tab" data-target="sweets">الحلويات</button>
-    <button class="tab" data-target="drinks">المشروبات</button>
-  </div>
-
-  <!-- Sections (all visible by default) -->
-  <section id="bakery" class="menu-section">
-    <h2>المخبوزات</h2>
-
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
         </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
+        <!-- Spinner End -->
+        <!-- Navbar & Hero Start -->
+      
+    
+        <div class="imgmnu">
+                        <img class="heroimge" src="./img/her.jpg" alt="">  
+                        
         </div>
-      </div>
-      <div class="item-image">
-        <img src="bread.jpg" alt="خبز بر">
-      </div>
+        <!-- Navbar & Hero End -->
+        <!-- Menu Start -->
+        <div class="container-xxl py-5 ">
+            <div class="multiitemss"><span class="multiitemss">  معجنات </span></div>  <!--المتنوعة-->
+                <div class="container contaibg">
+                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="tab-content  fontbreak">
+                        <div id="tab-1" class=" fade show p-0 active  ">
+                            <div      class="row g-">
+                                 <div class="mainitem">     <!--بداية المنتج -->
+                                    <div class="itemsconte foemating">
+                                        <span class="nameitems namesmrgn ">بيتزا لحم كبير  </span>
+                                        <span class="leftside">25.00
+                                        </span>                                                            
+                                    </div>
+                                 </div>
+                                 <div class="mainitem">
+                                    <div>
+                                        <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، لحم ، خس ، جبن  </span> -->
+                                        <span class="leftside  rialfntt descriptionitems">ريــــال
+                                        </span>
+                                    </div>
+                                 </div>
+                                 <!-- <div class="mainitem">
+                                    <div>
+                                        <div class="menu-icon">
+                                            <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                        </div>
+                                    </div>
+                                 </div> -->
+                              </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                              <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا دجاج كبير  </span>
+                                       <span class="leftside">25.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، لحم ،طماطم ،خس ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا مشكل كبير  </span>
+                                       <span class="leftside">29.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، لحم دبل ، جبن دبل  ،خس </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                              <div class="mainitem">     <!--بداية المنتج -->
+                                 <div class="itemsconte foemating">
+                                     <span class="nameitems "> بيتزا ايطالي كبير  </span>
+                                     <span class="leftside">29.00
+                                     </span>                                                            
+                                 </div>
+                              </div>
+                              <div class="mainitem">
+                                 <div>
+                                     <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، لحم  ، جبن  ،خس </span> -->
+                                     <span class="leftside  rialfntt descriptionitems">ريــــال
+                                     </span>
+                                 </div>
+                              </div>
+                              <!-- <div class="mainitem">
+                                 <div>
+                                     <div class="menu-icon">
+                                         <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                     </div>
+                                 </div>
+                              </div> -->
+                           </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> بيتزا بيبروني كبير  </span>
+                                       <span class="leftside">28.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خس ،  جبن </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                              <div class="mainitem">     <!--بداية المنتج -->
+                                 <div class="itemsconte foemating">
+                                     <span class="nameitems ">بيتزا فلالفل كبير </span>
+                                     <span class="leftside">25.00
+                                     </span>                                                            
+                                 </div>
+                              </div>
+                              <div class="mainitem">
+                                 <div>
+                                     <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خس ،  جبن ، اصابع بصل مقلي</span> -->
+                                     <span class="leftside  rialfntt descriptionitems">ريــــال
+                                     </span>
+                                 </div>
+                              </div>
+                              <!-- <div class="mainitem">
+                                 <div>
+                                     <div class="menu-icon">
+                                         <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                         <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                     </div>
+                                 </div>
+                              </div> -->
+                           </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا  خضار كبير  </span>
+                                       <span class="leftside">18.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج مشوي علي الصاج ،خس ، جبن، صوص </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا جبن كبير  </span>
+                                       <span class="leftside">25.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems "> خبز البريوش ، خس  ،جبن ، حلقات البصل ، دجاج</span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> بيتزا لحم صغير  </span>
+                                       <span class="leftside">14.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">  خبز الصامولي ، لحم ،جبن ،صوص رنش  </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">   بيتزا دجاج صغير  </span>
+                                       <span class="leftside">14.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز الصامولي ، دجاج ،جبن ،  صوص رنش </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا مشكل صغير  </span>
+                                       <span class="leftside">15.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> بيتزا ايطالي صغير  </span>
+                                       <span class="leftside">15.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا بيبروني صغير  </span>
+                                       <span class="leftside">15.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا فلافل صغير  </span>
+                                       <span class="leftside">18.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا خضار صغير  </span>
+                                       <span class="leftside">11.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بيتزا جبن صغير  </span>
+                                       <span class="leftside">11.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لحم بالبيض </span>
+                                       <span class="leftside">7.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">  لحم بالعجين  </span>
+                                       <span class="leftside">6.75
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">  لحم بالجبن   </span>
+                                       <span class="leftside">7.75
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">دجاج بالعجين </span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">دجاج بالجبن  </span>
+                                       <span class="leftside">7.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">فاهيتا دجاج</span>
+                                       <span class="leftside">7.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">فاهيتا دجاج جبن </span>
+                                       <span class="leftside">8.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بطاطس</span>
+                                       <span class="leftside">5.75
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بطاطس بالجبن</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">بطاطس باللبنة</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">سبانخ</span>
+                                       <span class="leftside">4.60
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">سبانخ بالجبن</span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">سبانخ باللبنة </span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">سبانخ مشكل</span>
+                                       <span class="leftside">7.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">سبانخ لحم</span>
+                                       <span class="leftside">7.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">سبانخ بالبيض</span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جــــــبن</span>
+                                       <span class="leftside">5.75
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن بالبيض</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن خضار </span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن بالزيتون</span>
+                                       <span class="leftside">6.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن بالزعتر </span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن بالعسل </span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن عكاوي </span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">عش البلبل </span>
+                                       <span class="leftside">7.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن سائل</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن سائل بالزعتر</span>
+                                       <span class="leftside">7.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">جبن سائل بالفستق والعسل</span>
+                                       <span class="leftside">10.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة</span>
+                                       <span class="leftside">5.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة باللحم </span>
+                                       <span class="leftside">7.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة بالدجاح</span>
+                                       <span class="leftside">7.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة بالجبن</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة بالخضار</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة بالزيتون</span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة بالعسل</span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة بالزعتر</span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">لبنة مشكل</span>
+                                       <span class="leftside">7.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> زعتر</span>
+                                       <span class="leftside">2.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> زعتر بالخضار</span>
+                                       <span class="leftside">4.60
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> محمرة</span>
+                                       <span class="leftside">5.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، ربيان ،طماطم ،خص ، حلقات البصل </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">محمرة بالجبن  </span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem  lastof">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">خبز بريوش  ، خس ، لحم استيك، صوص </span> -->
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                            </div>
+                        </div>     
+                    </div>
+                </div>
+          
+                <div class="multiitemss"><span class="multiitemss">فلافــل</span></div>  <!--المتنوعة-->
+                <div class="container contaibg">
+                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="tab-content  fontbreak">
+                        <div id="tab-1" class=" fade show p-0 active  ">
+                            <div      class="row g-">
+                                 <div class="mainitem">     <!--بداية المنتج -->
+                                    <div class="itemsconte foemating">
+                                        <span class="nameitems namesmrgn "> فلافل </span>
+                                        <span class="leftside ">4.60
+                                        </span>                                                            
+                                    </div>
+                                 </div>
+                                 <div class="mainitem">
+                                     <div>
+                                        <span class="nameitems wsf descriptionitems ">     </span>
+                                        <span class="leftside  rialfntt descriptionitems">ريــــال
+                                        </span>
+                                    </div>
+                                 </div>
+                                 <!-- <div class="mainitem"> 
+                                    <div>
+                                        <div class="menu-icon">
+                                            <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                            <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                        </div>
+                                    </div>
+                                 </div> -->
+                              </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                              <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems namesmrgn "> فلافل بالجبن  </span>
+                                       <span class="leftside ">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem">
+                                    <div>
+                                       <span class="nameitems wsf descriptionitems ">     </span>
+                                       <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                                <!-- <div class="mainitem"> 
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                             </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                
+                     
+                             <div      class="row g-">
+                                <div class="mainitem">     <!--بداية المنتج -->
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> فلافل باللبنة</span>
+                                       <span class="leftside">6.25
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div> 
+                                <!-- <div class="mainitem">
+                                   <div>
+                                       <div class="menu-icon">
+                                           <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                           <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                       </div>
+                                   </div>
+                                </div> -->
+                                <!-- last of menu-->   <!--نهاية المنتج-->
+                                 
+                             </div> 
+                             <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">فلافل مشكل</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> صحن مشكل </span>
+                                       <span class="leftside">80.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> صحن فلافل كبير </span>
+                                       <span class="leftside">23.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> صحن فلافل وسط</span>
+                                       <span class="leftside">17.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> صحن فلافل صغير</span>
+                                       <span class="leftside">11.50
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems ">فلافل مشكل</span>
+                                       <span class="leftside">5.75
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> فلافــل عادي</span>
+                                       <span class="leftside">4.60
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> فلافل مشكل بر</span>
+                                       <span class="leftside">5.75
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> فلافــل عادي بر</span>
+                                       <span class="leftside">4.60
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> فلافــل بخبز الصاج</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> فلافل بخبز البطاطس</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                            <div      class="row g-">  <!--بداية المنتج -->
+                                <div class="mainitem">     
+                                   <div class="itemsconte foemating">
+                                       <span class="nameitems "> فلافل بخبز الشمندر</span>
+                                       <span class="leftside">7.00
+                                       </span>                                                            
+                                   </div>
+                                </div>
+                                <div class="mainitem lastof ">
+                                   <div>
+                                       <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، دجاج جريل ،خص ،  جبن </span> -->
+                                      <span class="leftside  rialfntt descriptionitems">ريــــال
+                                       </span>
+                                   </div>
+                                </div>
+                            </div> <!--نهاية المنتج-->
+                        </div> 
+                    </div> 
+                </div> 
+                              
+                          </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                            
+                        
+                        <div class="multiitemss"><span class="multiitemss">   مقبلات </span></div>   
+                        <div class="container contaibg">
+                            <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+                               <div class="tab-content  fontbreak">
+                                   <div id="tab-1" class=" fade show p-0 active  ">
+                        
+                                         <div      class="row g-">
+                                           <div class="mainitem">     <!--بداية المنتج -->
+                                              <div class="itemsconte foemating">
+                                                  <span class="nameitems "> حمص </span>
+                                                  <span class="leftside">14.00
+                                                  </span>                                                            
+                                              </div>
+                                           </div>
+                                           <div class="mainitem">
+                                              <div>
+                                                  <!-- <span class="nameitems wsf descriptionitems ">4 اصابع الدجاج  </span> -->
+                                                  <span class="leftside  rialfntt descriptionitems">ريــــال
+                                                  </span>
+                                              </div>
+                                           </div>
+                                           <!-- <div class="mainitem">
+                                              <div>
+                                                  <div class="menu-icon">
+                                                      <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                                  </div>
+                                              </div>
+                                           </div> -->
+                                        </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                                        <div      class="row g-">
+                                           <div class="mainitem">     <!--بداية المنتج -->
+                                              <div class="itemsconte foemating">
+                                                  <span class="nameitems ">حمص </span>
+                                                  <span class="leftside">15.00
+                                                  </span>                                                            
+                                              </div>
+                                           </div>
+                                           <div class="mainitem lastof">
+                                              <div>
+                                                  <!-- <span class="nameitems wsf descriptionitems ">الوصف </span> -->
+                                                  <span class="leftside  rialfntt descriptionitems">ريــــال
+                                                  </span>
+                                              </div>
+                                           </div>
+                                           <!-- <div class="mainitem">
+                                              <div>
+                                                  <div class="menu-icon">
+                                                      <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                                      <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                                  </div>
+                                              </div>
+                                           </div> -->
+                                        </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                                        <div      class="row g-">
+                                          <div class="mainitem">     <!--بداية المنتج -->
+                                             <div class="itemsconte foemating">
+                                                 <span class="nameitems ">حمص </span>
+                                                 <span class="leftside">17.00
+                                                 </span>                                                            
+                                             </div>
+                                          </div>
+                                          <div class="mainitem lastof">
+                                             <div>
+                                                 <!-- <span class="nameitems wsf descriptionitems ">خس ، افوكادو ، جرين صوص  </span> -->
+                                                 <span class="leftside  rialfntt descriptionitems">ريــــال
+                                                 </span>
+                                             </div>
+                                          </div>
+                                          <!-- <div class="mainitem">
+                                             <div>
+                                                 <div class="menu-icon">
+                                                     <img src="./img/FOODICON02.png" alt="Menu Icon">
+                                                     <img src="./img/FOODICON03.png" alt="Menu Icon">
+                                                     <img src="./img/FOODICON04.png" alt="Menu Icon">
+                                                     <img src="./img/FOODICON05.png" alt="Menu Icon">
+                                                     <img src="./img/FOODICON06.png" alt="Menu Icon">
+                                                     <img src="./img/FOODICON01.png" alt="Menu Icon">
+                                                 </div>
+                                             </div>
+                                          </div> -->
+                                       </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                                    
+                                       
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                   <div class="multiitemss"><span class="multiitemss">مأكولات</span></div>  <!--المتنوعة-->   
+                   <div class="container contaibg">
+                    <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+                       <div class="tab-content  fontbreak">
+                           <div id="tab-1" class=" fade show p-0 active  ">
+                               <div      class="row g-">
+                                    <div class="mainitem">     <!--بداية المنتج -->
+                                       <div class="itemsconte foemating">
+                                           <span class="nameitems namesmrgn ">مأكولات 1 </span>
+                                           <span class="leftside">18.00
+                                           </span>                                                            
+                                       </div>
+                                    </div>
+                                    <div class="mainitem">
+                                       <div>
+                                           <!-- <span class="nameitems wsf descriptionitems ">    خبز البريوش ، لحم ، خص ، جبن  </span> -->
+                                           <span class="leftside  rialfntt descriptionitems">ريــــال
+                                           </span>
+                                       </div>
+                                    </div>
+                              
+                                 </div> <!-- last of menu-->   <!--نهاية المنتج-->                              
+                                <div      class="row g-">
+                                    <div class="mainitem">     <!--بداية المنتج -->
+                                       <div class="itemsconte foemating">
+                                           <span class="nameitems ">مأكولات 2</span>
+                                           <span class="leftside">7.00
+                                           </span>                                                            
+                                       </div>
+                                    </div>
+                                    <div class="mainitem lastof">
+                                       <div>
+                                           <!-- <span class="nameitems wsf descriptionitems ">    خبز الصامولي  ، خص   ،  اسبيشيال صوص </span> -->
+                                           <span class="leftside  rialfntt descriptionitems">ريــــال
+                                           </span>
+                                       </div>
+                                    </div>
+                               
+                                 </div> <!-- last of menu-->   <!--نهاية المنتج-->
+                                </div> 
+                            
+                        
+                    
+                
+            
+        
     </div>
+</div>
+                 </div>
+               </div>
+           </div>
+        </div>
+        </div>
+        <!-- Menu End -->
+        
 
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كرواسون</div>
-          <div class="item-desc">كرواسون طازج بالزبدة</div>
+   
+    <div class="footer">
+        <div class=" bandfooterfixed">
+            <a href="preview-branchesp.html"   class="goglreview"><img  class="" src="./img/New folder/gogl-logo.webp" alt=""></a>
+            <a href="index.html"   class="homeicons"><img  class="IMGICONHOME" src="./img/New folder/hom.webp" alt=""></a>
+        
         </div>
-        <div>
-          <div class="item-price">7</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="croissant.jpg" alt="كرواسون">
-      </div>
     </div>
-  </section>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-  <section id="sweets" class="menu-section">
-    <h2>الحلويات</h2>
-
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كيك شوكولاتة</div>
-          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
-        </div>
-        <div>
-          <div class="item-price">12</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cake.jpg" alt="كيك شوكولاتة">
-      </div>
-    </div>
-  </section>
-
-  <section id="drinks" class="menu-section">
-    <h2>المشروبات</h2>
-
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">قهوة عربية</div>
-          <div class="item-desc">قهوة عربية مع الهيل</div>
-        </div>
-        <div>
-          <div class="item-price">8</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="coffee.jpg" alt="قهوة عربية">
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Collapse toggle per item
-    document.querySelectorAll('.item').forEach(item => {
-      item.addEventListener('click', () => {
-        item.classList.toggle('active');
-      });
-    });
-
-    const tabs = document.querySelectorAll('.tab');
-    const sections = document.querySelectorAll('.menu-section');
-    let filterMode = false; // when true, we show only one section
-
-    function activateTabByTarget(target) {
-      tabs.forEach(t => t.classList.remove('active'));
-      const match = Array.from(tabs).find(t => t.dataset.target === target);
-      if (match) match.classList.add('active');
-    }
-    function showAllSections() {
-      sections.forEach(s => s.style.display = 'block');
-      filterMode = false;
-      activateTabByTarget('all');
-    }
-    function showOnlySection(id) {
-      sections.forEach(s => s.style.display = (s.id === id ? 'block' : 'none'));
-      filterMode = true;
-      activateTabByTarget(id);
-    }
-
-    // Tabs click: filter + smooth scroll
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.target;
-        if (target === 'all') {
-          showAllSections();
-          // scroll to top of tabs to reset view
-          window.scrollTo({ top: document.querySelector('.tabs').offsetTop, behavior: 'smooth' });
-        } else {
-          showOnlySection(target);
-          const targetSection = document.getElementById(target);
-          if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
-      });
-    });
-
-    // Default: all sections visible
-    showAllSections();
-
-    // Scroll spy when not filtered
-    window.addEventListener('scroll', () => {
-      if (filterMode) return;
-      let current = '';
-      sections.forEach(section => {
-        const top = section.offsetTop - 120;    // adjust for sticky tabs
-        const bottom = top + section.offsetHeight;
-        if (window.scrollY >= top && window.scrollY < bottom) {
-          current = section.id;
-        }
-      });
-      if (current) {
-        activateTabByTarget(current);
-      } else {
-        activateTabByTarget('all');
-      }
-    });
-  </script>
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
 </body>
+
 </html>
