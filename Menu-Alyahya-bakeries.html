@@ -16,17 +16,17 @@
 
     /* الصورة الرئيسية */
     .hero-container {
-      width: 100%;              /* تاخد العرض كامل */
+      width: 100%;
       margin: 0 auto;
       overflow: hidden;
       border-radius: 8px;
     }
 
     .hero-image {
-      width: 100%;              /* الصورة تاخد العرض كامل */
-      height: auto;             /* تحافظ على النسبة الأصلية */
+      width: 100%;
+      height: auto;
       display: block;
-      object-fit: contain;      /* تظهر كاملة بدون قص */
+      object-fit: contain;
     }
 
     /* التبويبات */
@@ -62,11 +62,7 @@
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: none;
-    }
-
-    .menu-section.active {
-      display: block;
+      display: block; /* كلها ظاهرة افتراضياً */
     }
 
     /* المنتجات */
@@ -137,38 +133,38 @@
     /* ميديا كويري للشاشات الصغيرة */
     @media (max-width: 768px) {
       body {
-        font-size: 22px;
+        font-size: 26px; /* أكبر */
       }
       .hero-image {
-        max-height: 300px; /* تمنع التصغير المبالغ فيه */
-      }
-      .item-name, .item-price {
-        font-size: 28px;
-      }
-      .item-desc, .item-currency {
-        font-size: 24px;
-      }
-      .tab {
-        font-size: 24px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        font-size: 24px;
-      }
-      .hero-image {
-        max-height: 350px; /* تحافظ على وضوح الصورة في الموبايل */
-      }
-      .tab {
-        font-size: 26px;
-        padding: 12px;
+        max-height: 300px;
       }
       .item-name, .item-price {
         font-size: 30px;
       }
       .item-desc, .item-currency {
         font-size: 26px;
+      }
+      .tab {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 28px; /* أكبر على الموبايل */
+      }
+      .hero-image {
+        max-height: 350px;
+      }
+      .tab {
+        font-size: 30px;
+        padding: 14px;
+      }
+      .item-name, .item-price {
+        font-size: 32px; /* أوضح جدًا */
+      }
+      .item-desc, .item-currency {
+        font-size: 28px;
       }
     }
   </style>
@@ -177,18 +173,19 @@
 
   <!-- الصورة الرئيسية -->
   <div class="hero-container">
-    <img src="./img/bg-hero (3).png" alt="منتجات السمك" class="hero-image">
+    <img src="fish-banner.png" alt="منتجات السمك" class="hero-image">
   </div>
 
   <!-- التبويبات -->
   <div class="tabs">
-    <div class="tab active" data-target="bakery">المخبوزات</div>
+    <div class="tab active" data-target="all">كل الأصناف</div>
+    <div class="tab" data-target="bakery">المخبوزات</div>
     <div class="tab" data-target="sweets">الحلويات</div>
     <div class="tab" data-target="drinks">المشروبات</div>
   </div>
 
   <!-- قسم المخبوزات -->
-  <div id="bakery" class="menu-section active">
+  <div id="bakery" class="menu-section">
     <div class="item">
       <div class="item-header">
         <div>
@@ -245,20 +242,26 @@
   </div>
 
   <script>
-    // التبويبات
     const tabs = document.querySelectorAll('.tab');
     const sections = document.querySelectorAll('.menu-section');
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active'));
-        sections.forEach(s => s.classList.remove('active'));
         tab.classList.add('active');
-        document.getElementById(tab.dataset.target).classList.add('active');
+
+        if (tab.dataset.target === "all") {
+          // إظهار كل الأقسام
+          sections.forEach(s => s.style.display = "block");
+        } else {
+          // إخفاء الكل ثم إظهار القسم المطلوب
+          sections.forEach(s => s.style.display = "none");
+          document.getElementById(tab.dataset.target).style.display = "block";
+        }
       });
     });
 
-    // المنتجات
+    // المنتجات collapse
     const items = document.querySelectorAll('.item');
     items.forEach(item => {
       item.addEventListener('click', () => {
