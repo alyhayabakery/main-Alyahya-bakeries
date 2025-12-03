@@ -8,12 +8,12 @@
   <style>
     :root {
       /* الألوان */
-      --gold-brown: #d3a273;   /* خلفية أساسية */
+      --gold-brown: #d3a273;   /* خلفية أساسية للجسم والأقسام والمنتجات */
       --deep-maroon: #561414;  /* نص رئيسي */
-      --mid-maroon: #582222;   /* إبرازات */
+      --mid-maroon: #582222;   /* نبيتي للتبويب النشط */
       --white: #ffffff;
 
-      /* الأحجام الأساسية (بعد +15%) */
+      /* أحجام الخط (+15% تقريباً) */
       --base-size: 23px;       /* كان 20px */
       --tab-size: 25px;        /* كان 22px */
       --h2-size: 30px;         /* كان 26px */
@@ -21,8 +21,8 @@
       --desc-curr-size: 25px;  /* كان 22px */
 
       /* ظلال */
-      --item-shadow: 0 2px 6px rgba(0,0,0,0.18);
-      --section-shadow: 0 6px 16px rgba(88,34,34,0.35); /* أقوى للفصل */
+      --item-shadow: 0 2px 6px rgba(0,0,0,0.18);          /* خفيف للمنتجات */
+      --section-shadow: 0 6px 16px rgba(88,34,34,0.35);   /* أقوى للأقسام */
     }
 
     html { scroll-behavior: smooth; }
@@ -35,7 +35,7 @@
       color: var(--deep-maroon);
       font-size: var(--base-size);
       line-height: 1.8;
-      font-weight: 700; /* سميك */
+      font-weight: 700;
     }
 
     /* البانر العلوي */
@@ -62,7 +62,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 18px;
+      gap: 14px;
       padding: 12px 10px;
       background: var(--gold-brown);
     }
@@ -73,15 +73,15 @@
       cursor: pointer;
       font-weight: 800;
       font-size: var(--tab-size);
-      padding: 10px 8px;
-      border: none; /* لا خلفية ولا حدود خارجية */
-      border-bottom: 3px solid transparent; /* يظهر فقط عند التفعيل */
-      transition: border-color 0.2s ease, color 0.2s ease;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      transition: background-color 0.2s ease, color 0.2s ease;
       white-space: nowrap;
     }
     .tab.active {
-      color: var(--white);
-      border-bottom-color: var(--white); /* الإبقاء على الخط تحت التبويب النشط */
+      background: var(--mid-maroon); /* خلفية نبيتي للتبويب النشط */
+      color: var(--white);            /* نص أبيض واضح */
     }
 
     /* الأقسام */
@@ -90,28 +90,26 @@
       padding: 20px 16px;
       background: var(--gold-brown); /* نفس لون الـBODY */
       border-radius: 12px;
-      box-shadow: var(--section-shadow); /* ظل أقوى لفصل الأقسام */
+      box-shadow: var(--section-shadow); /* ظل أقوى للفصل بين الأقسام */
       max-width: 1100px;
     }
     .menu-section h2 {
       margin: 0 0 12px 0;
-      padding-bottom: 6px;
       font-size: var(--h2-size);
       color: var(--deep-maroon);
       font-weight: 800;
-      /* بدون خط أسفل العنوان، الفصل بالظل كفاية */
     }
 
     /* المنتجات */
     .item {
-      background: var(--gold-brown); /* نفس لون الـBODY */
+      background: var(--gold-brown);
       margin-bottom: 14px;
       padding: 16px 12px;
       border-radius: 10px;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.1s ease;
       box-shadow: var(--item-shadow); /* ظل خفيف للفصل بين المنتجات */
-      /* بدون أي حدود حول المنتج */
+      /* بدون حدود حول المنتج */
     }
     .item:active { transform: scale(0.995); }
     .item-header {
@@ -165,7 +163,7 @@
       opacity: 1;
     }
 
-    /* تحسينات للشاشات الصغيرة (نحافظ على زيادة ~15%) */
+    /* تحسينات للشاشات الصغيرة (نحافظ على الزيادة ~15%) */
     @media (max-width: 768px) {
       :root {
         --base-size: 26px;
@@ -174,8 +172,8 @@
         --name-price-size: 34px;
         --desc-curr-size: 28px;
       }
-      .tabs { gap: 14px; }
-      .tab { padding: 10px 6px; }
+      .tabs { gap: 12px; }
+      .tab { padding: 10px 12px; }
     }
     @media (max-width: 480px) {
       :root {
@@ -185,6 +183,7 @@
         --name-price-size: 36px;
         --desc-curr-size: 30px;
       }
+      .tab { padding: 10px 12px; }
     }
   </style>
 </head>
@@ -201,6 +200,7 @@
     <button class="tab" data-target="bakery">المخبوزات</button>
     <button class="tab" data-target="sweets">الحلويات</button>
     <button class="tab" data-target="drinks">المشروبات</button>
+    <button class="tab" data-target="appetizers">مقبلات</button>
   </div>
 
   <!-- الأقسام (كلها ظاهرة افتراضياً) -->
@@ -280,15 +280,51 @@
     </div>
   </section>
 
+  <section id="appetizers" class="menu-section">
+    <h2>مقبلات</h2>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">سلطة الحمص</div>
+          <div class="item-desc">حمص كريمي بزيت الزيتون والطحينة</div>
+        </div>
+        <div>
+          <div class="item-price">10</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="hummus.jpg" alt="سلطة الحمص">
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">بطاطس ويدجز</div>
+          <div class="item-desc">بطاطس متبلة ومقرمشة مع صوص خاص</div>
+        </div>
+        <div>
+          <div class="item-price">9</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image">
+        <img src="wedges.jpg" alt="بطاطس ويدجز">
+      </div>
+    </div>
+  </section>
+
   <script>
-    // تفعيل/إلغاء فتح صورة المنتج
+    // تفعيل/إلغاء عرض صورة المنتج داخل البطاقة
     document.querySelectorAll('.item').forEach(item => {
       item.addEventListener('click', () => {
         item.classList.toggle('active');
       });
     });
 
-    // تبويبات: تنقل ناعم للقسم (بدون تصفية)
+    // التبويبات: تنقل ناعم للقسم (بدون تصفية)
     const tabs = document.querySelectorAll('.tab');
     function setActiveTabByTarget(target) {
       tabs.forEach(t => t.classList.remove('active'));
@@ -299,7 +335,6 @@
       tab.addEventListener('click', () => {
         const target = tab.dataset.target;
         if (target === 'all') {
-          // الذهاب لأعلى البانر/التبويبات
           document.getElementById('top').scrollIntoView({ behavior: 'smooth', block: 'start' });
           setActiveTabByTarget('all');
         } else {
@@ -315,20 +350,20 @@
     // Scroll Spy: تحديث التبويب النشط أثناء التمرير
     const sections = document.querySelectorAll('.menu-section');
     const tabsContainer = document.querySelector('.tabs');
-    const stickyOffset = tabsContainer.offsetHeight || 60; // ارتفاع التبويبات
+    const stickyOffset = tabsContainer.offsetHeight || 60;
 
-    // مراقب تقاطع لضبط التبويب النشط
     const observerOptions = {
       root: null,
-      rootMargin: `-${stickyOffset + 40}px 0px -50% 0px`, // تفعيل عند دخول القسم لمنطقة العرض تحت التبويبات
+      rootMargin: `-${stickyOffset + 40}px 0px -50% 0px`,
       threshold: 0
     };
 
     const sectionToTab = {};
-    tabs.forEach(t => sectionToTab[t.dataset.target] = t);
+    tabs.forEach(t => {
+      sectionToTab[t.dataset.target] = t; // يشمل "all" أيضاً
+    });
 
     const observer = new IntersectionObserver((entries) => {
-      // اختيار القسم الأكثر ظهورًا
       const visible = entries.filter(e => e.isIntersecting);
       if (visible.length > 0) {
         visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -337,7 +372,6 @@
         const tab = sectionToTab[id];
         if (tab) tab.classList.add('active');
       } else {
-        // إذا لا يوجد قسم في منطقة الرؤية (أعلى الصفحة)
         setActiveTabByTarget('all');
       }
     }, observerOptions);
