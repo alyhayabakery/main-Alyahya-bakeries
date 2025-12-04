@@ -15,11 +15,12 @@
       --mid-maroon: #582222;
       --white: #ffffff;
 
-      --base-size: 23px;
-      --tab-size: 25px;
-      --h2-size: 30px;
-      --name-price-size: 30px;
-      --desc-curr-size: 25px;
+      /* أحجام افتراضية متناسقة */
+      --base-size: 20px;
+      --tab-size: 22px;
+      --h2-size: 26px;
+      --name-price-size: 26px;
+      --desc-curr-size: 22px;
 
       --item-shadow: 0 2px 6px rgba(0,0,0,0.18);
       --section-shadow: 0 6px 16px rgba(88,34,34,0.35);
@@ -80,7 +81,7 @@
     .overlay-content a {
       padding: 12px;
       text-decoration: none;
-      font-size: 28px;
+      font-size: 24px;
       color: #fff;
       display: block;
       transition: 0.3s;
@@ -93,7 +94,7 @@
       position: absolute;
       top: 20px;
       left: 30px;
-      font-size: 40px;
+      font-size: 36px;
       color: #fff;
       cursor: pointer;
     }
@@ -117,8 +118,8 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      padding: 12px 10px;
+      gap: 10px;
+      padding: 10px;
       background: var(--gold-brown);
     }
     .tab {
@@ -127,9 +128,9 @@
       cursor: pointer;
       font-weight: 800;
       font-size: var(--tab-size);
-      padding: 10px 14px;
+      padding: 8px 12px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       transition: background-color 0.2s ease, color 0.2s ease;
       white-space: nowrap;
     }
@@ -137,15 +138,15 @@
 
     /* الأقسام */
     .menu-section {
-      margin: 22px auto;
-      padding: 20px 16px;
+      margin: 20px auto;
+      padding: 16px;
       background: var(--gold-brown);
       border-radius: 12px;
       box-shadow: var(--section-shadow);
       max-width: 1100px;
     }
     .menu-section h2 {
-      margin: 0 0 12px 0;
+      margin: 0 0 10px 0;
       font-size: var(--h2-size);
       color: var(--deep-maroon);
       font-weight: 800;
@@ -154,8 +155,8 @@
     /* المنتجات */
     .item {
       background: var(--gold-brown);
-      margin-bottom: 14px;
-      padding: 16px 12px;
+      margin-bottom: 12px;
+      padding: 14px;
       border-radius: 10px;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.1s ease;
@@ -164,11 +165,11 @@
     .item:active { transform: scale(0.995); }
     .item-header {
       display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 8px 16px; flex-wrap: wrap;
+      gap: 8px 12px; flex-wrap: wrap;
     }
     .item-name { font-size: var(--name-price-size); color: var(--deep-maroon); font-weight: 800; }
     .item-price { text-align: left; font-size: var(--name-price-size); color: var(--mid-maroon); font-weight: 800; }
-    .item-desc { margin-top: 8px; font-size: var(--desc-curr-size); color: var(--deep-maroon); font-weight: 700; }
+    .item-desc { margin-top: 6px; font-size: var(--desc-curr-size); color: var(--deep-maroon); font-weight: 700; }
     .item-currency { text-align: left; font-size: var(--desc-curr-size); color: var(--white); font-weight: 700; }
 
     .item-image {
@@ -176,16 +177,38 @@
       transition: max-height 0.5s ease, opacity 0.5s ease;
     }
     .item-image img {
-      width: 100%; height: auto; margin-top: 12px; border-radius: 10px; display: block; background: var(--white);
+      width: 100%; height: auto; margin-top: 10px; border-radius: 10px; display: block; background: var(--white);
     }
-    .item.active .item-image { max-height: 460px; opacity: 1; }
+    .item.active .item-image { max-height: 400px; opacity: 1; }
 
-    /* موبايل */
+    /* تحسينات للشاشات المتوسطة */
     @media (max-width: 768px) {
-      :root { --base-size: 26px; --tab-size: 28px; --h2-size: 34px; --name-price-size: 34px; --desc-curr-size: 28px; }
+      :root {
+        --base-size: 18px;
+        --tab-size: 20px;
+        --h2-size: 22px;
+        --name-price-size: 22px;
+        --desc-curr-size: 18px;
+      }
+      .tabs { gap: 8px; padding: 8px; }
+      .tab { padding: 8px 10px; }
+      .menu-section { padding: 14px; }
     }
+
+    /* تحسينات للشاشات الصغيرة جدًا */
     @media (max-width: 480px) {
-      :root { --base-size: 28px; --tab-size: 30px; --h2-size: 36px; --name-price-size: 36px; --desc-curr-size: 30px; }
+      :root {
+        --base-size: 16px;
+        --tab-size: 18px;
+        --h2-size: 20px;
+        --name-price-size: 20px;
+        --desc-curr-size: 16px;
+      }
+      .navbar { padding: 10px 16px; }
+      .hero-container { margin-top: 64px; }
+      .tabs { gap: 6px; padding: 8px; }
+      .tab { padding: 6px 10px; border-radius: 8px; }
+      .menu-section { padding: 12px; }
     }
   </style>
 </head>
@@ -197,7 +220,7 @@
     <button class="menu-btn" onclick="openOverlay()">☰</button>
   </div>
 
-  <!-- Overlay Menu: الروابط تبقى كما هي -->
+  <!-- Overlay Menu (تبقى الروابط: الرئيسية، جديدنا، تواصل معنا) -->
   <div id="overlayMenu" class="overlay" aria-hidden="true">
     <span class="closebtn" onclick="closeOverlay()">×</span>
     <div class="overlay-content">
@@ -209,7 +232,7 @@
 
   <!-- البانر -->
   <div class="hero-container" id="top">
-    <img src="./img/her.jpg" alt="منيو Alyahya" class="hero-image">
+    <img src="banner.png" alt="منيو Alyahya" class="hero-image">
   </div>
 
   <!-- التبويبات -->
@@ -404,12 +427,12 @@
       ov.setAttribute('aria-hidden', 'true');
     }
 
-    // فتح/إغلاق صور المنتجات
+    // فتح/إغلاق صورة المنتج داخل البطاقة
     document.querySelectorAll('.item').forEach(item => {
       item.addEventListener('click', () => item.classList.toggle('active'));
     });
 
-    // التبويبات: تفعيل فوري + تنقل ناعم
+    // التبويبات: تفعيل فوري + تنقل ناعم مع منع تداخل ScrollSpy
     const tabs = document.querySelectorAll('.tab');
     let isClickNavigating = false;
 
