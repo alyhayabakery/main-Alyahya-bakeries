@@ -2,63 +2,117 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>منيو المخبز</title>
+
   <!-- خط Tajawal -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
-      /* الألوان */
-      --gold-brown: #d3a273;   /* خلفية أساسية للجسم والأقسام والمنتجات */
-      --deep-maroon: #561414;  /* نص رئيسي */
-      --mid-maroon: #582222;   /* نبيتي للتبويب النشط */
+      --gold-brown: #d3a273;
+      --deep-maroon: #561414;
+      --mid-maroon: #582222;
       --white: #ffffff;
 
-      /* أحجام الخط (+15% تقريباً) */
-      --base-size: 23px;       /* كان 20px */
-      --tab-size: 25px;        /* كان 22px */
-      --h2-size: 30px;         /* كان 26px */
-      --name-price-size: 30px; /* كان 26px */
-      --desc-curr-size: 25px;  /* كان 22px */
+      --base-size: 23px;
+      --tab-size: 25px;
+      --h2-size: 30px;
+      --name-price-size: 30px;
+      --desc-curr-size: 25px;
 
-      /* ظلال */
-      --item-shadow: 0 2px 6px rgba(0,0,0,0.18);          /* خفيف للمنتجات */
-      --section-shadow: 0 6px 16px rgba(88,34,34,0.35);   /* أقوى للأقسام */
+      --item-shadow: 0 2px 6px rgba(0,0,0,0.18);
+      --section-shadow: 0 6px 16px rgba(88,34,34,0.35);
     }
 
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
-    body {
+    /* تطبيق الخط على العناصر المهمة */
+    body, .navbar, .overlay, .overlay-content a, .tabs, .tab, .menu-section, .menu-section h2, .item {
       font-family: 'Tajawal', sans-serif;
+    }
+
+    body {
       margin: 0;
-      padding: 0;
       background: var(--gold-brown);
       color: var(--deep-maroon);
       font-size: var(--base-size);
       line-height: 1.8;
       font-weight: 700;
+      padding-bottom: 60px;
     }
 
-    /* البانر العلوي */
+    /* Navbar ثابت */
+    .navbar {
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      background: var(--mid-maroon);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      z-index: 2000;
+    }
+    .navbar .logo { font-size: 22px; font-weight: 800; }
+    .navbar .menu-btn {
+      font-size: 22px; cursor: pointer; background: none; border: none; color: #fff;
+    }
+
+    /* Overlay كامل الشاشة */
+    .overlay {
+      height: 0;
+      width: 100%;
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      background-color: rgba(88,34,34,0.95);
+      overflow: hidden;
+      transition: height 0.5s ease;
+      z-index: 3000;
+    }
+    .overlay-content {
+      position: absolute;
+      top: 25%;
+      left: 0; right: 0;
+      text-align: center;
+    }
+    .overlay-content a {
+      padding: 12px;
+      text-decoration: none;
+      font-size: 28px;
+      color: #fff;
+      display: block;
+      transition: 0.3s;
+    }
+    .overlay-content a:hover {
+      background: var(--gold-brown);
+      color: var(--deep-maroon);
+    }
+    .overlay .closebtn {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 40px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* البانر */
     .hero-container {
       width: calc(100% - 10px);
-      margin: 6px auto 0;
+      margin: 70px auto 0; /* أسفل الـNavbar */
       overflow: hidden;
       border-radius: 12px;
       max-width: 1200px;
       background: var(--white);
     }
-    .hero-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain; /* تظهر كاملة بدون قص */
-    }
+    .hero-image { width: 100%; height: auto; display: block; object-fit: contain; }
 
     /* التبويبات */
     .tabs {
       position: sticky;
-      top: 0;
+      top: 60px; /* تحت الـNavbar */
       z-index: 1000;
       display: flex;
       flex-wrap: wrap;
@@ -68,7 +122,6 @@
       background: var(--gold-brown);
     }
     .tab {
-      font-family: 'Tajawal', sans-serif;
       background: transparent;
       color: var(--white);
       cursor: pointer;
@@ -80,18 +133,15 @@
       transition: background-color 0.2s ease, color 0.2s ease;
       white-space: nowrap;
     }
-    .tab.active {
-      background: var(--mid-maroon); /* خلفية نبيتي للتبويب النشط */
-      color: var(--white);            /* نص أبيض واضح */
-    }
+    .tab.active { background: var(--mid-maroon); color: var(--white); }
 
     /* الأقسام */
     .menu-section {
       margin: 22px auto;
       padding: 20px 16px;
-      background: var(--gold-brown); /* نفس لون الـBODY */
+      background: var(--gold-brown);
       border-radius: 12px;
-      box-shadow: var(--section-shadow); /* ظل أقوى لفصل الأقسام */
+      box-shadow: var(--section-shadow);
       max-width: 1100px;
     }
     .menu-section h2 {
@@ -109,330 +159,199 @@
       border-radius: 10px;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.1s ease;
-      box-shadow: var(--item-shadow); /* ظل خفيف للفصل بين المنتجات */
-      /* بدون حدود حول المنتج */
+      box-shadow: var(--item-shadow);
     }
     .item:active { transform: scale(0.995); }
     .item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px 16px;
-      flex-wrap: wrap; /* يتكيف على الشاشات الصغيرة */
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 8px 16px; flex-wrap: wrap;
     }
-    .item-name {
-      font-size: var(--name-price-size);
-      color: var(--deep-maroon);
-      font-weight: 800;
-    }
-    .item-price {
-      text-align: left;
-      font-size: var(--name-price-size);
-      color: var(--mid-maroon);
-      font-weight: 800;
-    }
-    .item-desc {
-      margin-top: 8px;
-      font-size: var(--desc-curr-size);
-      color: var(--deep-maroon);
-      font-weight: 700;
-    }
-    .item-currency {
-      text-align: left;
-      font-size: var(--desc-curr-size);
-      color: var(--white); /* الريال باللون الأبيض */
-      font-weight: 700;
-    }
+    .item-name { font-size: var(--name-price-size); color: var(--deep-maroon); font-weight: 800; }
+    .item-price { text-align: left; font-size: var(--name-price-size); color: var(--mid-maroon); font-weight: 800; }
+    .item-desc { margin-top: 8px; font-size: var(--desc-curr-size); color: var(--deep-maroon); font-weight: 700; }
+    .item-currency { text-align: left; font-size: var(--desc-curr-size); color: var(--white); font-weight: 700; }
 
-    /* صورة المنتج داخل الانهيار */
     .item-image {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
+      max-height: 0; overflow: hidden; opacity: 0;
       transition: max-height 0.5s ease, opacity 0.5s ease;
     }
     .item-image img {
-      width: 100%;
-      height: auto;
-      margin-top: 12px;
-      border-radius: 10px;
-      display: block;
-      background: var(--white);
+      width: 100%; height: auto; margin-top: 12px; border-radius: 10px; display: block; background: var(--white);
     }
-    .item.active .item-image {
-      max-height: 460px;
-      opacity: 1;
-    }
+    .item.active .item-image { max-height: 460px; opacity: 1; }
 
-    /* تحسينات للشاشات الصغيرة (الزيادة ~15%) */
+    /* موبايل */
     @media (max-width: 768px) {
-      :root {
-        --base-size: 26px;
-        --tab-size: 28px;
-        --h2-size: 34px;
-        --name-price-size: 34px;
-        --desc-curr-size: 28px;
-      }
-      .tabs { gap: 12px; }
-      .tab { padding: 10px 12px; }
+      :root { --base-size: 26px; --tab-size: 28px; --h2-size: 34px; --name-price-size: 34px; --desc-curr-size: 28px; }
     }
     @media (max-width: 480px) {
-      :root {
-        --base-size: 28px;
-        --tab-size: 30px;
-        --h2-size: 36px;
-        --name-price-size: 36px;
-        --desc-curr-size: 30px;
-      }
-      .tab { padding: 10px 12px; }
+      :root { --base-size: 28px; --tab-size: 30px; --h2-size: 36px; --name-price-size: 36px; --desc-curr-size: 30px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- البانر العلوي -->
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">منيو المخبز</div>
+    <button class="menu-btn" onclick="openOverlay()">☰</button>
+  </div>
+
+  <!-- Overlay Menu: الروابط تبقى كما هي -->
+  <div id="overlayMenu" class="overlay" aria-hidden="true">
+    <span class="closebtn" onclick="closeOverlay()">×</span>
+    <div class="overlay-content">
+      <a href="#top" onclick="closeOverlay()">الرئيسية</a>
+      <a href="#new" onclick="closeOverlay()">جديدنا</a>
+      <a href="#contact" onclick="closeOverlay()">تواصل معنا</a>
+    </div>
+  </div>
+
+  <!-- البانر -->
   <div class="hero-container" id="top">
-    <img src="./img/her.jpg" alt="منتجات السمك" class="hero-image">
+    <img src="./img/her.jpg" alt="منيو Alyahya" class="hero-image">
   </div>
 
   <!-- التبويبات -->
-  <div class="tabs">
-    
-    <button class="tab" data-target="bakery">بيتزا</button>
-    <button class="tab" data-target="sweets">معجنات</button>
-    <button class="tab" data-target="drinks">فلافل</button>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-target="pizza">بيتزا</button>
+    <button class="tab" data-target="pastry">معجنات</button>
+    <button class="tab" data-target="falafel">فلافل</button>
     <button class="tab" data-target="appetizers">مقبلات</button>
   </div>
 
-  <!-- الأقسام (كلها ظاهرة افتراضياً) -->
-  <section id="bakery" class="menu-section">
-    <h2>المخبوزات</h2>
+  <!-- الأقسام + منتجات -->
+  <section id="pizza" class="menu-section">
+    <h2>بيتزا</h2>
+
     <div class="item">
       <div class="item-header">
         <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
+          <div class="item-name">بيتزا مارغريتا</div>
+          <div class="item-desc">صلصة طماطم، موزاريلا طازجة، ريحان</div>
         </div>
         <div>
-          <div class="item-price">5</div>
+          <div class="item-price">24</div>
           <div class="item-currency">ريال</div>
         </div>
       </div>
-      <div class="item-image">
-        <img src="bread.jpg" alt="خبز بر">
-      </div>
+      <div class="item-image"><img src="pizza-margherita.jpg" alt="بيتزا مارغريتا"></div>
     </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="bread.jpg" alt="خبز بر">
-      </div>
-    </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="bread.jpg" alt="خبز بر">
-      </div>
-    </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="bread.jpg" alt="خبز بر">
-      </div>
-    </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">خبز بر</div>
-          <div class="item-desc">خبز صحي مصنوع من دقيق البر</div>
-        </div>
-        <div>
-          <div class="item-price">5</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="bread.jpg" alt="خبز بر">
-      </div>
-    </div>
+
     <div class="item">
       <div class="item-header">
         <div>
-          <div class="item-name">كرواسون</div>
-          <div class="item-desc">كرواسون طازج بالزبدة</div>
+          <div class="item-name">بيتزا بيبروني</div>
+          <div class="item-desc">موزاريلا، بيبروني، صلصة خاصة</div>
         </div>
         <div>
-          <div class="item-price">7</div>
+          <div class="item-price">28</div>
           <div class="item-currency">ريال</div>
         </div>
       </div>
-      <div class="item-image">
-        <img src="croissant.jpg" alt="كرواسون">
+      <div class="item-image"><img src="pizza-pepperoni.jpg" alt="بيتزا بيبروني"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">بيتزا خضار</div>
+          <div class="item-desc">فلفل، زيتون، مشروم، ذرة، جبن</div>
+        </div>
+        <div>
+          <div class="item-price">26</div>
+          <div class="item-currency">ريال</div>
+        </div>
       </div>
+      <div class="item-image"><img src="pizza-veggie.jpg" alt="بيتزا خضار"></div>
     </div>
   </section>
 
-  <section id="sweets" class="menu-section">
-    <h2>الحلويات</h2>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كيك شوكولاتة</div>
-          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
-        </div>
-        <div>
-          <div class="item-price">12</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cake.jpg" alt="كيك شوكولاتة">
-      </div>
-    </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كيك شوكولاتة</div>
-          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
-        </div>
-        <div>
-          <div class="item-price">12</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cake.jpg" alt="كيك شوكولاتة">
-      </div>
-    </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كيك شوكولاتة</div>
-          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
-        </div>
-        <div>
-          <div class="item-price">12</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cake.jpg" alt="كيك شوكولاتة">
-      </div>
-    </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كيك شوكولاتة</div>
-          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
-        </div>
-        <div>
-          <div class="item-price">12</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cake.jpg" alt="كيك شوكولاتة">
-      </div>
-    </div>
-        <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">كيك شوكولاتة</div>
-          <div class="item-desc">كيك غني بالشوكولاتة البلجيكية</div>
-        </div>
-        <div>
-          <div class="item-price">12</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cake.jpg" alt="كيك شوكولاتة">
-      </div>
-    </div>
-    <div class="item">
-      <div class="item-header">
-        <div>
-          <div class="item-name">تشيز كيك</div>
-          <div class="item-desc">تشيز كيك كريمي بنكهة الفانيلا</div>
-        </div>
-        <div>
-          <div class="item-price">14</div>
-          <div class="item-currency">ريال</div>
-        </div>
-      </div>
-      <div class="item-image">
-        <img src="cheesecake.jpg" alt="تشيز كيك">
-      </div>
-    </div>
-  </section>
+  <section id="pastry" class="menu-section">
+    <h2>معجنات</h2>
 
-  <section id="drinks" class="menu-section">
-    <h2>المشروبات</h2>
     <div class="item">
       <div class="item-header">
         <div>
-          <div class="item-name">قهوة عربية</div>
-          <div class="item-desc">قهوة عربية مع الهيل</div>
+          <div class="item-name">فطيرة جبن</div>
+          <div class="item-desc">عجينة طرية، جبن أبيض، رشة زعتر</div>
         </div>
         <div>
           <div class="item-price">8</div>
           <div class="item-currency">ريال</div>
         </div>
       </div>
-      <div class="item-image">
-        <img src="coffee.jpg" alt="قهوة عربية">
-      </div>
+      <div class="item-image"><img src="pastry-cheese.jpg" alt="فطيرة جبن"></div>
     </div>
+
     <div class="item">
       <div class="item-header">
         <div>
-          <div class="item-name">شاي أحمر</div>
-          <div class="item-desc">شاي أسود فاخر</div>
+          <div class="item-name">فطيرة الزعتر</div>
+          <div class="item-desc">زعتر بلدي بزيت الزيتون</div>
+        </div>
+        <div>
+          <div class="item-price">7</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image"><img src="pastry-zaatar.jpg" alt="فطيرة الزعتر"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">كرواسون زبدة</div>
+          <div class="item-desc">طبقات ذهبية مقرمشة بنكهة الزبدة</div>
+        </div>
+        <div>
+          <div class="item-price">9</div>
+          <div class="item-currency">ريال</div>
+        </div>
+      </div>
+      <div class="item-image"><img src="croissant-butter.jpg" alt="كرواسون زبدة"></div>
+    </div>
+  </section>
+
+  <section id="falafel" class="menu-section">
+    <h2>فلافل</h2>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">سندويتش فلافل</div>
+          <div class="item-desc">خبز طازج، فلافل، طحينة، مخللات</div>
         </div>
         <div>
           <div class="item-price">6</div>
           <div class="item-currency">ريال</div>
         </div>
       </div>
-      <div class="item-image">
-        <img src="tea.jpg" alt="شاي أحمر">
+      <div class="item-image"><img src="falafel-sandwich.jpg" alt="سندويتش فلافل"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">فلافل طبق</div>
+          <div class="item-desc">كرات فلافل مقرمشة مع صوصات جانبية</div>
+        </div>
+        <div>
+          <div class="item-price">10</div>
+          <div class="item-currency">ريال</div>
+        </div>
       </div>
+      <div class="item-image"><img src="falafel-plate.jpg" alt="فلافل طبق"></div>
     </div>
   </section>
 
   <section id="appetizers" class="menu-section">
     <h2>مقبلات</h2>
+
     <div class="item">
       <div class="item-header">
         <div>
-          <div class="item-name">سلطة الحمص</div>
+          <div class="item-name">حمص</div>
           <div class="item-desc">حمص كريمي بزيت الزيتون والطحينة</div>
         </div>
         <div>
@@ -440,10 +359,9 @@
           <div class="item-currency">ريال</div>
         </div>
       </div>
-      <div class="item-image">
-        <img src="hummus.jpg" alt="سلطة الحمص">
-      </div>
+      <div class="item-image"><img src="hummus.jpg" alt="حمص"></div>
     </div>
+
     <div class="item">
       <div class="item-header">
         <div>
@@ -455,78 +373,87 @@
           <div class="item-currency">ريال</div>
         </div>
       </div>
-      <div class="item-image">
-        <img src="wedges.jpg" alt="بطاطس ويدجز">
+      <div class="item-image"><img src="wedges.jpg" alt="بطاطس ويدجز"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">سلطة فتوش</div>
+          <div class="item-desc">خضار طازجة مع خبز محمص وصلصة ليمون</div>
+        </div>
+        <div>
+          <div class="item-price">12</div>
+          <div class="item-currency">ريال</div>
+        </div>
       </div>
+      <div class="item-image"><img src="fattoush.jpg" alt="سلطة فتوش"></div>
     </div>
   </section>
 
-
   <script>
-    // فتح/إغلاق صورة المنتج داخل البطاقة
-    document.querySelectorAll('.item').forEach(item => {
-      item.addEventListener('click', () => {
-        item.classList.toggle('active');
-      });
-    });
-
-    // تبويبات: تنقل ناعم للقسم (بدون تصفية)
-    const tabs = document.querySelectorAll('.tab');
-    function setActiveTabByTarget(target) {
-      tabs.forEach(t => t.classList.remove('active'));
-      const match = Array.from(tabs).find(t => t.dataset.target === target);
-      if (match) match.classList.add('active');
+    // فتح/إغلاق Overlay
+    function openOverlay() {
+      const ov = document.getElementById('overlayMenu');
+      ov.style.height = '100%';
+      ov.setAttribute('aria-hidden', 'false');
     }
+    function closeOverlay() {
+      const ov = document.getElementById('overlayMenu');
+      ov.style.height = '0';
+      ov.setAttribute('aria-hidden', 'true');
+    }
+
+    // فتح/إغلاق صور المنتجات
+    document.querySelectorAll('.item').forEach(item => {
+      item.addEventListener('click', () => item.classList.toggle('active'));
+    });
+
+    // التبويبات: تفعيل فوري + تنقل ناعم
+    const tabs = document.querySelectorAll('.tab');
+    let isClickNavigating = false;
+
+    function activateTab(tabEl) {
+      tabs.forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+    }
+
     tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
         const target = tab.dataset.target;
-        if (target === 'all') {
-          document.getElementById('top').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          setActiveTabByTarget('all');
-        } else {
-          const section = document.getElementById(target);
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setActiveTabByTarget(target);
-          }
-        }
+
+        activateTab(tab);
+        isClickNavigating = true;
+
+        const section = document.getElementById(target);
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        setTimeout(() => { isClickNavigating = false; }, 700);
       });
     });
 
-    // Scroll Spy: تحديث التبويب النشط أثناء التمرير
+    // ScrollSpy أثناء التمرير فقط
     const sections = document.querySelectorAll('.menu-section');
-    const tabsContainer = document.querySelector('.tabs');
-    const stickyOffset = tabsContainer.offsetHeight || 60; // ارتفاع شريط التبويبات
-
-    const observerOptions = {
-      root: null,
-      rootMargin: `-${stickyOffset + 40}px 0px -50% 0px`,
-      threshold: 0
-    };
+    const tabsContainer = document.getElementById('tabs');
+    const stickyOffset = (tabsContainer?.offsetHeight || 60) + 40;
 
     const sectionToTab = {};
-    tabs.forEach(t => {
-      sectionToTab[t.dataset.target] = t; // يشمل "all" أيضاً
-    });
+    tabs.forEach(t => { sectionToTab[t.dataset.target] = t; });
 
     const observer = new IntersectionObserver((entries) => {
+      if (isClickNavigating) return;
+
       const visible = entries.filter(e => e.isIntersecting);
       if (visible.length > 0) {
         visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         const id = visible[0].target.id;
-        tabs.forEach(t => t.classList.remove('active'));
         const tab = sectionToTab[id];
-        if (tab) tab.classList.add('active');
-      } else {
-        setActiveTabByTarget('all');
+        if (tab) activateTab(tab);
       }
-    }, observerOptions);
+    }, { root: null, rootMargin: `-${stickyOffset}px 0px -50% 0px`, threshold: 0 });
 
     sections.forEach(section => observer.observe(section));
-
-    // تعيين التبويب الافتراضي عند التحميل
-    setActiveTabByTarget('all');
   </script>
 </body>
 </html>
-
