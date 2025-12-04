@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>منيو المخبز</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --gold-brown: #d3a273;
@@ -12,7 +13,6 @@
       --mid-maroon: #582222;
       --white: #ffffff;
 
-      /* أحجام أساسية متناسقة */
       --base-size: 20px;
       --tab-size: 22px;
       --h2-size: 26px;
@@ -22,7 +22,6 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body, .navbar, .overlay, .overlay-content a, .tabs, .tab, .menu-section, .menu-section h2, .item {
       font-family: 'Tajawal', sans-serif;
     }
@@ -95,14 +94,30 @@
     .item {
       background: var(--gold-brown); margin-bottom: 12px; padding: 14px;
       border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+      cursor: pointer;
     }
     .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px 12px; flex-wrap: wrap; }
 
-    /* تصغير 20% لاسم المنتج والسعر والوصف والعملة */
+    /* تصغير 20% لاسم المنتج والسعر والعملة */
     .item-name, .item-price { font-size: calc(var(--name-price-size) * 0.8); font-weight: 800; }
-    .item-desc, .item-currency { font-size: calc(var(--desc-curr-size) * 0.8); font-weight: 700; }
     .item-price { color: var(--mid-maroon); }
-    .item-currency { color: var(--white); }
+    .item-currency { font-size: calc(var(--desc-curr-size) * 0.8); font-weight: 700; color: var(--white); }
+
+    /* صورة المنتج: تظهر كاملة بدون قص على كل الشاشات */
+    .item-image {
+      overflow: hidden;
+      max-height: 0; /* مغلقة افتراضيًا */
+      transition: max-height 0.5s ease;
+    }
+    .item-image img {
+      width: 100%;
+      height: auto;            /* يحافظ على النسبة ويظهر الصورة كاملة */
+      display: block;
+      object-fit: contain;     /* عدم القص */
+      background: var(--white);
+      border-radius: 10px;
+      margin-top: 10px;
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -144,7 +159,7 @@
 
   <!-- Banner -->
   <div class="hero-container" id="top">
-    <img src="banner.png" alt="منيو Alyahya" class="hero-image">
+    <img src="./img/HERO.jpg" alt="منيو Alyahya" class="hero-image">
   </div>
 
   <!-- Tabs -->
@@ -160,116 +175,120 @@
     <h2>بيتزا</h2>
 
     <!-- كبير -->
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا لحم كبير</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا دجاج كبير</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا مشكل كبير</div></div><div><div class="item-price">29.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا ايطالي كبير</div></div><div><div class="item-price">29.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا بيبروني كبير</div></div><div><div class="item-price">28.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا فلافل كبير</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا خضار كبير</div></div><div><div class="item-price">18.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا جبن كبير</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item">
+      <div class="item-header">
+        <div><div class="item-name">بيتزا لحم كبير</div></div>
+        <div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div>
+      </div>
+      <div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا لحم كبير"></div>
+    </div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا دجاج كبير</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا دجاج كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا مشكل كبير</div></div><div><div class="item-price">29.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا مشكل كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا ايطالي كبير</div></div><div><div class="item-price">29.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا ايطالي كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا بيبروني كبير</div></div><div><div class="item-price">28.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا بيبروني كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا فلافل كبير</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا فلافل كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا خضار كبير</div></div><div><div class="item-price">18.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا خضار كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا جبن كبير</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا جبن كبير"></div></div>
 
     <!-- صغير -->
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا لحم صغير</div></div><div><div class="item-price">14.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا دجاج صغير</div></div><div><div class="item-price">14.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا مشكل صغير</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا ايطالي صغير</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا بيبروني صغير</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا فلافل صغير</div></div><div><div class="item-price">18.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا خضار صغير</div></div><div><div class="item-price">11.50</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا جبن صغير</div></div><div><div class="item-price">11.50</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا لحم صغير</div></div><div><div class="item-price">14.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا لحم صغير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا دجاج صغير</div></div><div><div class="item-price">14.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا دجاج صغير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا مشكل صغير</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا مشكل صغير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا ايطالي صغير</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا ايطالي صغير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا بيبروني صغير</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا بيبروني صغير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا فلافل صغير</div></div><div><div class="item-price">18.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا فلافل صغير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا خضار صغير</div></div><div><div class="item-price">11.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا خضار صغير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا جبن صغير</div></div><div><div class="item-price">11.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا جبن صغير"></div></div>
   </section>
 
   <!-- معجنات -->
   <section id="pastry" class="menu-section">
     <h2>معجنات</h2>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">لحم بالبيض</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لحم بالعجين</div></div><div><div class="item-price">6.75</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لحم بالجبن</div></div><div><div class="item-price">7.75</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لحم بالبيض</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لحم بالبيض"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لحم بالعجين</div></div><div><div class="item-price">6.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لحم بالعجين"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لحم بالجبن</div></div><div><div class="item-price">7.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لحم بالجبن"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">دجاج بالعجين</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">دجاج بالجبن</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">دجاج بالعجين</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="دجاج بالعجين"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">دجاج بالجبن</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="دجاج بالجبن"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">فاهيتا دجاج</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">فاهيتا دجاج جبن</div></div><div><div class="item-price">8.50</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فاهيتا دجاج</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فاهيتا دجاج"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فاهيتا دجاج جبن</div></div><div><div class="item-price">8.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فاهيتا دجاج جبن"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">بطاطس</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بطاطس بالجبن</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بطاطس باللبنة</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بطاطس</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بطاطس"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بطاطس بالجبن</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بطاطس بالجبن"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بطاطس باللبنة</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بطاطس باللبنة"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ بالجبن</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ باللبنة</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ مشكل</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ لحم</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ بالبيض</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="سبانخ"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ بالجبن</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="سبانخ بالجبن"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ باللبنة</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="سبانخ باللبنة"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ مشكل</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="سبانخ مشكل"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ لحم</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="سبانخ لحم"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">سبانخ بالبيض</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="سبانخ بالبيض"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">جــــــبن</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالبيض</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن خضار</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالزيتون</div></div><div><div class="item-price">6.50</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالزعتر</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالعسل</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن عكاوي</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جــــــبن</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالبيض</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن بالبيض"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن خضار</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن خضار"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالزيتون</div></div><div><div class="item-price">6.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن بالزيتون"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالزعتر</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن بالزعتر"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن بالعسل</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن بالعسل"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن عكاوي</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن عكاوي"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">عش البلبل</div></div><div><div class="item-price">7.50</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">عش البلبل</div></div><div><div class="item-price">7.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="عش البلبل"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن سائل</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن سائل بالزعتر</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">جبن سائل بالفستق والعسل</div></div><div><div class="item-price">10.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن سائل</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن سائل"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن سائل بالزعتر</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن سائل بالزعتر"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">جبن سائل بالفستق والعسل</div></div><div><div class="item-price">10.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="جبن سائل بالفستق والعسل"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة</div></div><div><div class="item-price">5.50</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة باللحم</div></div><div><div class="item-price">7.50</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالدجاح</div></div><div><div class="item-price">7.50</div><div class="item-currency">ريــــال</div></div></div></div> <!-- ملاحظة: دجاج مكتوبة كما أرسلت -->
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالجبن</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالخضار</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالزيتون</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالعسل</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالزعتر</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">لبنة مشكل</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة</div></div><div><div class="item-price">5.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة باللحم</div></div><div><div class="item-price">7.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة باللحم"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالدجاح</div></div><div><div class="item-price">7.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة بالدجاح"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالجبن</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة بالجبن"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالخضار</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة بالخضار"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالزيتون</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة بالزيتون"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالعسل</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة بالعسل"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة بالزعتر</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة بالزعتر"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">لبنة مشكل</div></div><div><div class="item-price">7.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="لبنة مشكل"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">زعتر</div></div><div><div class="item-price">2.50</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">زعتر بالخضار</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">زعتر</div></div><div><div class="item-price">2.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="زعتر"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">زعتر بالخضار</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="زعتر بالخضار"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">محمرة</div></div><div><div class="item-price">5.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">محمرة بالجبن</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">محمرة</div></div><div><div class="item-price">5.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="محمرة"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">محمرة بالجبن</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="محمرة بالجبن"></div></div>
   </section>
 
   <!-- فلافل -->
   <section id="falafel" class="menu-section">
     <h2>فلافل</h2>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل بالجبن</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل باللبنة</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل بالجبن</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل بالجبن"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل باللبنة</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل باللبنة"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل مشكل"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">صحن مشكل</div></div><div><div class="item-price">80.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="صحن مشكل"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">صحن مشكل</div></div><div><div class="item-price">80.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل كبير</div></div><div><div class="item-price">23.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="صحن فلافل كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل وسط</div></div><div><div class="item-price">17.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="صحن فلافل وسط"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل صغير</div></div><div><div class="item-price">11.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="صحن فلافل صغير"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل كبير</div></div><div><div class="item-price">23.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل وسط</div></div><div><div class="item-price">17.50</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل صغير</div></div><div><div class="item-price">11.50</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل مشكل"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافــل عادي</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل عادي"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافــل عادي</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل بر</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل مشكل بر"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافــل عادي بر</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل عادي بر"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل بر</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافــل عادي بر</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div></div>
-
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافــل بخبز الصاج</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل بخبز البطاطس</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل بخبز الشمندر</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافــل بخبز الصاج</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل بخبز الصاج"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل بخبز البطاطس</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل بخبز البطاطس"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل بخبز الشمندر</div></div><div><div class="item-price">7.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل بخبز الشمندر"></div></div>
   </section>
 
   <!-- مقبلات -->
   <section id="appetizers" class="menu-section">
     <h2>مقبلات</h2>
-
-    <div class="item"><div class="item-header"><div><div class="item-name">حمص</div></div><div><div class="item-price">14.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">حمص</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">حمص</div></div><div><div class="item-price">17.00</div><div class="item-currency">ريــــال</div></div></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">حمص</div></div><div><div class="item-price">14.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="حمص"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">حمص</div></div><div><div class="item-price">15.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="حمص"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">حمص</div></div><div><div class="item-price">17.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="حمص"></div></div>
   </section>
 
   <script>
@@ -285,21 +304,62 @@
       ov.setAttribute('aria-hidden', 'true');
     }
 
-    // تبويبات: تفعيل وتنقل ناعم
+    // فتح/إغلاق صورة المنتج بشكل سلس بدون قص
+    document.querySelectorAll('.item').forEach(item => {
+      const imgWrap = item.querySelector('.item-image');
+      item.addEventListener('click', () => {
+        if (!imgWrap) return;
+        const isOpen = imgWrap.style.maxHeight && imgWrap.style.maxHeight !== '0px';
+        if (isOpen) {
+          imgWrap.style.maxHeight = '0px';
+        } else {
+          // حساب الارتفاع الحقيقي للمحتوى لعمل أنيميشن سلس
+          imgWrap.style.maxHeight = imgWrap.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // التبويبات: تفعيل بالنقر + ScrollSpy أثناء التمرير
     const tabs = document.querySelectorAll('.tab');
+    const sections = document.querySelectorAll('.menu-section');
+    const tabsContainer = document.getElementById('tabs');
+    let isClickNavigating = false;
+
     function activateTab(tabEl) {
       tabs.forEach(t => t.classList.remove('active'));
       tabEl.classList.add('active');
     }
+
     tabs.forEach(tab => {
       tab.addEventListener('click', (e) => {
         e.preventDefault();
         const target = tab.dataset.target;
-        activateTab(tab);
         const section = document.getElementById(target);
-        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!section) return;
+        isClickNavigating = true;
+        activateTab(tab);
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => { isClickNavigating = false; }, 700);
       });
     });
+
+    // ScrollSpy يحترم ارتفاع التبويبات اللاصقة
+    const stickyOffset = (tabsContainer?.offsetHeight || 60) + 40;
+    const sectionToTab = {};
+    tabs.forEach(t => { sectionToTab[t.dataset.target] = t; });
+
+    const observer = new IntersectionObserver((entries) => {
+      if (isClickNavigating) return;
+      const visible = entries.filter(e => e.isIntersecting);
+      if (visible.length > 0) {
+        visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const id = visible[0].target.id;
+        const tab = sectionToTab[id];
+        if (tab) activateTab(tab);
+      }
+    }, { root: null, rootMargin: `-${stickyOffset}px 0px -50% 0px`, threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
+
+    sections.forEach(section => observer.observe(section));
   </script>
 </body>
 </html>
