@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>منيو المخبز</title>
 
-  <!-- Tajawal font -->
+  <!-- خط Tajawal -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -23,9 +23,9 @@
     }
 
     * { box-sizing: border-box; }
-    html, body { font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important; }
-    *, *::before, *::after { font-family: inherit !important; }
-    button, .tab, a, input, select, textarea { font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important; }
+    html, body { font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important; }
+    *,*::before,*::after { font-family: inherit !important; }
+    button,.tab,a,input,select,textarea{ font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important; }
 
     html { scroll-behavior: smooth; }
     body {
@@ -99,7 +99,6 @@
     }
     .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px 12px; flex-wrap: wrap; }
 
-    /* 20% smaller for mobile clarity */
     .item-name, .item-price { font-size: calc(var(--name-price-size) * 0.8); font-weight: 800; }
     .item-price { color: var(--mid-maroon); }
     .item-desc, .item-currency { font-size: calc(var(--desc-curr-size) * 0.8); font-weight: 700; }
@@ -137,10 +136,8 @@
     <span class="closebtn" onclick="closeOverlay()">×</span>
     <div class="overlay-content">
       <a href="#top" onclick="closeOverlay()">الرئيسية</a>
-      <a href="#pizza" onclick="closeOverlay()">بيتزا</a>
-      <a href="#pastry" onclick="closeOverlay()">معجنات</a>
-      <a href="#falafel" onclick="closeOverlay()">فلافل</a>
-      <a href="#appetizers" onclick="closeOverlay()">مقبلات</a>
+      <a href="#new" onclick="closeOverlay()">جديدنا</a>
+      <a href="#contact" onclick="closeOverlay()">تواصل معنا</a>
     </div>
   </div>
 
@@ -167,7 +164,7 @@
     <div class="item"><div class="item-header"><div><div class="item-name">بيتزا مشكل كبير</div><div class="item-desc">تشكيلة لحوم وخضار بطابع غني</div></div><div><div class="item-price">29.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا مشكل كبير"></div></div>
     <div class="item"><div class="item-header"><div><div class="item-name">بيتزا ايطالي كبير</div><div class="item-desc">أسلوب نابوليتانا بصلصة إيطالية كلاسيكية</div></div><div><div class="item-price">29.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا ايطالي كبير"></div></div>
     <div class="item"><div class="item-header"><div><div class="item-name">بيتزا بيبروني كبير</div><div class="item-desc">شرائح بيبروني مدخنة مع جبن موزاريلا</div></div><div><div class="item-price">28.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا بيبروني كبير"></div></div>
-    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا فلافل كبير</div><div class="item-desc">فلافل مقرمشة مع صلصة طحينة وخضار</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا فلافل كبير"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">بيتزا فلالفل كبير</div><div class="item-desc">فلافل مقرمشة مع صلصة طحينة وخضار</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا فلافل كبير"></div></div>
     <div class="item"><div class="item-header"><div><div class="item-name">بيتزا خضار كبير</div><div class="item-desc">فلفل، زيتون، مشروم، ذرة مع جبن خفيف</div></div><div><div class="item-price">18.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا خضار كبير"></div></div>
     <div class="item"><div class="item-header"><div><div class="item-name">بيتزا جبن كبير</div><div class="item-desc">جبنة موزاريلا غنية على عجينة مخمرة</div></div><div><div class="item-price">25.00</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="بيتزا جبن كبير"></div></div>
 
@@ -253,7 +250,7 @@
     <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل وسط</div><div class="item-desc">طبق فلافل حجم متوسط</div></div><div><div class="item-price">17.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="صحن فلافل وسط"></div></div>
     <div class="item"><div class="item-header"><div><div class="item-name">صحن فلافل صغير</div><div class="item-desc">طبق فلافل حجم صغير مناسب لفرد</div></div><div><div class="item-price">11.50</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="صحن فلافل صغير"></div></div>
 
-    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل</div><div class="item-desc">ساندويتش فلافل بتشكيلة إضافات</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل مشكل (سندويتش)"></div></div>
+    <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل</div><div class="item-desc">ساندويتش فلافل بتشكيلة إضافات</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل مشكل"></div></div>
     <div class="item"><div class="item-header"><div><div class="item-name">فلافــل عادي</div><div class="item-desc">ساندويتش فلافل كلاسيكي</div></div><div><div class="item-price">4.60</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل عادي"></div></div>
 
     <div class="item"><div class="item-header"><div><div class="item-name">فلافل مشكل بر</div><div class="item-desc">سندويتش خبز بر بتشكيلة فلافل</div></div><div><div class="item-price">5.75</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="فلافل مشكل بر"></div></div>
