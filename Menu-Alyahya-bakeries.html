@@ -11,8 +11,8 @@
   <style>
     :root {
       --gold-brown: #d3a273;
-      --deep-maroon: #561414;
-      --mid-maroon: #582222;
+      --deep-maroon: #5c2d35;
+      --mid-maroon: #5c2d35;
       --white: #ffffff;
 
       --base-size: 20px;
@@ -51,7 +51,7 @@
     /* Overlay */
     .overlay {
       height: 0; width: 100%; position: fixed; top: 0; right: 0; left: 0;
-      background-color: rgba(88,34,34,0.95); overflow: hidden; transition: height 0.5s ease; z-index: 3000;
+      background-color: rgba(76, 36, 36, 0.95); overflow: hidden; transition: height 0.5s ease; z-index: 3000;
     }
     .overlay-content { position: absolute; top: 25%; left: 0; right: 0; text-align: center; }
     .overlay-content a { padding: 12px; text-decoration: none; font-size: 24px; color: #fff; display: block; transition: 0.3s; }
@@ -135,9 +135,9 @@
   <div id="overlayMenu" class="overlay" aria-hidden="true">
     <span class="closebtn" onclick="closeOverlay()">×</span>
     <div class="overlay-content">
-      <a href="#top" onclick="closeOverlay()">الرئيسية</a>
-      <a href="#new" onclick="closeOverlay()">جديدنا</a>
-      <a href="#contact" onclick="closeOverlay()">تواصل معنا</a>
+      <a href="index.html" onclick="closeOverlay()">الرئيسية</a>
+      <a href="NEWS.HTML" onclick="closeOverlay()">جديدنا</a>
+      <a href="bra.html" onclick="closeOverlay()">تواصل معنا</a>
     </div>
   </div>
 
@@ -152,6 +152,7 @@
     <button class="tab" data-target="pastry">معجنات</button>
     <button class="tab" data-target="falafel">فلافل</button>
     <button class="tab" data-target="appetizers">مقبلات</button>
+
   </div>
 
   <!-- بيتزا -->
@@ -233,6 +234,8 @@
 
     <div class="item"><div class="item-header"><div><div class="item-name">محمرة</div><div class="item-desc">فلفل مهروس مع جوز وبهارات</div></div><div><div class="item-price">5.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="محمرة"></div></div>
     <div class="item"><div class="item-header"><div><div class="item-name">محمرة بالجبن</div><div class="item-desc">محمرة مع جبن أبيض لإضافة كريمية</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="محمرة بالجبن"></div></div>
+        <div class="item"><div class="item-header"><div><div class="item-name">محمرة بالجبن</div><div class="item-desc">محمرة مع جبن أبيض لإضافة كريمية</div></div><div><div class="item-price">6.25</div><div class="item-currency">ريــــال</div></div></div><div class="item-image"><img src="./img/HERO.jpg" alt="محمرة بالجبن"></div></div>
+
   </section>
 
   <!-- فلافل -->
