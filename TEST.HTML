@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>فروع مخابز اليحي — Navbar متجاوب</title>
+  <title>فروع مخابز اليحي</title>
 
   <!-- خط Tajawal -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -53,6 +53,7 @@
       transition:height .18s ease, padding .18s ease;
     }
 
+    /* الشعار بدون كلمة "اليحي" (زخرفة فقط) */
     .brand{display:flex;align-items:center;gap:12px}
     .logo{
       width:56px;height:56px;border-radius:10px;
@@ -61,29 +62,31 @@
       color:var(--white); font-weight:900; font-size:18px;
       flex-shrink:0;
     }
-    .site-title{font-size:16px;font-weight:800;margin:0;color:var(--deep)}
-    .site-sub{font-size:12px;color:#6b5a57;margin:0}
 
-    /* روابط الديسكتوب */
-    nav.nav-links{
+    /* مركز الروابط: نضعها في منتصف الشريط */
+    .nav-center{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
       display:flex;
-      gap:8px;
+      gap:12px;
       align-items:center;
-      margin-inline-start:8px;
+      z-index:65;
     }
-    nav.nav-links a{
+    .nav-center a{
       text-decoration:none;
-      padding:8px 12px;
+      padding:8px 14px;
       border-radius:10px;
       color:var(--deep);
       font-weight:800;
+      background:transparent;
       transition:background .14s, transform .12s;
-      font-size:14px;
+      font-size:15px;
     }
-    nav.nav-links a:hover{background:var(--gold); color:#2b1b10; transform:translateY(-2px)}
-    nav.nav-links a.active{background:var(--deep); color:var(--white)}
+    .nav-center a:hover{background:var(--gold); color:#2b1b10; transform:translateY(-2px)}
+    .nav-center a.active{background:var(--deep); color:var(--white)}
 
-    /* زر الهمبرغر */
+    /* زر الهمبرغر على اليمين (لأنه RTL) */
     button.hamburger{
       display:none;
       width:44px;height:44px;border-radius:10px;
@@ -113,11 +116,19 @@
       transform:translateX(110%);transition:transform .28s cubic-bezier(.2,.9,.2,1);
       box-shadow: -20px 0 60px rgba(0,0,0,0.28);
       border-radius:12px 0 0 12px;pointer-events:auto;display:flex;flex-direction:column;gap:12px;
+      position:relative; /* لتموضع زر الإغلاق */
     }
     .mobile-menu.open .backdrop{opacity:1;pointer-events:auto}
     .mobile-menu.open .panel{transform:translateX(0%)}
 
-    .panel .close-btn{align-self:flex-start;padding:8px 10px;border-radius:8px;border:0;background:transparent;cursor:pointer;font-weight:800;color:var(--deep)}
+    /* زر الإغلاق داخل اللوحة: نضعه على الجهة اليسرى كما طلبت */
+    .panel .close-btn{
+      position:absolute;
+      left:12px; /* يظهر على الشمال داخل اللوحة */
+      top:12px;
+      padding:8px 10px;border-radius:8px;border:0;background:transparent;cursor:pointer;font-weight:800;color:var(--deep);
+    }
+
     .panel a{display:block;padding:12px 10px;border-radius:8px;text-decoration:none;color:var(--deep);font-weight:800}
     .panel a:hover{background:rgba(88,34,34,0.04)}
 
@@ -135,6 +146,13 @@
     .branch .meta{color:#6b5a57;font-size:13px;margin-bottom:8px}
     .branch .actions{display:flex;gap:8px;flex-wrap:wrap}
 
+    /* الهاتف كنص عادي (ليس رابط) */
+    .phone{
+      color:var(--deep);
+      text-decoration:none;
+      font-weight:700;
+    }
+
     .btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800;color:var(--white);background:var(--deep)}
     .btn.wa{background:#25D366}
     .btn.map{background:var(--gold); color:#2b1b10}
@@ -147,11 +165,10 @@
     @media (max-width:900px){
       header.navbar{height:var(--nav-h-mobile);padding:8px 12px}
       .logo{width:48px;height:48px}
-      .site-title{font-size:15px}
     }
 
     @media (max-width:720px){
-      nav.nav-links{display:none}
+      .nav-center{display:none} /* نخفي القائمة المركزية على الموبايل ونستخدم القائمة المنبثقة */
       button.hamburger{display:flex}
       .hero{flex-direction:column;align-items:flex-start}
       .container{padding:12px}
@@ -170,20 +187,19 @@
 <body>
   <div class="container">
     <header class="navbar" role="banner" aria-label="شريط التنقل">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">اليحي</div>
-        <div>
-          <div class="site-title">مخابز اليحي</div>
-          <div class="site-sub">خبز طازج يومياً</div>
-        </div>
+      <!-- الشعار الزخرفي فقط (بدون كلمة "اليحي") -->
+      <div class="brand" aria-hidden="true">
+        <div class="logo" title="مخابز"></div>
       </div>
 
-      <nav class="nav-links" role="navigation" aria-label="روابط الموقع">
+      <!-- روابط في منتصف الشريط -->
+      <nav class="nav-center" role="navigation" aria-label="روابط الموقع">
         <a href="#home" class="active">الرئيسية</a>
         <a href="#news">جديدنا</a>
         <a href="#contact">تواصل معنا</a>
       </nav>
 
+      <!-- زر الهمبرغر يظهر على الشاشات الصغيرة -->
       <button class="hamburger" id="hamburger" aria-label="قائمة التنقل" aria-expanded="false" aria-controls="mobileMenu">
         <span class="bar" aria-hidden="true"></span>
       </button>
@@ -193,9 +209,10 @@
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
       <div class="backdrop" id="menuBackdrop" tabindex="-1"></div>
       <aside class="panel" role="dialog" aria-modal="true" aria-label="قائمة الموقع">
+        <!-- زر الإغلاق على الشمال داخل اللوحة -->
         <button class="close-btn" id="closeMenu">إغلاق ✕</button>
 
-        <nav style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+        <nav style="display:flex;flex-direction:column;gap:6px;margin-top:36px">
           <a href="#home" class="m-link">الرئيسية</a>
           <a href="#news" class="m-link">جديدنا</a>
           <a href="#contact" class="m-link">تواصل معنا</a>
@@ -232,7 +249,7 @@
             <div class="title">الدمام حي الحمراء</div>
             <div class="meta">المدينة: الدمام · فرع رئيسي</div>
             <div class="addr">العنوان: شارع الحمراء، مقابل مول الحمراء</div>
-            <div class="meta">الهاتف: <strong>+966501111111</strong></div>
+            <div class="meta">الهاتف: <span class="phone">+966501111111</span></div>
             <div class="actions">
               <button class="btn wa" onclick="openWhatsApp('+966501111111')">واتساب</button>
               <button class="btn info" onclick="callNumber('+966501111111')">اتصال</button>
@@ -244,7 +261,7 @@
             <div class="title">الفيصلية</div>
             <div class="meta">المدينة: الدمام · حي الفيصلية</div>
             <div class="addr">العنوان: شارع الأمير فيصل، بجانب الحديقة العامة</div>
-            <div class="meta">الهاتف: <strong>+966502222222</strong></div>
+            <div class="meta">الهاتف: <span class="phone">+966502222222</span></div>
             <div class="actions">
               <button class="btn wa" onclick="openWhatsApp('+966502222222')">واتساب</button>
               <button class="btn info" onclick="callNumber('+966502222222')">اتصال</button>
@@ -256,7 +273,7 @@
             <div class="title">العزيزة</div>
             <div class="meta">المدينة: الدمام · حي العزيزة</div>
             <div class="addr">العنوان: شارع العزيزة التجاري، مقابل مركز التسوق</div>
-            <div class="meta">الهاتف: <strong>+966503333333</strong></div>
+            <div class="meta">الهاتف: <span class="phone">+966503333333</span></div>
             <div class="actions">
               <button class="btn wa" onclick="openWhatsApp('+966503333333')">واتساب</button>
               <button class="btn info" onclick="callNumber('+966503333333')">اتصال</button>
@@ -268,7 +285,7 @@
             <div class="title">دارين</div>
             <div class="meta">المدينة: الدمام · حي دارين</div>
             <div class="addr">العنوان: شارع دارين، بالقرب من محطة المترو</div>
-            <div class="meta">الهاتف: <strong>+966504444444</strong></div>
+            <div class="meta">الهاتف: <span class="phone">+966504444444</span></div>
             <div class="actions">
               <button class="btn wa" onclick="openWhatsApp('+966504444444')">واتساب</button>
               <button class="btn info" onclick="callNumber('+966504444444')">اتصال</button>
@@ -285,7 +302,7 @@
 
       <section id="contact" aria-labelledby="contactTitle">
         <h2 id="contactTitle" style="color:var(--white);margin-top:18px">تواصل معنا</h2>
-        <p style="color:rgba(255,255,255,0.95)">للاستفسارات اتصل أو أرسل رسالة واتساب على <strong>+966500000000</strong>.</p>
+        <p style="color:rgba(255,255,255,0.95)">للاستفسارات اتصل أو أرسل رسالة واتساب على <strong class="phone">+966500000000</strong>.</p>
       </section>
 
       <footer>
@@ -301,6 +318,8 @@
       window.open('https://wa.me/' + num, '_blank');
     }
     function callNumber(number){
+      // نحتفظ بزر الاتصال لكن نستخدم window.location فقط عند الحاجة
+      // إذا رغبت أن نمنع الاتصال من المتصفح، استبدل السطر التالي بإجراء آخر
       window.location.href = 'tel:' + number;
     }
     function openMap(lat, lng){
@@ -314,14 +333,13 @@
     const menuBackdrop = document.getElementById('menuBackdrop');
     const closeMenuBtn = document.getElementById('closeMenu');
     const mLinks = document.querySelectorAll('.m-link');
-    const desktopLinks = document.querySelectorAll('nav.nav-links a');
+    const desktopLinks = document.querySelectorAll('.nav-center a');
 
     function openMenu(){
       mobileMenu.classList.add('open');
       mobileMenu.setAttribute('aria-hidden','false');
       hamburger.setAttribute('aria-expanded','true');
       document.body.style.overflow = 'hidden';
-      // وضع التركيز على أول رابط داخل القائمة
       const first = mobileMenu.querySelector('.panel a');
       if(first) first.focus();
     }
@@ -367,7 +385,7 @@
       }
     });
 
-    // تحسين: إغلاق القائمة عند تغيير حجم النافذة إلى ديسكتوب
+    // إغلاق القائمة عند تكبير النافذة
     window.addEventListener('resize', ()=>{
       if(window.innerWidth > 720 && mobileMenu.classList.contains('open')){
         closeMenu();
