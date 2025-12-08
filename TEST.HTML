@@ -18,6 +18,7 @@
       --nav-h-desktop: 68px;
       --nav-h-mobile: 52px;
       --radius: 12px;
+      --max-width:1200px;
     }
 
     *{box-sizing:border-box}
@@ -30,10 +31,9 @@
       direction: rtl;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      -webkit-text-size-adjust:100%;
     }
 
-    .container{max-width:1200px;margin:0 auto;padding:16px}
+    .container{max-width:var(--max-width);margin:0 auto;padding:16px}
 
     /* NAVBAR */
     header.navbar{
@@ -51,9 +51,11 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.12);
       border:1px solid var(--glass-border);
       transition:height .18s ease, padding .18s ease;
+      /* لتمكين التمركز المطلق */
+      position:relative;
     }
 
-    /* الشعار بدون كلمة "اليحي" (زخرفة فقط) */
+    /* زخرفة شعار فقط (بدون نص) */
     .brand{display:flex;align-items:center;gap:12px}
     .logo{
       width:56px;height:56px;border-radius:10px;
@@ -69,7 +71,7 @@
       left:50%;
       transform:translateX(-50%);
       display:flex;
-      gap:12px;
+      gap:18px;
       align-items:center;
       z-index:65;
     }
@@ -86,7 +88,7 @@
     .nav-center a:hover{background:var(--gold); color:#2b1b10; transform:translateY(-2px)}
     .nav-center a.active{background:var(--deep); color:var(--white)}
 
-    /* زر الهمبرغر على اليمين (لأنه RTL) */
+    /* زر الهمبرغر على اليمين (لـ RTL) */
     button.hamburger{
       display:none;
       width:44px;height:44px;border-radius:10px;
@@ -102,7 +104,7 @@
     .hamburger .bar::before{top:-6px}
     .hamburger .bar::after{top:6px}
 
-    /* Mobile off-canvas */
+    /* Mobile off-canvas (مخفية افتراضياً) */
     .mobile-menu{
       position:fixed;inset:0;display:flex;align-items:flex-start;justify-content:flex-end;pointer-events:none;z-index:70;
     }
@@ -116,12 +118,13 @@
       transform:translateX(110%);transition:transform .28s cubic-bezier(.2,.9,.2,1);
       box-shadow: -20px 0 60px rgba(0,0,0,0.28);
       border-radius:12px 0 0 12px;pointer-events:auto;display:flex;flex-direction:column;gap:12px;
-      position:relative; /* لتموضع زر الإغلاق */
+      position:relative;
     }
+    /* عندما تُضاف الفئة open تظهر اللوحة */
     .mobile-menu.open .backdrop{opacity:1;pointer-events:auto}
     .mobile-menu.open .panel{transform:translateX(0%)}
 
-    /* زر الإغلاق داخل اللوحة: نضعه على الجهة اليسرى كما طلبت */
+    /* زر الإغلاق داخل اللوحة على الشمال */
     .panel .close-btn{
       position:absolute;
       left:12px; /* يظهر على الشمال داخل اللوحة */
@@ -151,6 +154,7 @@
       color:var(--deep);
       text-decoration:none;
       font-weight:700;
+      display:inline-block;
     }
 
     .btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800;color:var(--white);background:var(--deep)}
@@ -175,6 +179,11 @@
       .branch{padding:12px}
     }
 
+    @media (min-width:721px){
+      /* إخفاء لوحة الهواتف على الشاشات الكبيرة تماماً */
+      .mobile-menu{display:none !important}
+    }
+
     @media (max-width:420px){
       .mobile-menu .panel{width:100%;max-width:100%}
       .btn{padding:9px 10px;font-size:14px}
@@ -187,12 +196,12 @@
 <body>
   <div class="container">
     <header class="navbar" role="banner" aria-label="شريط التنقل">
-      <!-- الشعار الزخرفي فقط (بدون كلمة "اليحي") -->
+      <!-- زخرفة شعار فقط -->
       <div class="brand" aria-hidden="true">
         <div class="logo" title="مخابز"></div>
       </div>
 
-      <!-- روابط في منتصف الشريط -->
+      <!-- روابط في منتصف الشريط (فقط الثلاث روابط المطلوبة) -->
       <nav class="nav-center" role="navigation" aria-label="روابط الموقع">
         <a href="#home" class="active">الرئيسية</a>
         <a href="#news">جديدنا</a>
@@ -205,7 +214,7 @@
       </button>
     </header>
 
-    <!-- Mobile off-canvas menu -->
+    <!-- Mobile off-canvas menu (موجود لكن مخفي على الديسكتوب) -->
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
       <div class="backdrop" id="menuBackdrop" tabindex="-1"></div>
       <aside class="panel" role="dialog" aria-modal="true" aria-label="قائمة الموقع">
@@ -302,7 +311,7 @@
 
       <section id="contact" aria-labelledby="contactTitle">
         <h2 id="contactTitle" style="color:var(--white);margin-top:18px">تواصل معنا</h2>
-        <p style="color:rgba(255,255,255,0.95)">للاستفسارات اتصل أو أرسل رسالة واتساب على <strong class="phone">+966500000000</strong>.</p>
+        <p style="color:rgba(255,255,255,0.95)">للاستفسارات اتصل أو أرسل رسالة واتساب على <span class="phone">+966500000000</span>.</p>
       </section>
 
       <footer>
@@ -318,8 +327,7 @@
       window.open('https://wa.me/' + num, '_blank');
     }
     function callNumber(number){
-      // نحتفظ بزر الاتصال لكن نستخدم window.location فقط عند الحاجة
-      // إذا رغبت أن نمنع الاتصال من المتصفح، استبدل السطر التالي بإجراء آخر
+      // زر الاتصال يبقى وظيفي؛ إذا أردت أن يكون غير وظيفي استبدل هذا السطر بتعليق أو إزالة الحدث
       window.location.href = 'tel:' + number;
     }
     function openMap(lat, lng){
@@ -328,69 +336,75 @@
     }
 
     // تحكم القائمة المتنقلة
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const menuBackdrop = document.getElementById('menuBackdrop');
-    const closeMenuBtn = document.getElementById('closeMenu');
-    const mLinks = document.querySelectorAll('.m-link');
-    const desktopLinks = document.querySelectorAll('.nav-center a');
+    (function(){
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBackdrop = document.getElementById('menuBackdrop');
+      const closeMenuBtn = document.getElementById('closeMenu');
+      const mLinks = document.querySelectorAll('.m-link');
+      const desktopLinks = document.querySelectorAll('.nav-center a');
 
-    function openMenu(){
-      mobileMenu.classList.add('open');
-      mobileMenu.setAttribute('aria-hidden','false');
-      hamburger.setAttribute('aria-expanded','true');
-      document.body.style.overflow = 'hidden';
-      const first = mobileMenu.querySelector('.panel a');
-      if(first) first.focus();
-    }
-    function closeMenu(){
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden','true');
-      hamburger.setAttribute('aria-expanded','false');
-      document.body.style.overflow = '';
-      hamburger.focus();
-    }
+      function openMenu(){
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden','false');
+        hamburger.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+        // وضع التركيز على أول رابط داخل اللوحة
+        const first = mobileMenu.querySelector('.panel a');
+        if(first) first.focus();
+      }
+      function closeMenu(){
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden','true');
+        hamburger.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+        hamburger.focus();
+      }
 
-    hamburger.addEventListener('click', ()=> {
-      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-      if(expanded) closeMenu(); else openMenu();
-    });
-
-    menuBackdrop.addEventListener('click', closeMenu);
-    closeMenuBtn.addEventListener('click', closeMenu);
-
-    mLinks.forEach(a => a.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const href = a.getAttribute('href');
-      const target = document.querySelector(href);
-      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      // تأكد أن القائمة مغلقة عند التحميل
       closeMenu();
-    }));
 
-    // روابط الديسكتوب: تمرير سلس وتفعيل
-    desktopLinks.forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
-        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-        desktopLinks.forEach(x=> x.classList.remove('active'));
-        a.classList.add('active');
+      hamburger.addEventListener('click', ()=> {
+        const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+        if(expanded) closeMenu(); else openMenu();
       });
-    });
 
-    // إغلاق القائمة بالـ Escape
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') {
-        if(mobileMenu.classList.contains('open')) closeMenu();
-      }
-    });
+      menuBackdrop.addEventListener('click', closeMenu);
+      closeMenuBtn.addEventListener('click', closeMenu);
 
-    // إغلاق القائمة عند تكبير النافذة
-    window.addEventListener('resize', ()=>{
-      if(window.innerWidth > 720 && mobileMenu.classList.contains('open')){
+      mLinks.forEach(a => a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const href = a.getAttribute('href');
+        const target = document.querySelector(href);
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
         closeMenu();
-      }
-    });
+      }));
+
+      // روابط الديسكتوب: تمرير سلس وتفعيل
+      desktopLinks.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const target = document.querySelector(a.getAttribute('href'));
+          if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+          desktopLinks.forEach(x=> x.classList.remove('active'));
+          a.classList.add('active');
+        });
+      });
+
+      // إغلاق القائمة بالـ Escape
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') {
+          if(mobileMenu.classList.contains('open')) closeMenu();
+        }
+      });
+
+      // إغلاق القائمة عند تكبير النافذة إلى ديسكتوب
+      window.addEventListener('resize', ()=>{
+        if(window.innerWidth > 720 && mobileMenu.classList.contains('open')){
+          closeMenu();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
