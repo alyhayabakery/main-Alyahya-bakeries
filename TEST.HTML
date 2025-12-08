@@ -1,159 +1,268 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>جديدنا - مخابز اليحي</title>
-  <!-- استدعاء خط Tajawal -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>فروع مخابز اليحي</title>
+
+  <!-- خط Tajawal -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    * {margin:0; padding:0; box-sizing:border-box; font-family:'Tajawal', sans-serif;}
-
-    body {background:#d3a273; color:#333; line-height:1.6;}
-
-    header {
-      background: linear-gradient(90deg, #f27e3e, #5c2d35);
-      color: white; padding: 1rem; margin-top: 20%; text-align: center;
-      font-size: 1.8rem; font-weight: bold;
+    :root{
+      --gold: #d3a273; /* اللون المطلوب للخلفية */
+      --deep: #582222;
+      --white: #ffffff;
+      --card-bg: rgba(255,255,255,0.95);
+      --muted-text: #f7efe6;
+      --card-shadow: 0 12px 40px rgba(88,34,34,0.12);
+      --radius: 12px;
     }
 
-    nav {background:#5c2d35; padding:0.8rem; text-align:center; position: fixed; top: 0; right: 0; left: 0;
-          z-index: 1000; }
-
-    nav a {color:#fff; text-decoration:none; margin:0 1rem; font-weight:bold;}
-    nav a:hover {color:#fff;}
-
-    .products {
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:1.5rem; padding:2rem;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Tajawal", "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+      background: var(--gold); /* تم تعيين الخلفية هنا */
+      color: #2b1b10;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:20px;
+      direction: rtl;
     }
 
-    .card {
-      background:white; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);
-      overflow:hidden; cursor:pointer;
-    }
-    .card img {width:100%; height:350px; object-fit:cover; transition:transform 0.4s ease;}
-    .card:hover img {transform:scale(1.05);}
-    .card h3 {padding:1rem; font-size:1.3rem; color:#5c2d35; text-align:center;}
-    .card p {padding:0 1rem 1rem; text-align:center; color:#555;}
-
-    footer {background:#f27e3e; color:white; text-align:center; padding:1rem; margin-top:2rem;}
-
-    .back-btn {
-      display:inline-block; margin:1rem auto; padding:0.6rem 1.2rem;
-      background:#5c2d35; color:white; border-radius:8px; text-decoration:none; font-weight:bold;
-    }
-    .back-btn:hover {background:#f27e3e;}
-
-    /* Lightbox Slider */
-    .lightbox {
-      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-      background:rgba(0,0,0,0.85); justify-content:center; align-items:center;
-      z-index:1000;
-    }
-    .lightbox img {
-      max-width:70%; max-height:70%;
-      border:4px solid #f27e3e; border-radius:10px;
+    /* للحفاظ على تباين جيد: نستخدم بطاقات بيضاء فوق الخلفية الذهبية */
+    .container{
+      max-width:1200px;
+      margin:0 auto;
     }
 
-    /* أزرار التحكم */
-    .close, .prev, .next {
-      position:absolute; 
-      background:rgba(92,45,53,0.8); 
-      color:#fff; 
-      padding:0.4rem 0.8rem; 
-      cursor:pointer;
-      border-radius:4px; 
-      font-size:0.9rem; 
-      font-weight:bold;
-      transition:background 0.3s ease;
+    /* NAVBAR */
+    .navbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin:0 auto 18px;
+      padding:12px 16px;
+      background: var(--card-bg);
+      border-radius:14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      border:1px solid rgba(0,0,0,0.04);
     }
-    .close:hover, .prev:hover, .next:hover {
-      background:#f27e3e;
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:64px;height:64px;border-radius:12px;
+      background: linear-gradient(135deg,var(--white), rgba(255,255,255,0.9));
+      display:flex;align-items:center;justify-content:center;
+      color:var(--deep); font-weight:900; font-size:18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     }
+    .site-title{font-size:18px;font-weight:800;color:var(--deep);margin:0}
+    .site-sub{font-size:12px;color:#6b5a57;margin:0}
 
-    .close {top:5%; right:5%;}
-    .prev {left:10%; bottom:10%;}
-    .next {right:10%; bottom:10%;}
+    .nav-links{display:flex;gap:10px;align-items:center}
+    .nav-links a{
+      text-decoration:none;
+      padding:10px 14px;border-radius:10px;color:var(--deep);
+      font-weight:800;background:transparent;transition:background .15s, color .15s, transform .12s;
+      border:1px solid transparent;font-family: "Tajawal", sans-serif;
+    }
+    .nav-links a:hover{background:rgba(255,255,255,0.9); transform:translateY(-2px)}
+    .nav-links a.active{background:var(--deep); color:var(--white); box-shadow: 0 10px 30px rgba(88,34,34,0.12)}
+
+    /* محتوى الصفحة */
+    .wrap{max-width:1200px;margin:0 auto;padding:8px}
+    .hero{
+      display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px;
+      padding:18px;border-radius:12px;background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--white);
+    }
+    .hero h1{margin:0;font-size:22px;color:var(--white); font-family: "Tajawal", sans-serif;}
+    .hero p{margin:0;color:rgba(255,255,255,0.92); font-family: "Tajawal", sans-serif;}
+
+    /* قائمة الفروع */
+    .branches{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .branch{
+      background: var(--card-bg);
+      border-radius:12px;padding:14px;
+      box-shadow: var(--card-shadow);
+      border:1px solid rgba(0,0,0,0.04);
+      transition:transform .18s, box-shadow .18s;
+      font-family: "Tajawal", sans-serif;
+      color:var(--deep);
+    }
+    .branch:hover{transform:translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,0.12)}
+    .branch .title{font-weight:900;color:var(--deep);font-size:16px;margin-bottom:6px}
+    .branch .meta{color:#6b5a57;font-size:13px;margin-bottom:10px}
+    .branch .addr{font-size:14px;color:#4b3a36;margin-bottom:12px}
+    .branch .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{
+      padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800;
+      color:var(--white); background:var(--deep);
+      font-family: "Tajawal", sans-serif;
+    }
+    .btn.wa{background:#25D366;color:#fff}
+    .btn.map{background:var(--gold); color:#2b1b10}
+    .btn.info{background:#1e88e5}
+
+    /* أقسام داخل الصفحة */
+    section{margin-bottom:22px; font-family: "Tajawal", sans-serif;}
+
+    /* تذييل Footer */
+    footer{
+      margin-top:30px;padding:18px;
+      background: rgba(255,255,255,0.06);
+      border-radius:12px;border:1px solid rgba(255,255,255,0.04);
+      text-align:center;color:rgba(255,255,255,0.95);
+      font-family: "Tajawal", sans-serif;
+    }
+    footer .copy{font-weight:800;color:var(--white)}
+
+    /* استجابة */
+    @media (max-width:720px){
+      .hero{flex-direction:column;align-items:flex-start}
+      .nav-links{gap:6px}
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <nav class="navbar" role="navigation" aria-label="شريط التنقل">
+      <div class="brand">
+        <div class="logo">اليحي</div>
+        <div>
+          <div class="site-title">مخابز اليحي</div>
+          <div class="site-sub">خبز طازج يومياً</div>
+        </div>
+      </div>
 
-  
-  <nav>
-    <a href="index.html">الرئيسية</a>
-    <a href="NEWS.HTML">جديدنا</a>
-    <a href="bra.html">تواصل معنا</a>
-  </nav>
-  <header>جديدنا - مخابز اليحي</header>
+      <div class="nav-links" role="menubar" aria-label="روابط الموقع">
+        <a href="#home" class="active" role="menuitem">الرئيسية</a>
+        <a href="#news" role="menuitem">جديدنا</a>
+        <a href="#contact" role="menuitem">تواصل معنا</a>
+      </div>
+    </nav>
 
-  <section id="products" class="products">
-    <div class="card"><img src="img/CUP2.png" alt="خبز جديد"><h3> ميني كاب كيك</h3><p>نهتم بكل تفصيلة… من ميني كب كيك منوّع وجميل، إلى أجود الحلويات الشرقية. طعم يرضي الذوق وشكل يليق بمناسباتكم. احجز طلبك الآن.»</p></div>
-    <div class="card"><img src="img/تويست.png" alt="كيك جديد"><h3> تويست الزعتر </h3><p>⁨ أعواد تويست الزعتر 💚
-نكهة الزعتر في كل قضمة مقرمشة
-</p></div>
-    <div class="card"><img src="img/aseda.png" alt="كرواسون جديد"><h3> عصيده</h3><p>عصيدة تمر حساوية أصيلة، ومع الزبدة تصير تجربة شتوية ما تتفوت
-</p></div>
+    <main class="wrap">
+      <header class="hero" id="home" aria-labelledby="heroTitle">
+        <div>
+          <h1 id="heroTitle">فروع مخابز اليحي</h1>
+          <p>أربعة فروع في الدمام — الحمراء، الفيصلية، العزيزة، دارين</p>
+        </div>
+        <div style="text-align:left">
+          <button class="btn" onclick="document.querySelector('a[href=\"#news\"]').click()">اطلع على جديدنا</button>
+        </div>
+      </header>
 
-  </section>
+      <section aria-labelledby="branchesTitle">
+        <h2 id="branchesTitle" style="margin:0 0 12px 0;color:var(--white); font-family: 'Tajawal', sans-serif;">قائمة الفروع</h2>
 
-  <div style="text-align:center;">
-    <a href="index.html" class="back-btn"> العودة للرئيسية</a>
-  </div>
+        <div class="branches" id="branchesList">
+          <!-- فرع 1 -->
+          <article class="branch">
+            <div class="title">الدمام حي الحمراء</div>
+            <div class="meta">المدينة: الدمام · فرع رئيسي</div>
+            <div class="addr">العنوان: شارع الحمراء، مقابل مول الحمراء</div>
+            <div class="meta">الهاتف: <strong>+966501111111</strong></div>
+            <div class="actions">
+              <button class="btn wa" onclick="openWhatsApp('+966501111111')">واتساب</button>
+              <button class="btn info" onclick="callNumber('+966501111111')">اتصال</button>
+              <button class="btn map" onclick="openMap(26.4321,50.1034)">الموقع</button>
+            </div>
+          </article>
 
-  <footer id="contact">© 2025 مخابز اليحي - جميع الحقوق محفوظة</footer>
+          <!-- فرع 2 -->
+          <article class="branch">
+            <div class="title">الفيصلية</div>
+            <div class="meta">المدينة: الدمام · حي الفيصلية</div>
+            <div class="addr">العنوان: شارع الأمير فيصل، بجانب الحديقة العامة</div>
+            <div class="meta">الهاتف: <strong>+966502222222</strong></div>
+            <div class="actions">
+              <button class="btn wa" onclick="openWhatsApp('+966502222222')">واتساب</button>
+              <button class="btn info" onclick="callNumber('+966502222222')">اتصال</button>
+              <button class="btn map" onclick="openMap(26.3965,50.1230)">الموقع</button>
+            </div>
+          </article>
 
-  <!-- Lightbox Slider -->
-  <div class="lightbox" id="lightbox">
-    <span class="close" id="closeBtn">✖</span>
-    <span class="prev" id="prevBtn"> > </span>
-    <img id="lightboxImg" src="" alt="">
-    <span class="next" id="nextBtn"> < </span>
+          <!-- فرع 3 -->
+          <article class="branch">
+            <div class="title">العزيزة</div>
+            <div class="meta">المدينة: الدمام · حي العزيزة</div>
+            <div class="addr">العنوان: شارع العزيزة التجاري، مقابل مركز التسوق</div>
+            <div class="meta">الهاتف: <strong>+966503333333</strong></div>
+            <div class="actions">
+              <button class="btn wa" onclick="openWhatsApp('+966503333333')">واتساب</button>
+              <button class="btn info" onclick="callNumber('+966503333333')">اتصال</button>
+              <button class="btn map" onclick="openMap(26.4100,50.1500)">الموقع</button>
+            </div>
+          </article>
+
+          <!-- فرع 4 -->
+          <article class="branch">
+            <div class="title">دارين</div>
+            <div class="meta">المدينة: الدمام · حي دارين</div>
+            <div class="addr">العنوان: شارع دارين، بالقرب من محطة المترو</div>
+            <div class="meta">الهاتف: <strong>+966504444444</strong></div>
+            <div class="actions">
+              <button class="btn wa" onclick="openWhatsApp('+966504444444')">واتساب</button>
+              <button class="btn info" onclick="callNumber('+966504444444')">اتصال</button>
+              <button class="btn map" onclick="openMap(26.4200,50.1600)">الموقع</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="news" aria-labelledby="newsTitle">
+        <h2 id="newsTitle" style="color:var(--white); font-family: 'Tajawal', sans-serif;">جديدنا</h2>
+        <p style="color:rgba(255,255,255,0.95); font-family: 'Tajawal', sans-serif;">نقدم خبزاً طازجاً يومياً، وعروض شهرية على الكرواسون والمنتجات الموسمية. تابعنا للحصول على آخر العروض.</p>
+      </section>
+
+      <section id="contact" aria-labelledby="contactTitle">
+        <h2 id="contactTitle" style="color:var(--white); font-family: 'Tajawal', sans-serif;">تواصل معنا</h2>
+        <p style="color:rgba(255,255,255,0.95); font-family: 'Tajawal', sans-serif;">للاستفسارات أو طلبات التوريد اتصل أو أرسل رسالة عبر واتساب على الرقم <strong>+966500000000</strong> أو استخدم أزرار الفروع أعلاه.</p>
+      </section>
+
+      <footer>
+        <div class="copy">© جميع الحقوق محفوظة لمخابز اليحي</div>
+      </footer>
+    </main>
   </div>
 
   <script>
-    const cards = document.querySelectorAll('.card img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const closeBtn = document.getElementById('closeBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+    function openWhatsApp(number){
+      const num = number.replace(/[^0-9+]/g,'');
+      window.open('https://wa.me/' + num, '_blank');
+    }
+    function callNumber(number){
+      window.location.href = 'tel:' + number;
+    }
+    function openMap(lat, lng){
+      const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+      window.open(url, '_blank');
+    }
 
-    let currentIndex = 0;
-
-    const openLightbox = (index) => {
-      currentIndex = index;
-      lightboxImg.src = cards[index].src;
-      lightbox.style.display = 'flex';
-    };
-
-    const closeLightbox = () => {
-      lightbox.style.display = 'none';
-    };
-
-    const showPrev = () => {
-      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-      lightboxImg.src = cards[currentIndex].src;
-    };
-
-    const showNext = () => {
-      currentIndex = (currentIndex + 1) % cards.length;
-      lightboxImg.src = cards[currentIndex].src;
-    };
-
-    cards.forEach((img, index) => {
-      img.addEventListener('click', () => openLightbox(index));
+    // روابط التنقل: تمرير سلس وتفعيل
+    const links = document.querySelectorAll('.nav-links a');
+    function setActive(hash){
+      links.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === hash));
+    }
+    links.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+        setActive(a.getAttribute('href'));
+      });
     });
-
-    closeBtn.addEventListener('click', closeLightbox);
-    prevBtn.addEventListener('click', showPrev);
-    nextBtn.addEventListener('click', showNext);
-
-    // إغلاق عند الضغط خارج الصورة
-    lightbox.addEventListener('click', (e) => {
-      if(e.target === lightbox) closeLightbox();
-    });
+    setActive('#home');
   </script>
-
 </body>
 </html>
