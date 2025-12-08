@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>فروع مخابز اليحي</title>
+  <title>فروع مخابز اليحي — Navbar متجاوب</title>
 
   <!-- خط Tajawal -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --gold: #d3a273; /* اللون المطلوب للخلفية */
+      --gold: #d3a273;
       --deep: #582222;
       --white: #ffffff;
-      --card-bg: rgba(255,255,255,0.95);
-      --muted-text: #f7efe6;
-      --card-shadow: 0 12px 40px rgba(88,34,34,0.12);
+      --card-bg: rgba(255,255,255,0.98);
+      --glass-border: rgba(0,0,0,0.06);
+      --nav-h-desktop: 68px;
+      --nav-h-mobile: 52px;
       --radius: 12px;
     }
 
@@ -23,136 +24,197 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: "Tajawal", "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
-      background: var(--gold); /* تم تعيين الخلفية هنا */
-      color: #2b1b10;
+      font-family: "Tajawal", "Noto Sans Arabic", sans-serif;
+      background: var(--gold);
+      color: var(--deep);
+      direction: rtl;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      padding:20px;
-      direction: rtl;
+      -webkit-text-size-adjust:100%;
     }
 
-    /* للحفاظ على تباين جيد: نستخدم بطاقات بيضاء فوق الخلفية الذهبية */
-    .container{
-      max-width:1200px;
-      margin:0 auto;
-    }
+    .container{max-width:1200px;margin:0 auto;padding:16px}
 
     /* NAVBAR */
-    .navbar{
+    header.navbar{
+      position:sticky;
+      top:12px;
+      z-index:60;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
-      margin:0 auto 18px;
-      padding:12px 16px;
+      gap:12px;
+      padding:10px 14px;
+      height:var(--nav-h-desktop);
       background: var(--card-bg);
       border-radius:14px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      border:1px solid rgba(0,0,0,0.04);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      border:1px solid var(--glass-border);
+      transition:height .18s ease, padding .18s ease;
     }
-    .brand{display:flex;gap:12px;align-items:center}
+
+    .brand{display:flex;align-items:center;gap:12px}
     .logo{
-      width:64px;height:64px;border-radius:12px;
-      background: linear-gradient(135deg,var(--white), rgba(255,255,255,0.9));
+      width:56px;height:56px;border-radius:10px;
+      background: linear-gradient(135deg,var(--gold), #c89b5f);
       display:flex;align-items:center;justify-content:center;
-      color:var(--deep); font-weight:900; font-size:18px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      color:var(--white); font-weight:900; font-size:18px;
+      flex-shrink:0;
     }
-    .site-title{font-size:18px;font-weight:800;color:var(--deep);margin:0}
+    .site-title{font-size:16px;font-weight:800;margin:0;color:var(--deep)}
     .site-sub{font-size:12px;color:#6b5a57;margin:0}
 
-    .nav-links{display:flex;gap:10px;align-items:center}
-    .nav-links a{
+    /* روابط الديسكتوب */
+    nav.nav-links{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-inline-start:8px;
+    }
+    nav.nav-links a{
       text-decoration:none;
-      padding:10px 14px;border-radius:10px;color:var(--deep);
-      font-weight:800;background:transparent;transition:background .15s, color .15s, transform .12s;
-      border:1px solid transparent;font-family: "Tajawal", sans-serif;
-    }
-    .nav-links a:hover{background:rgba(255,255,255,0.9); transform:translateY(-2px)}
-    .nav-links a.active{background:var(--deep); color:var(--white); box-shadow: 0 10px 30px rgba(88,34,34,0.12)}
-
-    /* محتوى الصفحة */
-    .wrap{max-width:1200px;margin:0 auto;padding:8px}
-    .hero{
-      display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px;
-      padding:18px;border-radius:12px;background: rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--white);
-    }
-    .hero h1{margin:0;font-size:22px;color:var(--white); font-family: "Tajawal", sans-serif;}
-    .hero p{margin:0;color:rgba(255,255,255,0.92); font-family: "Tajawal", sans-serif;}
-
-    /* قائمة الفروع */
-    .branches{
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-      gap:16px;
-      margin-bottom:28px;
-    }
-    .branch{
-      background: var(--card-bg);
-      border-radius:12px;padding:14px;
-      box-shadow: var(--card-shadow);
-      border:1px solid rgba(0,0,0,0.04);
-      transition:transform .18s, box-shadow .18s;
-      font-family: "Tajawal", sans-serif;
+      padding:8px 12px;
+      border-radius:10px;
       color:var(--deep);
+      font-weight:800;
+      transition:background .14s, transform .12s;
+      font-size:14px;
     }
-    .branch:hover{transform:translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,0.12)}
-    .branch .title{font-weight:900;color:var(--deep);font-size:16px;margin-bottom:6px}
-    .branch .meta{color:#6b5a57;font-size:13px;margin-bottom:10px}
-    .branch .addr{font-size:14px;color:#4b3a36;margin-bottom:12px}
+    nav.nav-links a:hover{background:var(--gold); color:#2b1b10; transform:translateY(-2px)}
+    nav.nav-links a.active{background:var(--deep); color:var(--white)}
+
+    /* زر الهمبرغر */
+    button.hamburger{
+      display:none;
+      width:44px;height:44px;border-radius:10px;
+      background:transparent;border:1px solid var(--glass-border);
+      align-items:center;justify-content:center;cursor:pointer;
+    }
+    .hamburger .bar{
+      width:20px;height:2px;background:var(--deep);display:block;border-radius:2px;position:relative;
+    }
+    .hamburger .bar::before, .hamburger .bar::after{
+      content:"";position:absolute;left:0;width:20px;height:2px;background:var(--deep);border-radius:2px;
+    }
+    .hamburger .bar::before{top:-6px}
+    .hamburger .bar::after{top:6px}
+
+    /* Mobile off-canvas */
+    .mobile-menu{
+      position:fixed;inset:0;display:flex;align-items:flex-start;justify-content:flex-end;pointer-events:none;z-index:70;
+    }
+    .mobile-menu .backdrop{
+      position:absolute;inset:0;background:rgba(0,0,0,0.45);opacity:0;transition:opacity .18s;pointer-events:none;
+    }
+    .mobile-menu .panel{
+      width:320px;max-width:92%;
+      background:var(--card-bg);
+      height:100vh;padding:18px;
+      transform:translateX(110%);transition:transform .28s cubic-bezier(.2,.9,.2,1);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.28);
+      border-radius:12px 0 0 12px;pointer-events:auto;display:flex;flex-direction:column;gap:12px;
+    }
+    .mobile-menu.open .backdrop{opacity:1;pointer-events:auto}
+    .mobile-menu.open .panel{transform:translateX(0%)}
+
+    .panel .close-btn{align-self:flex-start;padding:8px 10px;border-radius:8px;border:0;background:transparent;cursor:pointer;font-weight:800;color:var(--deep)}
+    .panel a{display:block;padding:12px 10px;border-radius:8px;text-decoration:none;color:var(--deep);font-weight:800}
+    .panel a:hover{background:rgba(88,34,34,0.04)}
+
+    /* محتوى */
+    main{margin-top:12px}
+    .hero{
+      display:flex;gap:18px;align-items:center;justify-content:space-between;padding:18px;border-radius:12px;background: rgba(255,255,255,0.06);color:var(--white);
+    }
+    .hero h1{margin:0;font-size:22px;color:var(--white)}
+    .hero p{margin:0;color:rgba(255,255,255,0.95)}
+
+    .branches{display:grid;grid-template-columns: repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+    .branch{background: var(--card-bg);border-radius:12px;padding:14px;box-shadow: 0 12px 30px rgba(0,0,0,0.12);color:var(--deep)}
+    .branch .title{font-weight:900;font-size:16px;margin-bottom:6px}
+    .branch .meta{color:#6b5a57;font-size:13px;margin-bottom:8px}
     .branch .actions{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{
-      padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800;
-      color:var(--white); background:var(--deep);
-      font-family: "Tajawal", sans-serif;
-    }
-    .btn.wa{background:#25D366;color:#fff}
+
+    .btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800;color:var(--white);background:var(--deep)}
+    .btn.wa{background:#25D366}
     .btn.map{background:var(--gold); color:#2b1b10}
     .btn.info{background:#1e88e5}
 
-    /* أقسام داخل الصفحة */
-    section{margin-bottom:22px; font-family: "Tajawal", sans-serif;}
-
-    /* تذييل Footer */
-    footer{
-      margin-top:30px;padding:18px;
-      background: rgba(255,255,255,0.06);
-      border-radius:12px;border:1px solid rgba(255,255,255,0.04);
-      text-align:center;color:rgba(255,255,255,0.95);
-      font-family: "Tajawal", sans-serif;
-    }
+    footer{margin-top:28px;padding:16px;border-radius:12px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.95);text-align:center}
     footer .copy{font-weight:800;color:var(--white)}
 
-    /* استجابة */
-    @media (max-width:720px){
-      .hero{flex-direction:column;align-items:flex-start}
-      .nav-links{gap:6px}
+    /* Responsive tweaks */
+    @media (max-width:900px){
+      header.navbar{height:var(--nav-h-mobile);padding:8px 12px}
+      .logo{width:48px;height:48px}
+      .site-title{font-size:15px}
     }
+
+    @media (max-width:720px){
+      nav.nav-links{display:none}
+      button.hamburger{display:flex}
+      .hero{flex-direction:column;align-items:flex-start}
+      .container{padding:12px}
+      .branch{padding:12px}
+    }
+
+    @media (max-width:420px){
+      .mobile-menu .panel{width:100%;max-width:100%}
+      .btn{padding:9px 10px;font-size:14px}
+    }
+
+    /* Focus styles for accessibility */
+    a:focus, button:focus { outline:3px solid rgba(88,34,34,0.12); outline-offset:2px; border-radius:8px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav class="navbar" role="navigation" aria-label="شريط التنقل">
+    <header class="navbar" role="banner" aria-label="شريط التنقل">
       <div class="brand">
-        <div class="logo">اليحي</div>
+        <div class="logo" aria-hidden="true">اليحي</div>
         <div>
           <div class="site-title">مخابز اليحي</div>
           <div class="site-sub">خبز طازج يومياً</div>
         </div>
       </div>
 
-      <div class="nav-links" role="menubar" aria-label="روابط الموقع">
-        <a href="#home" class="active" role="menuitem">الرئيسية</a>
-        <a href="#news" role="menuitem">جديدنا</a>
-        <a href="#contact" role="menuitem">تواصل معنا</a>
-      </div>
-    </nav>
+      <nav class="nav-links" role="navigation" aria-label="روابط الموقع">
+        <a href="#home" class="active">الرئيسية</a>
+        <a href="#news">جديدنا</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
 
-    <main class="wrap">
-      <header class="hero" id="home" aria-labelledby="heroTitle">
+      <button class="hamburger" id="hamburger" aria-label="قائمة التنقل" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="bar" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <!-- Mobile off-canvas menu -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <div class="backdrop" id="menuBackdrop" tabindex="-1"></div>
+      <aside class="panel" role="dialog" aria-modal="true" aria-label="قائمة الموقع">
+        <button class="close-btn" id="closeMenu">إغلاق ✕</button>
+
+        <nav style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+          <a href="#home" class="m-link">الرئيسية</a>
+          <a href="#news" class="m-link">جديدنا</a>
+          <a href="#contact" class="m-link">تواصل معنا</a>
+        </nav>
+
+        <hr style="border:none;border-top:1px solid rgba(0,0,0,0.06);margin:12px 0">
+
+        <div>
+          <strong style="display:block;margin-bottom:8px;color:var(--deep)">فروع سريعة</strong>
+          <a href="#branch1" class="m-link">الدمام حي الحمراء</a>
+          <a href="#branch2" class="m-link">الفيصلية</a>
+          <a href="#branch3" class="m-link">العزيزة</a>
+          <a href="#branch4" class="m-link">دارين</a>
+        </div>
+      </aside>
+    </div>
+
+    <main>
+      <section class="hero" id="home" aria-labelledby="heroTitle">
         <div>
           <h1 id="heroTitle">فروع مخابز اليحي</h1>
           <p>أربعة فروع في الدمام — الحمراء، الفيصلية، العزيزة، دارين</p>
@@ -160,14 +222,13 @@
         <div style="text-align:left">
           <button class="btn" onclick="document.querySelector('a[href=\"#news\"]').click()">اطلع على جديدنا</button>
         </div>
-      </header>
+      </section>
 
       <section aria-labelledby="branchesTitle">
-        <h2 id="branchesTitle" style="margin:0 0 12px 0;color:var(--white); font-family: 'Tajawal', sans-serif;">قائمة الفروع</h2>
+        <h2 id="branchesTitle" style="color:var(--white);margin-top:18px">قائمة الفروع</h2>
 
         <div class="branches" id="branchesList">
-          <!-- فرع 1 -->
-          <article class="branch">
+          <article class="branch" id="branch1">
             <div class="title">الدمام حي الحمراء</div>
             <div class="meta">المدينة: الدمام · فرع رئيسي</div>
             <div class="addr">العنوان: شارع الحمراء، مقابل مول الحمراء</div>
@@ -179,8 +240,7 @@
             </div>
           </article>
 
-          <!-- فرع 2 -->
-          <article class="branch">
+          <article class="branch" id="branch2">
             <div class="title">الفيصلية</div>
             <div class="meta">المدينة: الدمام · حي الفيصلية</div>
             <div class="addr">العنوان: شارع الأمير فيصل، بجانب الحديقة العامة</div>
@@ -192,8 +252,7 @@
             </div>
           </article>
 
-          <!-- فرع 3 -->
-          <article class="branch">
+          <article class="branch" id="branch3">
             <div class="title">العزيزة</div>
             <div class="meta">المدينة: الدمام · حي العزيزة</div>
             <div class="addr">العنوان: شارع العزيزة التجاري، مقابل مركز التسوق</div>
@@ -205,8 +264,7 @@
             </div>
           </article>
 
-          <!-- فرع 4 -->
-          <article class="branch">
+          <article class="branch" id="branch4">
             <div class="title">دارين</div>
             <div class="meta">المدينة: الدمام · حي دارين</div>
             <div class="addr">العنوان: شارع دارين، بالقرب من محطة المترو</div>
@@ -221,13 +279,13 @@
       </section>
 
       <section id="news" aria-labelledby="newsTitle">
-        <h2 id="newsTitle" style="color:var(--white); font-family: 'Tajawal', sans-serif;">جديدنا</h2>
-        <p style="color:rgba(255,255,255,0.95); font-family: 'Tajawal', sans-serif;">نقدم خبزاً طازجاً يومياً، وعروض شهرية على الكرواسون والمنتجات الموسمية. تابعنا للحصول على آخر العروض.</p>
+        <h2 id="newsTitle" style="color:var(--white);margin-top:18px">جديدنا</h2>
+        <p style="color:rgba(255,255,255,0.95)">نقدم خبزاً طازجاً يومياً، وعروض شهرية على الكرواسون والمنتجات الموسمية.</p>
       </section>
 
       <section id="contact" aria-labelledby="contactTitle">
-        <h2 id="contactTitle" style="color:var(--white); font-family: 'Tajawal', sans-serif;">تواصل معنا</h2>
-        <p style="color:rgba(255,255,255,0.95); font-family: 'Tajawal', sans-serif;">للاستفسارات أو طلبات التوريد اتصل أو أرسل رسالة عبر واتساب على الرقم <strong>+966500000000</strong> أو استخدم أزرار الفروع أعلاه.</p>
+        <h2 id="contactTitle" style="color:var(--white);margin-top:18px">تواصل معنا</h2>
+        <p style="color:rgba(255,255,255,0.95)">للاستفسارات اتصل أو أرسل رسالة واتساب على <strong>+966500000000</strong>.</p>
       </section>
 
       <footer>
@@ -237,6 +295,7 @@
   </div>
 
   <script>
+    // وظائف أساسية
     function openWhatsApp(number){
       const num = number.replace(/[^0-9+]/g,'');
       window.open('https://wa.me/' + num, '_blank');
@@ -249,20 +308,71 @@
       window.open(url, '_blank');
     }
 
-    // روابط التنقل: تمرير سلس وتفعيل
-    const links = document.querySelectorAll('.nav-links a');
-    function setActive(hash){
-      links.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === hash));
+    // تحكم القائمة المتنقلة
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    const closeMenuBtn = document.getElementById('closeMenu');
+    const mLinks = document.querySelectorAll('.m-link');
+    const desktopLinks = document.querySelectorAll('nav.nav-links a');
+
+    function openMenu(){
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden','false');
+      hamburger.setAttribute('aria-expanded','true');
+      document.body.style.overflow = 'hidden';
+      // وضع التركيز على أول رابط داخل القائمة
+      const first = mobileMenu.querySelector('.panel a');
+      if(first) first.focus();
     }
-    links.forEach(a=>{
+    function closeMenu(){
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden','true');
+      hamburger.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+      hamburger.focus();
+    }
+
+    hamburger.addEventListener('click', ()=> {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      if(expanded) closeMenu(); else openMenu();
+    });
+
+    menuBackdrop.addEventListener('click', closeMenu);
+    closeMenuBtn.addEventListener('click', closeMenu);
+
+    mLinks.forEach(a => a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      const target = document.querySelector(href);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      closeMenu();
+    }));
+
+    // روابط الديسكتوب: تمرير سلس وتفعيل
+    desktopLinks.forEach(a=>{
       a.addEventListener('click', (e)=>{
         e.preventDefault();
         const target = document.querySelector(a.getAttribute('href'));
         if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-        setActive(a.getAttribute('href'));
+        desktopLinks.forEach(x=> x.classList.remove('active'));
+        a.classList.add('active');
       });
     });
-    setActive('#home');
+
+    // إغلاق القائمة بالـ Escape
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') {
+        if(mobileMenu.classList.contains('open')) closeMenu();
+      }
+    });
+
+    // تحسين: إغلاق القائمة عند تغيير حجم النافذة إلى ديسكتوب
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 720 && mobileMenu.classList.contains('open')){
+        closeMenu();
+      }
+    });
   </script>
 </body>
 </html>
