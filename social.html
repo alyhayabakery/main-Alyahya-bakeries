@@ -173,149 +173,86 @@
     </div>
 
 
-    <!-- Preloader HTML -->
+
+   <!-- Simple Preloader (paste before </body>) -->
 <div id="preloader" aria-hidden="false" role="status" aria-live="polite">
   <div class="preloader-inner" role="presentation">
     <div class="spinner" aria-hidden="true"></div>
-    <div class="preloader-text" id="preloaderText">جاري التحميل 0%</div>
+    <div class="preloader-text">جاري التحميل...</div>
   </div>
 </div>
 
 <style>
-  /* Preloader styles */
   @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;800&display=swap');
 
   #preloader{
-    position:fixed;
-    inset:0;
-    z-index:2000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background: rgba(0,0,0,0.28);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    transition: opacity .45s ease, visibility .45s ease;
-    opacity:1;
-    visibility:visible;
+    position:fixed;inset:0;z-index:2000;
+    display:flex;align-items:center;justify-content:center;
+    background: rgba(0,0,0,0.18);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    transition: opacity .35s ease, visibility .35s ease;
+    opacity:1;visibility:visible;
     font-family: "Tajawal", sans-serif;
   }
-
-  #preloader.hidden{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-  }
+  #preloader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 
   .preloader-inner{
     text-align:center;
     background: rgba(255,255,255,0.98);
-    padding:18px 22px;
-    border-radius:12px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-    min-width:220px;
-    display:flex;
-    gap:12px;
-    align-items:center;
-    justify-content:center;
+    padding:14px 18px;border-radius:12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    min-width:180px;display:flex;gap:12px;align-items:center;justify-content:center;
   }
 
   .spinner{
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    border:4px solid rgba(88,34,34,0.12);
-    border-top-color: #582222;
-    animation: spin 1s linear infinite;
-    flex-shrink:0;
+    width:36px;height:36px;border-radius:50%;
+    border:4px solid rgba(88,34,34,0.12);border-top-color:#582222;
+    animation: spin 0.9s linear infinite;flex-shrink:0;
   }
   @keyframes spin{ to { transform: rotate(360deg); } }
 
   .preloader-text{
-    font-weight:700;
-    color:#2b1b10;
-    font-size:14px;
-    min-width:110px;
-    text-align:left;
+    font-weight:700;color:#2b1b10;font-size:14px;
   }
 
-  /* اختياري: اجعل المحتوى تحت Preloader غير قابل للتفاعل */
+  /* منع التفاعل أثناء التحميل */
   body.loading *:not(#preloader):not(#preloader *){ pointer-events:none; user-select:none; }
-
-  /* استجابة */
   @media (max-width:420px){
-    .preloader-inner{padding:12px; gap:10px; min-width:180px}
+    .preloader-inner{padding:10px; gap:10px; min-width:150px}
     .preloader-text{font-size:13px}
-    .spinner{width:36px;height:36px;border-width:3px}
+    .spinner{width:30px;height:30px;border-width:3px}
   }
 </style>
 
 <script>
-  (function(){
-    const preloader = document.getElementById('preloader');
-    const preloaderText = document.getElementById('preloaderText');
-    const MIN_SHOW_MS = 600; // أقل مدة عرض بالمللي ثانية لتفادي وميض سريع
-    const startTime = Date.now();
+(function(){
+  const preloader = document.getElementById('preloader');
+  const MIN_SHOW_MS = 300; // أقل مدة عرض بالمللي ثانية
+  const start = Date.now();
+  let hidden = false;
 
-    // Helper: hide preloader with fade
-    function hidePreloader(){
-      const elapsed = Date.now() - startTime;
-      const wait = Math.max(0, MIN_SHOW_MS - elapsed);
-      setTimeout(()=>{
-        preloader.classList.add('hidden');
-        preloader.setAttribute('aria-hidden','true');
-        document.body.classList.remove('loading');
-      }, wait);
-    }
+  function hideNow(){
+    if(hidden) return;
+    hidden = true;
+    const elapsed = Date.now() - start;
+    const wait = Math.max(0, MIN_SHOW_MS - elapsed);
+    setTimeout(()=>{
+      preloader.classList.add('hidden');
+      preloader.setAttribute('aria-hidden','true');
+      document.body.classList.remove('loading');
+    }, wait);
+  }
 
-    // If there are images, track their loading progress
-    const imgs = Array.from(document.images);
-    if(imgs.length === 0){
-      // No images: wait for window load
-      window.addEventListener('load', hidePreloader);
-      // Fallback: also hide after a timeout (in case load never fires)
-      setTimeout(hidePreloader, 5000);
-    } else {
-      let loaded = 0;
-      const total = imgs.length;
+  // إذا اكتمل تحميل الصفحة
+  window.addEventListener('load', hideNow, {once:true});
 
-      function updateProgress(){
-        const pct = Math.round((loaded / total) * 100);
-        preloaderText.textContent = 'جاري التحميل ' + pct + '%';
-        if(loaded >= total){
-          // تأكد من أن النص وصل 100% قبل الإخفاء
-          preloaderText.textContent = 'جاري التحميل 100%';
-          hidePreloader();
-        }
-      }
+  // مهلة أمان قصيرة (في حال لم يكتمل load)
+  setTimeout(hideNow, 3000);
 
-      imgs.forEach(img=>{
-        // If already complete (from cache)
-        if(img.complete){
-          loaded++;
-          updateProgress();
-        } else {
-          // Attach listeners
-          img.addEventListener('load', ()=>{
-            loaded++;
-            updateProgress();
-          }, {once:true});
-          img.addEventListener('error', ()=>{
-            // Treat error as loaded to avoid blocking
-            loaded++;
-            updateProgress();
-          }, {once:true});
-        }
-      });
-
-      // Safety timeout
-      setTimeout(()=>{ if(!preloader.classList.contains('hidden')) hidePreloader(); }, 7000);
-    }
-
-    // Prevent interaction while loading
-    document.body.classList.add('loading');
-  })();
+  // منع التفاعل أثناء العرض
+  document.body.classList.add('loading');
+})();
 </script>
 </body>
 </html>
-
